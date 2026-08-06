@@ -4,68 +4,250 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JUI | 3D ENVIRONMENT ARTIST</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@100;400;700;800&family=Inter:wght@400;500;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        bebas: ['Bebas Neue', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                        syncopate: ['Syncopate', 'sans-serif'],
-                    },
-                    colors: {
-                        base: {
-                            900: '#030303',
-                            800: '#0A0A0A',
-                            700: '#141414',
-                            border: '#2A2A2A'
-                        },
-                        brand: {
-                            red: '#FF0033',
-                            redDark: '#CC0029'
-                        }
-                    },
-                    letterSpacing: {
-                        widest: '.25em',
-                        tighter: '-.04em',
-                    },
-                    animation: {
-                        'marquee': 'marquee 25s linear infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-50%)' },
-                        }
-                    }
-                }
-            }
+    <!-- Fonts -->
+    <style>
+        @font-face {
+            font-family: 'Bebas Neue';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/BebasNeue-latin.woff2) format('woff2');
         }
-    </script>
+        @font-face {
+            font-family: 'Bebas Neue';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/BebasNeue-latin-ext.woff2) format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/Inter-400-cyrillic-ext.woff2) format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/Inter-400-cyrillic.woff2) format('woff2');
+            unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/Inter-400-latin-ext.woff2) format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/Inter-400-latin.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/Inter-700-cyrillic-ext.woff2) format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/Inter-700-cyrillic.woff2) format('woff2');
+            unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/Inter-700-latin-ext.woff2) format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/Inter-700-latin.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/JetBrainsMono-400-cyrillic-ext.woff2) format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/JetBrainsMono-400-cyrillic.woff2) format('woff2');
+            unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/JetBrainsMono-400-latin-ext.woff2) format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(assets/fonts/JetBrainsMono-400-latin.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/JetBrainsMono-700-cyrillic-ext.woff2) format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/JetBrainsMono-700-cyrillic.woff2) format('woff2');
+            unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/JetBrainsMono-700-latin-ext.woff2) format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/JetBrainsMono-700-latin.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'Syncopate';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/Syncopate-700-latin.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: 'Syncopate';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(assets/fonts/Syncopate-700-latin-ext.woff2) format('woff2');
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+    </style>
 
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #030303; border-left: 1px solid #2A2A2A; }
-        ::-webkit-scrollbar-thumb { background: #FF0033; }
-        ::-webkit-scrollbar-thumb:hover { background: #CC0029; }
+        /* ===== Variables ===== */
+        :root {
+            --c-base-900: #030303;
+            --c-base-800: #0A0A0A;
+            --c-base-700: #141414;
+            --c-base-border: #2A2A2A;
+            --c-brand-red: #FF0033;
+            --c-brand-red-dark: #CC0029;
+            --c-red-950: #450a0a;
+            --c-gray-400: #9CA3AF;
+            --c-gray-500: #6B7280;
+            --c-gray-600: #4B5563;
 
-        body {
-            background-color: #030303;
-            color: #ffffff;
-            overflow-x: hidden;
+            --font-sans: 'Inter', sans-serif;
+            --font-bebas: 'Bebas Neue', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-syncopate: 'Syncopate', sans-serif;
+
+            --max-w: 1920px;
         }
 
+        /* ===== Reset ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--c-base-900);
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-family: var(--font-sans);
+        }
+
+        body.dragging {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--c-base-900); border-left: 1px solid var(--c-base-border); }
+        ::-webkit-scrollbar-thumb { background: var(--c-brand-red); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--c-brand-red-dark); }
+
+        /* ===== Selection ===== */
+        ::selection {
+            background-color: var(--c-brand-red);
+            color: #fff;
+        }
+
+        /* ===== Typography Helpers ===== */
+        .font-bebas { font-family: var(--font-bebas); }
+        .font-mono { font-family: var(--font-mono); }
+        .font-syncopate { font-family: var(--font-syncopate); }
+        .font-sans { font-family: var(--font-sans); }
+        .font-bold { font-weight: 700; }
+        .uppercase { text-transform: uppercase; }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .whitespace-nowrap { white-space: nowrap; }
+
+        /* ===== Animations ===== */
+        @keyframes pulse {
+            50% { opacity: 0.5; }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-pulse-slow { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-marquee { animation: marquee 25s linear infinite; }
+
+        /* ===== Background Patterns ===== */
         .bg-tech-grid {
             background-size: 50px 50px;
-            background-image: 
+            background-image:
                 linear-gradient(to right, rgba(42, 42, 42, 0.3) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(42, 42, 42, 0.3) 1px, transparent 1px);
         }
@@ -79,13 +261,20 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
+        /* ===== Marquee ===== */
         .marquee-container {
             display: flex;
             white-space: nowrap;
             overflow: hidden;
             width: 200%;
         }
+        .marquee-content {
+            display: flex;
+            gap: 3rem;
+            white-space: nowrap;
+        }
 
+        /* ===== Reveal ===== */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -96,26 +285,24 @@
             transform: translateY(0);
         }
 
-        ::selection {
-            background-color: #FF0033;
-            color: #fff;
-        }
-
-        /* Glow Effect for Percentages and Measurements */
+        /* ===== Glow ===== */
         .glow-red {
             text-shadow: 0 0 10px rgba(255, 0, 51, 0.8), 0 0 20px rgba(255, 0, 51, 0.4);
         }
         .glow-box {
             box-shadow: 0 0 12px rgba(255, 0, 51, 0.4);
         }
-        
-        /* Logo 3D Spin & Glow classes */
+
+        /* ===== Logo ===== */
         .logo-container {
             perspective: 1000px;
         }
         .logo-svg {
             transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.5s ease;
             transform-style: preserve-3d;
+            width: 2.75rem;
+            height: 2.75rem;
+            color: var(--c-brand-red);
         }
         .logo-active .logo-svg {
             transform: rotateY(180deg) scale(1.1);
@@ -126,190 +313,1067 @@
             text-shadow: 0 0 15px rgba(255, 0, 51, 0.9);
             transition: all 0.5s ease;
         }
+        .logo-text {
+            font-family: var(--font-syncopate);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: .25em;
+            color: var(--c-brand-red);
+            margin-top: 0.25rem;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        /* ===== SVG Symbol ===== */
+        .logo-svg use {
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ===== Navigation ===== */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            z-index: 40;
+            top: 0;
+            border-bottom: 1px solid var(--c-base-border);
+            background-color: rgba(3, 3, 3, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .navbar-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 5rem;
+            position: relative;
+        }
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-link {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            color: var(--c-gray-400);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .nav-link:hover {
+            color: var(--c-brand-red);
+        }
+
+        /* Contact Button (Nav) */
+        .contact-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.5rem;
+            border: 1px solid var(--c-brand-red);
+            color: var(--c-brand-red);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            overflow: hidden;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .contact-btn:hover {
+            color: #ffffff;
+        }
+        .contact-btn-fill {
+            position: absolute;
+            inset: 0;
+            background-color: var(--c-brand-red);
+            width: 100%;
+            height: 100%;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-out;
+        }
+        .contact-btn:hover .contact-btn-fill {
+            transform: translateX(0);
+        }
+        .contact-btn-text {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== Volume Knob ===== */
+        .knob-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            position: relative;
+            margin-left: 0.5rem;
+        }
+        .knob {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: var(--c-base-900);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+            position: relative;
+            transition: transform 0.15s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            border: 1px solid var(--c-base-border);
+            touch-action: none;
+        }
+        .knob:active {
+            cursor: grabbing;
+        }
+        .knob:hover {
+            transform: scale(1.05);
+        }
+        .knob-surface {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            box-shadow: inset 0 0 8px rgba(0,0,0,1);
+            background: conic-gradient(from 180deg at 50% 50%, #1a1a1a 0deg, #333 45deg, #0d0d0d 90deg, #333 135deg, #1a1a1a 180deg, #333 225deg, #0d0d0d 270deg, #333 315deg, #1a1a1a 360deg);
+        }
+        .knob-ring {
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            border: 2px solid var(--c-red-950);
+            transition: all 0.3s;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.8);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .knob-ring.active {
+            border-color: var(--c-brand-red);
+            box-shadow: 0 0 12px rgba(255, 0, 51, 0.4);
+        }
+        .knob-ring-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 0, 51, 0.4);
+            position: absolute;
+        }
+        .knob-center {
+            position: absolute;
+            inset: 7px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #141414, #020202);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        .knob-disc {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.075s;
+            z-index: 20;
+            transform: rotate(0deg);
+        }
+        .knob-indicator {
+            position: absolute;
+            width: 0.125rem;
+            height: 0.375rem;
+            background-color: var(--c-gray-500);
+            left: 50%;
+            transform: translateX(-50%);
+            top: 8px;
+            border-radius: 9999px;
+            transition: color 0.3s;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding-top: 7rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero-lines {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            z-index: 0;
+        }
+        .hero-line {
+            width: 1px;
+            height: 100%;
+            background-color: rgba(42, 42, 42, 0.5);
+        }
+        .hero-line-left {
+            position: absolute;
+            left: 25%;
+        }
+        .hero-line-right {
+            position: absolute;
+            right: 25%;
+        }
+        .hero-content {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding-bottom: 6rem;
+        }
+        .hero-inner {
+            width: 100%;
+            max-width: 56rem;
+            position: relative;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .hero-subheader {
+            font-family: var(--font-mono);
+            color: var(--c-brand-red);
+            font-size: 0.875rem;
+            letter-spacing: 0.3em;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+        }
+        .hero-line-deco {
+            width: 3rem;
+            height: 1px;
+            background-color: var(--c-brand-red);
+        }
+        .hero-title {
+            font-family: var(--font-bebas);
+            font-size: 18vw;
+            line-height: 0.85;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            letter-spacing: normal;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero-title-3d {
+            color: #ffffff;
+            position: relative;
+            z-index: 10;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+        }
+        .hero-title-env {
+            position: relative;
+            z-index: 10;
+            color: var(--c-brand-red);
+            filter: drop-shadow(0 0 25px rgba(255,0,51,0.6));
+        }
+        .hero-about {
+            margin-top: 2.5rem;
+            width: 100%;
+            border-top: 1px solid rgba(255, 0, 51, 0.3);
+            border-bottom: 1px solid rgba(255, 0, 51, 0.3);
+            padding: 1.5rem 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--c-gray-400);
+            line-height: 1.625;
+            text-transform: uppercase;
+        }
+        .skills-header {
+            margin-top: 3rem;
+            font-family: var(--font-mono);
+            color: var(--c-gray-400);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+        }
+        .skills-header-deco {
+            width: 1.5rem;
+            height: 1px;
+            background-color: rgba(255, 0, 51, 0.5);
+        }
+        .skills-grid {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem 4rem;
+            color: var(--c-brand-red);
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            letter-spacing: 0.05em;
+            width: 100%;
+            max-width: 56rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .skill-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(42, 42, 42, 0.4);
+            padding-bottom: 0.5rem;
+        }
+        .skill-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .skill-bracket {
+            color: var(--c-gray-600);
+        }
+        .skill-name {
+            width: 8rem;
+            text-align: left;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .skill-bars {
+            letter-spacing: -0.04em;
+        }
+        .skill-bars-active {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            color: var(--c-brand-red);
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.8), 0 0 20px rgba(255, 0, 51, 0.4);
+        }
+        .skill-bars-inactive {
+            opacity: 0.2;
+            color: var(--c-brand-red);
+        }
+        .skill-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.25rem;
+            width: 4rem;
+        }
+        .skill-percent {
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.8), 0 0 20px rgba(255, 0, 51, 0.4);
+        }
+
+        /* ===== Marquee Bar ===== */
+        .marquee-bar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+            background-color: var(--c-brand-red);
+            padding: 0.75rem 0;
+            border-top: 1px solid var(--c-brand-red-dark);
+            border-bottom: 1px solid var(--c-brand-red-dark);
+            z-index: 30;
+        }
+        .marquee-bar .marquee-container {
+            font-family: var(--font-bebas);
+            font-size: 1.875rem;
+            letter-spacing: .25em;
+            color: var(--c-base-900);
+        }
+
+        /* ===== Projects Section ===== */
+        .projects {
+            padding: 3rem 0;
+            position: relative;
+            background-color: var(--c-base-900);
+            border-bottom: 1px solid var(--c-base-border);
+        }
+        .projects-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .section-label {
+            font-family: var(--font-mono);
+            color: var(--c-brand-red);
+            font-size: 0.875rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.8), 0 0 20px rgba(255, 0, 51, 0.4);
+        }
+        .section-title {
+            font-family: var(--font-bebas);
+            font-size: 3.75rem;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1;
+        }
+        .project-card {
+            max-width: 72rem;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .project-topbar {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--c-base-border);
+            padding-bottom: 0.75rem;
+            gap: 0.5rem;
+        }
+        .project-topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .project-number {
+            font-family: var(--font-bebas);
+            color: var(--c-brand-red);
+            font-size: 2.25rem;
+            line-height: 1;
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.8), 0 0 20px rgba(255, 0, 51, 0.4);
+        }
+        .project-title {
+            font-family: var(--font-syncopate);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: .25em;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+        .project-status {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--c-gray-500);
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-status-active {
+            color: var(--c-brand-red);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Project Viewport */
+        .project-viewport {
+            width: 100%;
+            height: 45vh;
+            min-height: 280px;
+            border: 1px solid var(--c-base-border);
+            background-color: #050505;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        }
+        .corner {
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            opacity: 0.5;
+            margin: 1rem;
+            transition: all 0.3s;
+        }
+        .corner-tl { top: 0; left: 0; border-top: 1px solid var(--c-brand-red); border-left: 1px solid var(--c-brand-red); }
+        .corner-tr { top: 0; right: 0; border-top: 1px solid var(--c-brand-red); border-right: 1px solid var(--c-brand-red); }
+        .corner-bl { bottom: 0; left: 0; border-bottom: 1px solid var(--c-brand-red); border-left: 1px solid var(--c-brand-red); }
+        .corner-br { bottom: 0; right: 0; border-bottom: 1px solid var(--c-brand-red); border-right: 1px solid var(--c-brand-red); }
+        .project-viewport:hover .corner {
+            width: 3rem;
+            height: 3rem;
+            opacity: 1;
+        }
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        .project-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 0, 51, 0.3);
+            transition: color 0.5s;
+        }
+        .project-viewport:hover .project-placeholder {
+            color: rgba(255, 0, 51, 0.7);
+        }
+        .project-placeholder svg {
+            width: 4rem;
+            height: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .project-placeholder-text {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        /* Project Info */
+        .project-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .project-desc {
+            width: 100%;
+            border: 1px solid var(--c-base-border);
+            background-color: #080808;
+            position: relative;
+            padding: 1.5rem;
+        }
+        .project-desc-label {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            background-color: var(--c-brand-red);
+            padding: 0.25rem 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--c-base-900);
+            letter-spacing: .25em;
+            text-transform: uppercase;
+        }
+        .desc-dots {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+        .desc-dot {
+            width: 0.25rem;
+            height: 0.25rem;
+            border-radius: 50%;
+        }
+        .desc-dot-red { background-color: var(--c-brand-red); animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .desc-dot-dim { background-color: var(--c-base-border); }
+        .project-desc-text {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--c-gray-400);
+            line-height: 1.625;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Software Strip */
+        .software-strip {
+            width: 100%;
+            border: 1px solid var(--c-base-border);
+            background-color: #050505;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            position: relative;
+            transition: border-color 0.15s;
+        }
+        .software-strip:hover {
+            border-color: rgba(255, 0, 51, 0.5);
+        }
+        .software-label {
+            font-family: var(--font-syncopate);
+            font-size: 10px;
+            color: var(--c-gray-500);
+            font-weight: 700;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .software-tags {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .software-tag {
+            padding: 0.375rem 0.75rem;
+            border: 1px solid var(--c-base-border);
+            color: var(--c-gray-400);
+            font-family: var(--font-syncopate);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.15s;
+        }
+        .software-tag:hover {
+            color: #ffffff;
+        }
+        .software-tag-active {
+            border-color: rgba(255, 0, 51, 0.5);
+            background-color: rgba(255, 0, 51, 0.1);
+            color: var(--c-brand-red);
+            box-shadow: 0 0 12px rgba(255, 0, 51, 0.4);
+        }
+
+        /* ===== Contact Section ===== */
+        .contact {
+            padding: 8rem 0;
+            position: relative;
+            background-color: var(--c-brand-red);
+            color: var(--c-base-900);
+            overflow: hidden;
+        }
+        .contact-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+            filter: invert(1);
+        }
+        .contact-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .contact-status {
+            font-family: var(--font-mono);
+            color: var(--c-base-900);
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .contact-status-dot {
+            width: 1rem;
+            height: 1rem;
+            background-color: var(--c-base-900);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .contact-title {
+            font-family: var(--font-bebas);
+            font-size: 12vw;
+            line-height: 1;
+            color: var(--c-base-900);
+            margin-bottom: 2.5rem;
+        }
+        .contact-title span {
+            color: #ffffff;
+            mix-blend-mode: difference;
+        }
+        .contact-text {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            margin-bottom: 3rem;
+            max-width: 42rem;
+            border-top: 1px solid rgba(3, 3, 3, 0.3);
+            border-bottom: 1px solid rgba(3, 3, 3, 0.3);
+            padding: 1.5rem 0;
+        }
+        .contact-cta {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem 3rem;
+            background-color: var(--c-base-900);
+            color: var(--c-brand-red);
+            font-family: var(--font-bebas);
+            font-size: 1.875rem;
+            letter-spacing: .25em;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .contact-cta:hover {
+            background-color: #ffffff;
+        }
+        .contact-cta-text {
+            position: relative;
+            z-index: 10;
+        }
+        .contact-cta-border {
+            position: absolute;
+            inset: 0;
+            border: 2px solid var(--c-base-900);
+            transform: translate(0.5rem, 0.5rem);
+            transition: transform 0.3s;
+        }
+        .contact-cta:hover .contact-cta-border {
+            transform: translate(0.25rem, 0.25rem);
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background-color: var(--c-base-900);
+            border-top: 1px solid var(--c-brand-red);
+            padding: 3rem 0;
+        }
+        .footer-inner {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .footer-logo-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .footer-copyright {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--c-gray-500);
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            text-align: center;
+        }
+        .footer-languages {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--c-gray-400);
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            text-align: center;
+            margin-top: 2px;
+        }
+        .social-links {
+            width: 100%;
+            max-width: 48rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem 1rem;
+            border-top: 1px solid rgba(42, 42, 42, 0.5);
+            padding-top: 1.5rem;
+            margin-top: 1rem;
+        }
+        .social-link {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--c-gray-400);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            padding: 0 0.5rem;
+            transition: color 0.15s;
+        }
+        .social-link:hover {
+            color: var(--c-brand-red);
+        }
+        .social-sep {
+            color: var(--c-base-border);
+        }
+        .footer-note {
+            width: 100%;
+            max-width: 48rem;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--c-brand-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-align: center;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255, 0, 51, 0.2);
+            padding: 2rem 0 1rem;
+        }
+
+        /* ===== Audio ===== */
+        .bg-audio {
+            display: none;
+        }
+
+        /* ===== Responsive ===== */
+        @media (min-width: 640px) {
+            .navbar-inner { padding: 0 1.5rem; }
+            .hero-content { padding: 0 1.5rem; }
+            .projects-inner { padding: 0 1.5rem; }
+            .contact-inner { padding: 0 1.5rem; }
+            .footer-inner { padding: 0 1.5rem; }
+
+            .hero-subheader .hero-line-deco { width: 6rem; }
+            .skills-header-deco { width: 3rem; }
+            .skills-grid { font-size: 0.875rem; }
+
+            .hero-about { font-size: 1rem; }
+
+            .navbar-right { gap: 2rem; }
+
+            .project-status { font-size: 0.75rem; }
+            .project-desc-text { font-size: 0.875rem; }
+
+            .software-strip {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .contact-text { font-size: 1rem; }
+            .social-link { font-size: 1rem; }
+            .footer-note { font-size: 0.75rem; }
+
+            .project-desc { padding: 2rem; }
+        }
+        @media (min-width: 768px) {
+            .hero-line-deco { width: 6rem; }
+            .hero-title { font-size: 14vw; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+            .skills-header-deco { width: 3rem; }
+
+            .section-title { font-size: 6rem; }
+
+            .project-topbar {
+                flex-direction: row;
+                align-items: flex-end;
+            }
+            .contact-title { font-size: 8vw; }
+        }
+        @media (min-width: 1024px) {
+            .navbar-inner { padding: 0 3rem; }
+            .hero-content { padding: 0 3rem; }
+            .projects-inner { padding: 0 3rem; }
+            .contact-inner { padding: 0 3rem; }
+            .footer-inner { padding: 0 3rem; }
+
+            .hero-title { font-size: 11vw; }
+            .hero-about { margin-top: 3rem; }
+            .section-title { font-size: 8rem; }
+            .project-title { font-size: 1.5rem; }
+        }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-red selection:text-white">
+<body>
     <div class="bg-noise"></div>
 
-    <nav class="fixed w-full z-40 top-0 border-b border-base-border bg-base-900/90 backdrop-blur-md">
-        <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between h-20 relative">
-            
-            <!-- Left: Retro PC Logo & Volume Knob -->
-            <div class="flex items-center gap-6">
-                <!-- Front-Facing Laptop Logo -->
-                <div id="header-logo" class="flex items-center gap-3 cursor-pointer group logo-container" title="Click to interact">
-                    <svg class="w-11 h-11 text-brand-red logo-svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <!-- Monitor Lid -->
-                        <rect x="14" y="22" width="72" height="46" rx="3" fill="#0A0A0A"/>
-                        <!-- Inner Screen -->
-                        <rect x="17" y="25" width="66" height="40" rx="1" stroke-width="1.5" />
-                        <!-- Camera -->
-                        <circle cx="50" cy="23.5" r="0.5" stroke-width="1.5"/>
-                        <!-- Base / Keyboard area -->
-                        <path d="M 10 68 L 90 68 L 96 78 L 4 78 Z" fill="#0A0A0A" stroke-width="2"/>
-                        <!-- Front Lip -->
-                        <path d="M 4 78 L 96 78 L 95 80 L 5 80 Z" fill="currentColor" opacity="0.3" stroke="none" />
-                        <!-- Trackpad -->
-                        <rect x="43" y="71" width="14" height="4" rx="0.5" stroke-width="1.5"/>
-                        <!-- Keyboard Grid -->
-                        <path d="M 16 70 L 84 70 M 15 72 L 85 72 M 14 74 L 86 74" stroke-width="1.2" opacity="0.6"/>
-                        <path d="M 25 69 L 21 76 M 35 69 L 33 76 M 45 69 L 44 76 M 55 69 L 56 76 M 65 69 L 67 76 M 75 69 L 79 76" stroke-width="1.2" opacity="0.6"/>
-                        <!-- Screen Reflection -->
-                        <path d="M 22 55 L 45 32 M 28 58 L 51 35" stroke-width="1.5" opacity="0.3"/>
-                    </svg>
-                    <span class="font-syncopate text-2xl font-bold tracking-widest text-brand-red mt-1 logo-text">JUI</span>
+    <!-- SVG Symbol Definition -->
+    <svg style="display:none">
+        <symbol id="logo-laptop" viewBox="0 0 100 100">
+            <rect x="14" y="22" width="72" height="46" rx="3" fill="#0A0A0A"/>
+            <rect x="17" y="25" width="66" height="40" rx="1" stroke-width="1.5"/>
+            <circle cx="50" cy="23.5" r="0.5" stroke-width="1.5"/>
+            <path d="M 10 68 L 90 68 L 96 78 L 4 78 Z" fill="#0A0A0A" stroke-width="2"/>
+            <path d="M 4 78 L 96 78 L 95 80 L 5 80 Z" fill="currentColor" opacity="0.3" stroke="none"/>
+            <rect x="43" y="71" width="14" height="4" rx="0.5" stroke-width="1.5"/>
+            <path d="M 16 70 L 84 70 M 15 72 L 85 72 M 14 74 L 86 74" stroke-width="1.2" opacity="0.6"/>
+            <path d="M 25 69 L 21 76 M 35 69 L 33 76 M 45 69 L 44 76 M 55 69 L 56 76 M 65 69 L 67 76 M 75 69 L 79 76" stroke-width="1.2" opacity="0.6"/>
+            <path d="M 22 55 L 45 32 M 28 58 L 51 35" stroke-width="1.5" opacity="0.3"/>
+        </symbol>
+    </svg>
+
+    <nav class="navbar">
+        <div class="navbar-inner">
+
+            <!-- Left: Logo & Volume Knob -->
+            <div class="navbar-left">
+                <div id="header-logo" class="logo logo-container" title="Click to interact">
+                    <svg class="logo-svg"><use href="#logo-laptop"/></svg>
+                    <span class="logo-text">JUI</span>
                 </div>
-                
-                <!-- Metallic Volume Knob (Ref 1) -->
-                <div class="flex flex-col items-center gap-1 relative ml-2" title="Click to Toggle Audio, Drag/Scroll to adjust Volume">
-                    <div id="volume-knob-container" class="w-10 h-10 rounded-full bg-base-900 flex items-center justify-center cursor-grab active:cursor-grabbing relative transition-transform hover:scale-105 shadow-[0_4px_10px_rgba(0,0,0,0.8)] border border-base-border" style="touch-action: none;">
-                        <div class="absolute inset-0 rounded-full shadow-[inset_0_0_8px_rgba(0,0,0,1)]" style="background: conic-gradient(from 180deg at 50% 50%, #1a1a1a 0deg, #333 45deg, #0d0d0d 90deg, #333 135deg, #1a1a1a 180deg, #333 225deg, #0d0d0d 270deg, #333 315deg, #1a1a1a 360deg);"></div>
-                        <div id="knob-ring" class="absolute inset-[3px] rounded-full border-[2px] border-red-950 transition-all duration-300 shadow-[inset_0_0_4px_rgba(0,0,0,0.8)] z-10 flex items-center justify-center">
-                            <div class="w-full h-full rounded-full border border-brand-red/40 absolute"></div>
+
+                <!-- Volume Knob -->
+                <div class="knob-wrapper" title="Click to Toggle Audio, Drag/Scroll to adjust Volume">
+                    <div id="volume-knob-container" class="knob">
+                        <div class="knob-surface"></div>
+                        <div id="knob-ring" class="knob-ring">
+                            <div class="knob-ring-inner"></div>
                         </div>
-                        <div class="absolute inset-[7px] rounded-full bg-gradient-to-b from-[#141414] to-[#020202] shadow-[0_2px_4px_rgba(0,0,0,0.5)] z-10"></div>
-                        <div id="knob-disc" class="w-full h-full absolute inset-0 rounded-full pointer-events-none transition-transform duration-75 z-20" style="transform: rotate(0deg);">
-                            <div id="knob-indicator" class="absolute w-0.5 h-1.5 bg-gray-500 left-1/2 -translate-x-1/2 top-[8px] rounded-full transition-colors duration-300"></div>
+                        <div class="knob-center"></div>
+                        <div id="knob-disc" class="knob-disc">
+                            <div id="knob-indicator" class="knob-indicator"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Center Status -->
-            <div class="absolute left-1/2 -translate-x-1/2 flex flex-col items-center font-sans text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest text-center">
-                <span>STATUS: <span class="text-brand-red animate-pulse glow-red">3D ENVIRONMENT</span></span>
-            </div>
-
-            <!-- Right Navigation Links & Contacts -->
-            <div class="flex items-center gap-6 sm:gap-8">
-                <div class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-widest text-gray-400">
-                    <a href="#projects" class="hover:text-brand-red transition-colors">PROJECT</a>
-                </div>
-
-                <a href="#contact" class="relative group inline-flex items-center justify-center px-6 py-2.5 border border-brand-red text-brand-red font-mono text-xs uppercase tracking-widest overflow-hidden transition-colors hover:text-white">
-                    <span class="absolute inset-0 bg-brand-red w-full h-full -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
-                    <span class="relative z-10">CONTACTS</span>
+            <!-- Right Navigation -->
+            <div class="navbar-right">
+                <a href="#contact" class="contact-btn">
+                    <span class="contact-btn-fill"></span>
+                    <span class="contact-btn-text">CONTACTS</span>
                 </a>
             </div>
         </div>
     </nav>
 
     <main>
-        <section class="relative min-h-screen pt-28 flex flex-col justify-center overflow-hidden bg-tech-grid border-b border-base-border">
-            
-            <div class="absolute inset-0 pointer-events-none flex justify-center z-0">
-                <div class="w-px h-full bg-base-border/50"></div>
-                <div class="w-px h-full bg-base-border/50 absolute left-1/4"></div>
-                <div class="w-px h-full bg-base-border/50 absolute right-1/4"></div>
+        <section class="hero bg-tech-grid">
+
+            <div class="hero-lines">
+                <div class="hero-line"></div>
+                <div class="hero-line hero-line-left"></div>
+                <div class="hero-line hero-line-right"></div>
             </div>
 
-            <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 w-full relative z-10 flex flex-col items-center justify-center h-full pb-24">
-                
-                <div class="w-full max-w-4xl relative reveal z-20 flex flex-col items-center text-center mt-12">
-                    
+            <div class="hero-content">
+                <div class="hero-inner reveal">
+
                     <!-- Sub Header -->
-                    <div class="font-mono text-brand-red text-sm tracking-[0.3em] mb-6 flex items-center justify-center gap-4 w-full">
-                        <span class="w-12 md:w-24 h-px bg-brand-red"></span>
+                    <div class="hero-subheader">
+                        <span class="hero-line-deco"></span>
                         COMPUTER GENERATED IMAGERY
-                        <span class="w-12 md:w-24 h-px bg-brand-red"></span>
-                    </div>
-                    
-                    <!-- Main Title -->
-                    <h1 class="font-bebas text-[18vw] md:text-[14vw] lg:text-[11vw] leading-[0.85] text-white m-0 p-0 tracking-normal flex flex-col items-center">
-                        <span class="text-white relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">3D</span>
-                        <span class="relative z-10 text-brand-red drop-shadow-[0_0_25px_rgba(255,0,51,0.6)]">ENVIRONMENT</span>
-                    </h1>
-                    
-                    <!-- About description -->
-                    <div class="mt-10 lg:mt-12 w-full border-t border-b border-brand-red/30 py-6 px-4 font-mono text-sm md:text-base text-gray-400 leading-relaxed uppercase">
-                        I am a 3D Environment Artist specializing in creating, large-scale environments. My workflow includes asset creation, UV mapping, PBR texturing, baking, model optimization, lighting setup, HDRI configuration, and scene composition. I also use AI as a supporting tool to streamline production and enhance workflow efficiency.
-                    </div>
-                    
-                    <!-- Skills Utilisation Header -->
-                    <div class="mt-12 font-mono text-gray-400 text-xs tracking-[0.2em] flex items-center justify-center gap-4 w-full">
-                        <span class="w-6 md:w-12 h-px bg-brand-red/50"></span>
-                        % PERCENTAGE OF SKILLS UTILISATION %
-                        <span class="w-6 md:w-12 h-px bg-brand-red/50"></span>
+                        <span class="hero-line-deco"></span>
                     </div>
 
-                    <!-- Skills / Progress Bars Grid (2 Columns) with Glow Effect -->
-                    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 text-brand-red text-xs sm:text-sm font-mono tracking-wider w-full max-w-4xl mx-auto">
-                        
+                    <!-- Main Title -->
+                    <h1 class="hero-title">
+                        <span class="hero-title-3d">3D</span>
+                        <span class="hero-title-env">ENVIRONMENT</span>
+                    </h1>
+
+                    <!-- About description -->
+                    <div class="hero-about">
+                        I am a 3D Environment Artist specializing in creating, large-scale environments. My workflow includes asset creation, UV mapping, PBR texturing, baking, model optimization, lighting setup, HDRI configuration, and scene composition. I also use AI as a supporting tool to streamline production and enhance workflow efficiency.
+                    </div>
+
+                    <!-- Skills Header -->
+                    <div class="skills-header">
+                        <span class="skills-header-deco"></span>
+                        % PERCENTAGE OF SKILLS UTILISATION %
+                        <span class="skills-header-deco"></span>
+                    </div>
+
+                    <!-- Skills Grid -->
+                    <div class="skills-grid">
+
                         <!-- Skill 1 -->
-                        <div class="flex items-center justify-between border-b border-base-border/40 pb-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-gray-600">[</span>
-                                <span class="w-32 text-left font-bold text-white">MODELING</span>
+                        <div class="skill-item">
+                            <div class="skill-left">
+                                <span class="skill-bracket">[</span>
+                                <span class="skill-name">MODELING</span>
                             </div>
-                            <span class="tracking-tighter animate-pulse-slow text-brand-red glow-red">||||||||||||||||||||</span>
-                            <div class="flex items-center justify-end gap-1 w-16">
-                                <span class="font-bold glow-red">100%</span>
-                                <span class="text-gray-600">]</span>
+                            <span class="skill-bars skill-bars-active">||||||||||||||||||||</span>
+                            <div class="skill-right">
+                                <span class="skill-percent glow-red">100%</span>
+                                <span class="skill-bracket">]</span>
                             </div>
                         </div>
 
                         <!-- Skill 2 -->
-                        <div class="flex items-center justify-between border-b border-base-border/40 pb-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-gray-600">[</span>
-                                <span class="w-32 text-left font-bold text-white">UV-MAPPING</span>
+                        <div class="skill-item">
+                            <div class="skill-left">
+                                <span class="skill-bracket">[</span>
+                                <span class="skill-name">UV-MAPPING</span>
                             </div>
-                            <span class="tracking-tighter"><span class="animate-pulse-slow text-brand-red glow-red">|||||||||||||||</span><span class="opacity-20 text-brand-red">|||||</span></span>
-                            <div class="flex items-center justify-end gap-1 w-16">
-                                <span class="font-bold glow-red">75%</span>
-                                <span class="text-gray-600">]</span>
+                            <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||</span><span class="skill-bars-inactive">|||||</span></span>
+                            <div class="skill-right">
+                                <span class="skill-percent glow-red">75%</span>
+                                <span class="skill-bracket">]</span>
                             </div>
                         </div>
 
                         <!-- Skill 3 -->
-                        <div class="flex items-center justify-between border-b border-base-border/40 pb-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-gray-600">[</span>
-                                <span class="w-32 text-left font-bold text-white">PBR TEXTURING</span>
+                        <div class="skill-item">
+                            <div class="skill-left">
+                                <span class="skill-bracket">[</span>
+                                <span class="skill-name">PBR TEXTURING</span>
                             </div>
-                            <span class="tracking-tighter"><span class="animate-pulse-slow text-brand-red glow-red">|||||||||||</span><span class="opacity-20 text-brand-red">|||||||||</span></span>
-                            <div class="flex items-center justify-end gap-1 w-16">
-                                <span class="font-bold glow-red">55%</span>
-                                <span class="text-gray-600">]</span>
+                            <span class="skill-bars"><span class="skill-bars-active">|||||||||||</span><span class="skill-bars-inactive">|||||||||</span></span>
+                            <div class="skill-right">
+                                <span class="skill-percent glow-red">55%</span>
+                                <span class="skill-bracket">]</span>
                             </div>
                         </div>
 
                         <!-- Skill 4 -->
-                        <div class="flex items-center justify-between border-b border-base-border/40 pb-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-gray-600">[</span>
-                                <span class="w-32 text-left font-bold text-white">BAKING</span>
+                        <div class="skill-item">
+                            <div class="skill-left">
+                                <span class="skill-bracket">[</span>
+                                <span class="skill-name">BAKING</span>
                             </div>
-                            <span class="tracking-tighter"><span class="animate-pulse-slow text-brand-red glow-red">|||||||</span><span class="opacity-20 text-brand-red">||||||||||||||</span></span>
-                            <div class="flex items-center justify-end gap-1 w-16">
-                                <span class="font-bold glow-red">37%</span>
-                                <span class="text-gray-600">]</span>
+                            <span class="skill-bars"><span class="skill-bars-active">|||||||</span><span class="skill-bars-inactive">||||||||||||||</span></span>
+                            <div class="skill-right">
+                                <span class="skill-percent glow-red">37%</span>
+                                <span class="skill-bracket">]</span>
                             </div>
                         </div>
 
                         <!-- Skill 5 -->
-                        <div class="flex items-center justify-between border-b border-base-border/40 pb-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-gray-600">[</span>
-                                <span class="w-32 text-left font-bold text-white">LIGHTING</span>
+                        <div class="skill-item">
+                            <div class="skill-left">
+                                <span class="skill-bracket">[</span>
+                                <span class="skill-name">LIGHTING</span>
                             </div>
-                            <span class="tracking-tighter"><span class="animate-pulse-slow text-brand-red glow-red">|||||||||||||||</span><span class="opacity-20 text-brand-red">|||||</span></span>
-                            <div class="flex items-center justify-end gap-1 w-16">
-                                <span class="font-bold glow-red">78%</span>
-                                <span class="text-gray-600">]</span>
+                            <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||</span><span class="skill-bars-inactive">|||||</span></span>
+                            <div class="skill-right">
+                                <span class="skill-percent glow-red">78%</span>
+                                <span class="skill-bracket">]</span>
                             </div>
                         </div>
 
                         <!-- Skill 6 -->
-                        <div class="flex items-center justify-between border-b border-base-border/40 pb-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-gray-600">[</span>
-                                <span class="w-32 text-left font-bold text-white">TERRAIN</span>
+                        <div class="skill-item">
+                            <div class="skill-left">
+                                <span class="skill-bracket">[</span>
+                                <span class="skill-name">TERRAIN</span>
                             </div>
-                            <span class="tracking-tighter"><span class="animate-pulse-slow text-brand-red glow-red">||||||||</span><span class="opacity-20 text-brand-red">||||||||||||</span></span>
-                            <div class="flex items-center justify-end gap-1 w-16">
-                                <span class="font-bold glow-red">40%</span>
-                                <span class="text-gray-600">]</span>
+                            <span class="skill-bars"><span class="skill-bars-active">||||||||</span><span class="skill-bars-inactive">||||||||||||</span></span>
+                            <div class="skill-right">
+                                <span class="skill-percent glow-red">40%</span>
+                                <span class="skill-bracket">]</span>
                             </div>
                         </div>
 
@@ -317,125 +1381,116 @@
                 </div>
             </div>
 
-            <div class="absolute bottom-0 w-full overflow-hidden bg-brand-red py-3 border-y border-brand-redDark z-30">
-                <div class="marquee-container font-bebas text-3xl tracking-widest text-base-900">
-                    <div class="animate-marquee flex gap-12 whitespace-nowrap">
+            <div class="marquee-bar">
+                <div class="marquee-container">
+                    <div class="animate-marquee marquee-content">
                         <span>BLENDER</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>HOUDINI</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>GAEA</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>UNREAL ENGINE 5</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>SUBSTANCE DESIGNER</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>ZBRUSH</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>MARMOSET TOOLBAG 5</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>SUBSTANCE PAINTER</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>PLASTICITY</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>BLENDER</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>HOUDINI</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>GAEA</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>UNREAL ENGINE 5</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>SUBSTANCE DESIGNER</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>ZBRUSH</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>MARMOSET TOOLBAG 5</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>SUBSTANCE PAINTER</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                         <span>PLASTICITY</span>
-                        <span>•</span>
+                        <span>&bull;</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="py-32 relative bg-base-900 border-b border-base-border">
-            <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-                
+        <section id="projects" class="projects">
+            <div class="projects-inner">
+
                 <!-- Section Header -->
-                <div class="text-center mb-24 reveal">
-                    <span class="font-mono text-brand-red text-sm tracking-widest uppercase block mb-4 glow-red">/// SELECTED WORKS</span>
-                    <h2 class="font-bebas text-6xl md:text-8xl text-white m-0 leading-none">PROJECT <span class="text-brand-red">SHELL</span></h2>
+                <div class="section-header reveal">
+                    <span class="section-label">/// SELECTED WORKS</span>
+                    <h2 class="section-title">PROJECT <span style="color: var(--c-brand-red)">SHELL</span></h2>
                 </div>
 
                 <!-- Project 01: Simon's Garage -->
-                <div class="max-w-6xl mx-auto flex flex-col gap-6 reveal">
-                    
-                    <!-- Top Bar: Title & Status -->
-                    <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-base-border pb-3 gap-2">
-                        <div class="flex items-center gap-4">
-                            <span class="font-bebas text-brand-red text-4xl leading-none glow-red">01</span>
-                            <h3 class="font-syncopate text-xl md:text-2xl font-bold tracking-widest text-white uppercase">Simon's Garage</h3>
+                <div class="project-card reveal">
+
+                    <!-- Top Bar -->
+                    <div class="project-topbar">
+                        <div class="project-topbar-left">
+                            <span class="project-number glow-red">01</span>
+                            <h3 class="project-title">Simon's Garage</h3>
                         </div>
-                        <div class="font-mono text-[10px] sm:text-xs text-gray-500 tracking-widest uppercase flex items-center gap-2">
-                            STATUS: <span class="text-brand-red animate-pulse">RENDER DONE</span>
+                        <div class="project-status">
+                            STATUS: <span class="project-status-active">RENDER DONE</span>
                         </div>
                     </div>
 
-                    <!-- Main Image Viewport -->
-                    <div class="w-full aspect-video border border-base-border bg-[#050505] relative overflow-hidden group shadow-[0_0_30px_rgba(0,0,0,0.8)]">
-                        <!-- Corner Crosshairs / UI accents -->
-                        <div class="absolute top-0 left-0 w-8 h-8 border-t border-l border-brand-red opacity-50 m-4 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:opacity-100"></div>
-                        <div class="absolute top-0 right-0 w-8 h-8 border-t border-r border-brand-red opacity-50 m-4 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:opacity-100"></div>
-                        <div class="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-brand-red opacity-50 m-4 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:opacity-100"></div>
-                        <div class="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-brand-red opacity-50 m-4 transition-all duration-300 group-hover:w-12 group-hover:h-12 group-hover:opacity-100"></div>
-                        
-                        <!-- Grid overlay -->
-                        <div class="absolute inset-0 bg-tech-grid opacity-10 pointer-events-none"></div>
+                    <!-- Image Viewport -->
+                    <div class="project-viewport">
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
 
-                        <!-- Placeholder Data -->
-                        <div class="absolute inset-0 flex flex-col items-center justify-center text-brand-red/30 transition-colors duration-500 group-hover:text-brand-red/70">
-                            <svg class="w-16 h-16 mb-4 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                <polyline points="21 15 16 10 5 21"></polyline>
+                        <div class="grid-overlay bg-tech-grid"></div>
+
+                        <div class="project-placeholder">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
                             </svg>
-                            <span class="font-mono text-xs tracking-[0.3em] uppercase">Awaiting Visual Feed</span>
+                            <span class="project-placeholder-text">Awaiting Visual Feed</span>
                         </div>
                     </div>
 
-                    <!-- Bottom Info Section -->
-                    <div class="flex flex-col gap-3 mt-1">
-                        
-                        <!-- Description Window -->
-                        <div class="w-full border border-base-border bg-[#080808] relative p-6 sm:p-8">
-                            <div class="absolute -top-[1px] left-[-1px] bg-brand-red px-3 py-1 font-mono text-[9px] font-bold text-base-900 tracking-widest uppercase">
-                                PROJECT 1 // GARAGE
+                    <!-- Info Section -->
+                    <div class="project-info">
+
+                        <!-- Description -->
+                        <div class="project-desc">
+                            <div class="project-desc-label">PROJECT 1 // GARAGE</div>
+                            <div class="desc-dots">
+                                <div class="desc-dot desc-dot-red"></div>
+                                <div class="desc-dot desc-dot-dim"></div>
+                                <div class="desc-dot desc-dot-dim"></div>
                             </div>
-                            <!-- Small decorative element top right -->
-                            <div class="absolute top-2 right-2 flex gap-1">
-                                <div class="w-1 h-1 bg-brand-red rounded-full animate-pulse"></div>
-                                <div class="w-1 h-1 bg-base-border rounded-full"></div>
-                                <div class="w-1 h-1 bg-base-border rounded-full"></div>
-                            </div>
-                            
-                            <p class="font-mono text-xs sm:text-sm text-gray-400 leading-relaxed uppercase mt-2">
+                            <p class="project-desc-text">
                                 A meticulously crafted, cluttered mechanic's garage. This environment study heavily focuses on environmental storytelling, intricate prop placement, and realistic wear-and-tear texturing. Assets were optimized for real-time engines, featuring custom high-to-low poly bakes, complex material layering for oil, rust, and dust, alongside cinematic lighting setups.
                             </p>
                         </div>
 
-                        <!-- Software Strip with New Technical Font Style -->
-                        <div class="w-full border border-base-border bg-[#050505] p-4 flex flex-col sm:flex-row items-start sm:items-center gap-6 relative group hover:border-brand-red/50 transition-colors">
-                            <div class="font-syncopate text-[10px] text-gray-500 font-bold tracking-widest uppercase whitespace-nowrap">
-                                [SOFTWARE]
-                            </div>
-                            <div class="flex flex-wrap items-center gap-3">
-                                <span class="px-3 py-1.5 border border-brand-red/50 bg-brand-red/10 text-brand-red font-syncopate text-[10px] uppercase tracking-wider glow-box">UNREAL ENGINE 5</span>
-                                <span class="px-3 py-1.5 border border-base-border text-gray-400 font-syncopate text-[10px] uppercase tracking-wider hover:text-white transition-colors">BLENDER</span>
-                                <span class="px-3 py-1.5 border border-base-border text-gray-400 font-syncopate text-[10px] uppercase tracking-wider hover:text-white transition-colors">SUBSTANCE PAINTER</span>
-                                <span class="px-3 py-1.5 border border-base-border text-gray-400 font-syncopate text-[10px] uppercase tracking-wider hover:text-white transition-colors">MARMOSET TOOLBAG 5</span>
+                        <!-- Software Strip -->
+                        <div class="software-strip">
+                            <div class="software-label">[SOFTWARE]</div>
+                            <div class="software-tags">
+                                <span class="software-tag software-tag-active">UNREAL ENGINE 5</span>
+                                <span class="software-tag">BLENDER</span>
+                                <span class="software-tag">SUBSTANCE PAINTER</span>
+                                <span class="software-tag">MARMOSET TOOLBAG 5</span>
                             </div>
                         </div>
 
@@ -445,83 +1500,70 @@
             </div>
         </section>
 
-        <section id="contact" class="py-32 relative bg-brand-red text-base-900 overflow-hidden">
-            <div class="absolute inset-0 opacity-20 bg-tech-grid filter invert"></div>
-            
-            <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10 flex flex-col items-center text-center reveal">
-                
-                <div class="font-mono text-base-900 font-bold text-sm tracking-widest uppercase mb-6 flex items-center gap-4">
-                    <span class="w-4 h-4 bg-base-900 animate-pulse"></span>
+        <section id="contact" class="contact">
+            <div class="contact-bg bg-tech-grid"></div>
+
+            <div class="contact-inner reveal">
+
+                <div class="contact-status">
+                    <span class="contact-status-dot"></span>
                     SYSTEM READY FOR NEW DATA
                 </div>
 
-                <h2 class="font-bebas text-[12vw] md:text-[8vw] leading-none text-base-900 mb-10">
-                    ENOUGH <span class="text-white mix-blend-difference">TALKING</span>
+                <h2 class="contact-title">
+                    ENOUGH <span>TALKING</span>
                 </h2>
-                
-                <p class="font-mono text-sm md:text-base font-bold uppercase tracking-widest mb-12 max-w-2xl border-t border-b border-base-900/30 py-6">
+
+                <p class="contact-text">
                     Looking for a technical artist to build photorealistic environments or complex procedural generation? Let's discuss your project.
                 </p>
 
-                <a href="mailto:hello@example.com" class="group relative inline-flex items-center justify-center px-12 py-6 bg-base-900 text-brand-red font-bebas text-3xl tracking-widest hover:bg-white transition-colors duration-300">
-                    <span class="relative z-10">INITIATE CONTACT</span>
-                    <div class="absolute inset-0 border-2 border-base-900 transform translate-x-2 translate-y-2 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></div>
+                <a href="mailto:hello@example.com" class="contact-cta">
+                    <span class="contact-cta-text">INITIATE CONTACT</span>
+                    <div class="contact-cta-border"></div>
                 </a>
             </div>
         </section>
     </main>
 
-    <footer class="bg-base-900 border-t border-brand-red py-12">
-        <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col items-center gap-6">
-            
-            <!-- Footer Logo Group -->
-            <div class="flex flex-col items-center gap-2">
-                <div id="footer-logo" class="flex items-center gap-3 group cursor-pointer logo-container" title="Click to interact">
-                    <!-- Front-Facing Laptop Logo -->
-                    <svg class="w-11 h-11 text-brand-red logo-svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="14" y="22" width="72" height="46" rx="3" fill="#0A0A0A"/>
-                        <rect x="17" y="25" width="66" height="40" rx="1" stroke-width="1.5" />
-                        <circle cx="50" cy="23.5" r="0.5" stroke-width="1.5"/>
-                        <path d="M 10 68 L 90 68 L 96 78 L 4 78 Z" fill="#0A0A0A" stroke-width="2"/>
-                        <path d="M 4 78 L 96 78 L 95 80 L 5 80 Z" fill="currentColor" opacity="0.3" stroke="none" />
-                        <rect x="43" y="71" width="14" height="4" rx="0.5" stroke-width="1.5"/>
-                        <path d="M 16 70 L 84 70 M 15 72 L 85 72 M 14 74 L 86 74" stroke-width="1.2" opacity="0.6"/>
-                        <path d="M 25 69 L 21 76 M 35 69 L 33 76 M 45 69 L 44 76 M 55 69 L 56 76 M 65 69 L 67 76 M 75 69 L 79 76" stroke-width="1.2" opacity="0.6"/>
-                        <path d="M 22 55 L 45 32 M 28 58 L 51 35" stroke-width="1.5" opacity="0.3"/>
-                    </svg>
-                    <span class="font-syncopate text-2xl font-bold tracking-widest text-brand-red mt-1 logo-text">JUI</span>
+    <footer class="footer">
+        <div class="footer-inner">
+
+            <!-- Footer Logo -->
+            <div class="footer-logo-group">
+                <div id="footer-logo" class="logo logo-container" title="Click to interact">
+                    <svg class="logo-svg"><use href="#logo-laptop"/></svg>
+                    <span class="logo-text">JUI</span>
                 </div>
             </div>
-            
-            <!-- Copyright & Languages Stacked Very Close Together -->
-            <div class="flex flex-col items-center text-center mt-4">
-                <div class="font-mono text-xs text-gray-500 uppercase tracking-widest">
-                    © 2026 3D ENVIRONMENT ARTIST. ALLE SYSTEME FUNKTIONSFÄHIG.
-                </div>
-                <div class="font-mono text-[10px] text-gray-400 uppercase tracking-widest mt-[2px]">
-                    LANGUAGES: RUSSIAN (NATIVE), UKRAINIAN (NATIVE), ENGLISH (INTERMEDIATE), GERMAN (A1–B2)
-                </div>
+
+            <!-- Copyright & Languages -->
+            <div class="footer-copyright">
+                &copy; 2026 3D ENVIRONMENT ARTIST. ALLE SYSTEME FUNKTIONSF&Auml;HIG.
+            </div>
+            <div class="footer-languages">
+                LANGUAGES: RUSSIAN (NATIVE), UKRAINIAN (NATIVE), ENGLISH (INTERMEDIATE), GERMAN (A1&ndash;B2)
             </div>
 
             <!-- Social Links -->
-            <div class="w-full max-w-3xl flex flex-wrap justify-between items-center gap-y-6 gap-x-4 border-t border-base-border/50 pt-6 mt-4">
-                <a href="https://www.instagram.com/juissuri/" target="_blank" class="font-mono text-sm md:text-base text-gray-400 hover:text-brand-red transition-colors uppercase tracking-widest px-2">INSTAGRAM</a>
-                <span class="text-base-border">/</span>
-                <a href="https://x.com/juissuri" target="_blank" class="font-mono text-sm md:text-base text-gray-400 hover:text-brand-red transition-colors uppercase tracking-widest px-2">X/TWITTER</a>
-                <span class="text-base-border">/</span>
-                <a href="https://t.me/juissuri" target="_blank" class="font-mono text-sm md:text-base text-gray-400 hover:text-brand-red transition-colors uppercase tracking-widest px-2">TELEGRAM</a>
-                <span class="text-base-border">/</span>
-                <a href="https://www.artstation.com/juissurri" target="_blank" class="font-mono text-sm md:text-base text-gray-400 hover:text-brand-red transition-colors uppercase tracking-widest px-2">ARTSTATION</a>
+            <div class="social-links">
+                <a href="https://www.instagram.com/juissuri/" target="_blank" class="social-link">INSTAGRAM</a>
+                <span class="social-sep">/</span>
+                <a href="https://x.com/juissuri" target="_blank" class="social-link">X/TWITTER</a>
+                <span class="social-sep">/</span>
+                <a href="https://t.me/juissuri" target="_blank" class="social-link">TELEGRAM</a>
+                <span class="social-sep">/</span>
+                <a href="https://www.artstation.com/juissurri" target="_blank" class="social-link">ARTSTATION</a>
             </div>
 
-            <!-- Red Note right after Social Links at the very bottom -->
-            <div class="w-full max-w-3xl font-mono text-[10px] sm:text-xs text-brand-red font-bold uppercase tracking-wider text-center mt-4 border-t border-brand-red/20 pt-8 pb-4">
+            <!-- Note -->
+            <div class="footer-note">
                 NOTE: ALL PROJECTS FEATURED IN THIS PORTFOLIO REPRESENT NON-COMMERCIAL EXPERIENCE.
             </div>
         </div>
     </footer>
 
-    <audio id="bg-audio" loop preload="auto" src="assets/music/consolidated.mp3"></audio>
+    <audio id="bg-audio" class="bg-audio" loop preload="auto" src="assets/music/consolidated.mp3"></audio>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -565,7 +1607,7 @@
 
         function toggleAudio() {
             if (!audioElement) return;
-            
+
             if (!isAudioPlaying && currentRotation <= minRotation + 10) {
                 currentRotation = 0;
                 updateKnobVisuals();
@@ -574,20 +1616,17 @@
 
             if (!isAudioPlaying) {
                 isAudioPlaying = true;
-                knobRing.classList.remove('border-red-950');
-                knobRing.classList.add('border-brand-red', 'glow-box');
-                
+                knobRing.classList.add('active');
+
                 audioElement.play().catch(e => {
                     console.log("Audio play blocked by browser policy:", e);
                     isAudioPlaying = false;
-                    knobRing.classList.add('border-red-950');
-                    knobRing.classList.remove('border-brand-red', 'glow-box');
+                    knobRing.classList.remove('active');
                 });
             } else {
                 audioElement.pause();
                 isAudioPlaying = false;
-                knobRing.classList.add('border-red-950');
-                knobRing.classList.remove('border-brand-red', 'glow-box');
+                knobRing.classList.remove('active');
             }
         }
 
@@ -601,17 +1640,18 @@
             });
 
             knobContainer.addEventListener('mousedown', (e) => {
-                dragThresholdExceeded = false; 
+                dragThresholdExceeded = false;
                 startY = e.clientY;
-                
+
                 const onMouseMove = (moveEvent) => {
                     let deltaY = startY - moveEvent.clientY;
                     if (Math.abs(deltaY) > 2) {
-                        dragThresholdExceeded = true; 
+                        dragThresholdExceeded = true;
+                        document.body.classList.add('dragging');
                     }
-                    
+
                     if (dragThresholdExceeded) {
-                        currentRotation += deltaY * 1.5; 
+                        currentRotation += deltaY * 1.5;
                         startY = moveEvent.clientY;
                         updateKnobVisuals();
                         updateVolume();
@@ -621,7 +1661,8 @@
                 const onMouseUp = () => {
                     window.removeEventListener('mousemove', onMouseMove);
                     window.removeEventListener('mouseup', onMouseUp);
-                    
+                    document.body.classList.remove('dragging');
+
                     setTimeout(() => {
                         dragThresholdExceeded = false;
                     }, 50);
@@ -654,12 +1695,12 @@
             let rotationRange = maxRotation - minRotation;
             let currentRange = currentRotation - minRotation;
             let percentage = currentRange / rotationRange;
-            
+
             if (audioElement) {
                 audioElement.volume = Math.max(0, Math.min(1, percentage));
             }
         }
-        
+
         updateKnobVisuals();
         updateVolume();
     </script>

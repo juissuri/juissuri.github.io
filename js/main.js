@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 });
 
-// Logo 3D Spin Interaction
 const toggleLogo = (elementId) => {
     const el = document.getElementById(elementId);
     if(el) {
@@ -23,7 +22,6 @@ const toggleLogo = (elementId) => {
 toggleLogo('header-logo');
 toggleLogo('footer-logo');
 
-// Audio & Metal Knob Controller Logic
 const audioElement = document.getElementById('bg-audio');
 let isAudioPlaying = false;
 let currentRotation = 0;

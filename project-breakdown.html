@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gibson Ridge - Procedural Desert Terrain & Environment Study Breakdown by Daria Lytvin.">
+    <title>GIBSON RIDGE // PROCESS</title>
+
+    <!-- Laptop Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23020204'/%3E%3Ctext x='32' y='41' font-family='Courier New, monospace' font-size='24' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'%3EJUI%3C/text%3E%3C/svg%3E">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="css/fonts.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        body{background-color:#1A1A1C}
+        .bg-noise{display:none}
+
+        .breakdown-nav-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 50;
+            background: rgba(20, 20, 22, 0.9);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            height: 4.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .breakdown-nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: opacity 200ms ease;
+        }
+        .back-link:hover { opacity: 0.7; }
+
+        .process-hero {
+            padding: 10rem 2rem 3rem;
+            text-align: center;
+        }
+        .process-kicker {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: #8A8A90;
+        }
+        .process-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: clamp(2.6rem, 5vw, 4.2rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: #FFFFFF;
+            line-height: 1.1;
+            margin-top: 0.75rem;
+        }
+
+        /* ── GAEA-STYLE PROCESS BLOCKS ── */
+        .process { padding: 3rem 2rem 8rem; }
+
+        .process-block {
+            max-width: 1180px;
+            margin: 0 auto 8rem;
+        }
+        .process-block:last-child { margin-bottom: 0; }
+
+        .process-head {
+            max-width: 830px;
+            margin: 0 auto 2.5rem;
+            text-align: center;
+        }
+        .process-name {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: #FFFFFF;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+        }
+        .process-text {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #B0B0B5;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .process-text + .process-text { margin-top: 0.75rem; }
+
+        .process-media {
+            max-width: 830px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 7.5;
+            background: linear-gradient(110deg, #212124 0%, #26262a 50%, #212124 100%);
+            background-size: 200% 100%;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 18px;
+            animation: mediaWait 1.6s ease-in-out infinite alternate;
+        }
+        @keyframes mediaWait {
+            from { background-position: 0% 50%; }
+            to   { background-position: 100% 50%; }
+        }
+
+        @media (max-width: 720px) {
+            .process-text { max-width: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .process-media { animation: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="breakdown-nav-bar">
+        <div class="breakdown-nav-inner">
+            <a href="index.html#projects" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <span>Back to projects</span>
+            </a>
+            <div class="logo logo--text-only" aria-label="JUI">
+                <span class="logo-text">JUI</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="process-hero">
+        <div class="process-kicker">PROCESS</div>
+        <h1 class="process-title" id="process-title">GIBSON RIDGE</h1>
+    </header>
+
+    <main class="process">
+
+        <article class="process-block">
+            <div class="process-head">
+                <h2 class="process-name">Modeling.</h2>
+                <div>
+                    <p class="process-text">The first stage of creating a 3D model. Every asset starts as a clean blockout where scale, proportions and silhouette are established before any detail is added.</p>
+                </div>
+            </div>
+            <div class="process-media"></div>
+        </article>
+
+        <article class="process-block">
+            <div class="process-head">
+                <h2 class="process-name">UV Unwrapping.</h2>
+                <div>
+                    <p class="process-text">Once the model is finalized, it is unwrapped into clean, distortion-free UVs. A proper UV layout is what allows textures to sit perfectly on every surface later in the pipeline.</p>
+                </div>
+            </div>
+            <div class="process-media"></div>
+        </article>
+
+        <article class="process-block">
+            <div class="process-head">
+                <h2 class="process-name">Texturing.</h2>
+                <div>
+                    <p class="process-text">Materials are authored layer by layer — color, roughness and surface detail are built up gradually until every asset reads naturally under the scene lighting.</p>
+                </div>
+            </div>
+            <div class="process-media"></div>
+        </article>
+
+        <article class="process-block">
+            <div class="process-head">
+                <h2 class="process-name">Scene Setup.</h2>
+                <div>
+                    <p class="process-text">All assets are imported into Unreal Engine, where the scene comes together — placement, lighting setup, post-process volumes and camera work define the mood of the environment.</p>
+                </div>
+            </div>
+            <div class="process-media"></div>
+        </article>
+
+        <article class="process-block">
+            <div class="process-head">
+                <h2 class="process-name">Engine Work.</h2>
+                <div>
+                    <p class="process-text">Further refinement inside Unreal Engine: shaders, foliage, particles and lighting are iterated step by step until the atmosphere matches the original vision.</p>
+                </div>
+            </div>
+            <div class="process-media"></div>
+        </article>
+
+        <article class="process-block">
+            <div class="process-head">
+                <h2 class="process-name">Final Render.</h2>
+                <div>
+                    <p class="process-text">The final stage — camera settings, exposure and post-processing come together to produce the finished rendered image of the environment.</p>
+                </div>
+            </div>
+            <div class="process-media"></div>
+        </article>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-copyright">
+                Copyright &copy; 2026 Lytvin Daria. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const PROJECT_META = {
+            '01': { title: 'GIBSON RIDGE',      metaTitle: 'GIBSON RIDGE // PROCESS',      description: 'Gibson Ridge - Process Breakdown by Daria Lytvin.' },
+            '02': { title: "SIMON'S GARAGE",    metaTitle: "SIMON'S GARAGE // PROCESS",    description: "Simon's Garage - Process Breakdown by Daria Lytvin." },
+            '03': { title: 'CYBERPUNK ALLEY',   metaTitle: 'CYBERPUNK ALLEY // PROCESS',   description: 'Cyberpunk Alley - Process Breakdown by Daria Lytvin.' }
+        };
+
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const key = PROJECT_META[params.get('project')] ? params.get('project') : '01';
+            const data = PROJECT_META[key];
+
+            document.title = data.metaTitle;
+            document.querySelector('meta[name="description"]').setAttribute('content', data.description);
+            document.getElementById('process-title').textContent = data.title;
+        })();
+    </script>
+</body>
+</html>

@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="JUI - 3D Environment Artist Portfolio. Specializing in creating large-scale environments, PBR texturing, lighting, and scene composition for real-time engines.">
-    <meta name="keywords" content="3D Environment Artist, 3D Art, Unreal Engine 5, Blender, Substance Painter, Portfolio">
-    <meta name="author" content="JUI">
+    <meta name="description" content="JUI PORTFOLIO - Daria Lytvin 3D Environment Artist Portfolio. Specializing in creating large-scale environments, PBR texturing, lighting, and scene composition for real-time engines.">
+    <meta name="keywords" content="3D Environment Artist, Daria Lytvin, 3D Art, Unreal Engine 5, Blender, Substance Painter, Portfolio">
+    <meta name="author" content="Daria Lytvin">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://juissuri.github.io/">
-    <meta property="og:title" content="JUI | 3D ENVIRONMENT ARTIST">
-    <meta property="og:description" content="JUI - 3D Environment Artist Portfolio. Specializing in creating large-scale environments, PBR texturing, lighting, and scene composition.">
+    <meta property="og:title" content="JUI PORTFOLIO | 3D ENVIRONMENT ARTIST">
+    <meta property="og:description" content="JUI PORTFOLIO - Daria Lytvin 3D Environment Artist Portfolio. Specializing in creating large-scale environments, PBR texturing, lighting, and scene composition.">
+    <meta property="og:image" content="https://juissuri.github.io/assets/images/simons-garage.jpg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://juissuri.github.io/">
-    <meta property="twitter:title" content="JUI | 3D ENVIRONMENT ARTIST">
-    <meta property="twitter:description" content="JUI - 3D Environment Artist Portfolio. Specializing in creating large-scale environments, PBR texturing, lighting, and scene composition.">
+    <meta property="twitter:title" content="JUI PORTFOLIO | 3D ENVIRONMENT ARTIST">
+    <meta property="twitter:description" content="JUI PORTFOLIO - Daria Lytvin 3D Environment Artist Portfolio. Specializing in creating large-scale environments, PBR texturing, lighting, and scene composition.">
+    <meta property="twitter:image" content="https://juissuri.github.io/assets/images/simons-garage.jpg">
 
-    <title>JUI | 3D ENVIRONMENT ARTIST</title>
+    <title>JUI PORTFOLIO</title>
+
+    <!-- Laptop Favicon (High-Resolution Monochrome Tech Icon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23020204'/%3E%3Ctext x='32' y='41' font-family='Courier New, monospace' font-size='24' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'%3EJUI%3C/text%3E%3C/svg%3E">
+
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Fonts -->
     <link rel="stylesheet" href="css/fonts.css">
@@ -28,11 +36,22 @@
     <link rel="stylesheet" href="css/styles.css">
 
 </head>
-<body>
+<body class="is-preloading">
+    <!-- Terminal Preloader -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+        <div class="preloader-inner">
+            <div class="preloader-caption">LOADING</div>
+            <div class="preloader-progress"><span class="preloader-bar" id="preloader-bar"></span></div>
+            <div class="preloader-percent" id="preloader-percent">0%</div>
+        </div>
+    </div>
+
+    <!-- Top Scroll Progress Indicator -->
+    <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
+
     <div class="bg-noise"></div>
 
-    <!-- SVG Symbol Definition -->
-    <svg style="display:none">
+    <svg class="svg-definitions" aria-hidden="true">
         <symbol id="logo-laptop" viewBox="0 0 100 100">
             <rect x="14" y="22" width="72" height="46" rx="3" fill="#0A0A0A"/>
             <rect x="17" y="25" width="66" height="40" rx="1" stroke-width="1.5"/>
@@ -49,38 +68,30 @@
     <nav class="navbar">
         <div class="navbar-inner">
 
-            <!-- Left: Logo & Volume Knob -->
+            <!-- Left: Pure Brand Typography (Kojima-Style Minimal Alignment) -->
             <div class="navbar-left">
-                <div id="header-logo" class="logo logo-container" title="Click to interact">
-                    <svg class="logo-svg"><use href="#logo-laptop"/></svg>
+                <a href="#" class="logo logo--text-only" aria-label="JUI">
                     <span class="logo-text">JUI</span>
-                </div>
+                </a>
+            </div>
 
-                <!-- Volume Knob -->
-                <div class="knob-wrapper" title="Click to Toggle Audio, Drag/Scroll to adjust Volume">
-                    <div id="volume-knob-container" class="knob">
-                        <div class="knob-surface"></div>
-                        <div id="knob-ring" class="knob-ring">
-                            <div class="knob-ring-inner"></div>
-                        </div>
-                        <div class="knob-center"></div>
-                        <div id="knob-disc" class="knob-disc">
-                            <div id="knob-indicator" class="knob-indicator"></div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Top Center: Glowing Code-Typing 'About me' Button -->
+            <div class="navbar-center">
+                <button class="about-me-btn magnetic-btn" id="about-me-btn" type="button" aria-label="Open About Me Profile">
+                    <span class="about-me-glow"></span>
+                    <span class="about-me-text" id="typing-text">About me</span><span class="typing-cursor">_</span>
+                </button>
             </div>
 
             <!-- Right Navigation -->
             <div class="navbar-right">
                 <div class="nav-links">
-                    <a href="#projects" class="nav-link">PROJECT</a>
+                    <a href="#projects" class="nav-link">PROJECTS</a>
+                    <span class="nav-pipe">|</span>
+                    <a href="#experience" class="nav-link">EXPERIENCE</a>
+                    <span class="nav-pipe">|</span>
+                    <a href="#contact" class="nav-link">CONTACT</a>
                 </div>
-
-                <a href="#contact" class="contact-btn">
-                    <span class="contact-btn-fill"></span>
-                    <span class="contact-btn-text">CONTACTS</span>
-                </a>
             </div>
         </div>
     </nav>
@@ -100,7 +111,7 @@
                     <!-- Sub Header -->
                     <div class="hero-subheader">
                         <span class="hero-line-deco"></span>
-                        COMPUTER GENERATED IMAGERY
+                        <span class="hero-subheader-text">COMPUTER GENERATED IMAGERY</span>
                         <span class="hero-line-deco"></span>
                     </div>
 
@@ -110,102 +121,17 @@
                         <span class="hero-title-env">ENVIRONMENT</span>
                     </h1>
 
-                    <!-- About description -->
-                    <div class="hero-about">
-                        I am a 3D Environment Artist specializing in creating, large-scale environments. My workflow includes asset creation, UV mapping, PBR texturing, baking, model optimization, lighting setup, HDRI configuration, and scene composition. I also use AI as a supporting tool to streamline production and enhance workflow efficiency.
+                    <!-- About description with technical archival horizontal dividers -->
+                    <div class="hero-about-wrap">
+                        <div class="hero-about-line"></div>
+                        <div class="hero-about">
+                            I am a 3D Environment Artist specializing in creating, large-scale environments. My workflow includes asset creation, UV mapping, PBR texturing, baking, model optimization, lighting setup, HDRI configuration, and scene composition. I also use AI as a supporting tool to streamline production and enhance workflow efficiency.
+                        </div>
+                        <div class="hero-about-line"></div>
                     </div>
 
-                    <!-- Skills Header -->
-                    <div class="skills-header">
-                        <span class="skills-header-deco"></span>
-                        % PERCENTAGE OF SKILLS UTILISATION %
-                        <span class="skills-header-deco"></span>
-                    </div>
-
-                    <!-- Skills Grid -->
-                    <div class="skills-grid">
-
-                        <!-- Skill 1 -->
-                        <div class="skill-item">
-                            <div class="skill-left">
-                                <span class="skill-bracket">[</span>
-                                <span class="skill-name">MODELING</span>
-                            </div>
-                            <span class="skill-bars skill-bars-active">||||||||||||||||||||</span>
-                            <div class="skill-right">
-                                <span class="skill-percent glow-red">100%</span>
-                                <span class="skill-bracket">]</span>
-                            </div>
-                        </div>
-
-                        <!-- Skill 2 -->
-                        <div class="skill-item">
-                            <div class="skill-left">
-                                <span class="skill-bracket">[</span>
-                                <span class="skill-name">UV-MAPPING</span>
-                            </div>
-                            <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||</span><span class="skill-bars-inactive">|||||</span></span>
-                            <div class="skill-right">
-                                <span class="skill-percent glow-red">75%</span>
-                                <span class="skill-bracket">]</span>
-                            </div>
-                        </div>
-
-                        <!-- Skill 3 -->
-                        <div class="skill-item">
-                            <div class="skill-left">
-                                <span class="skill-bracket">[</span>
-                                <span class="skill-name">PBR TEXTURING</span>
-                            </div>
-                            <span class="skill-bars"><span class="skill-bars-active">|||||||||||</span><span class="skill-bars-inactive">|||||||||</span></span>
-                            <div class="skill-right">
-                                <span class="skill-percent glow-red">55%</span>
-                                <span class="skill-bracket">]</span>
-                            </div>
-                        </div>
-
-                        <!-- Skill 4 -->
-                        <div class="skill-item">
-                            <div class="skill-left">
-                                <span class="skill-bracket">[</span>
-                                <span class="skill-name">BAKING</span>
-                            </div>
-                            <span class="skill-bars"><span class="skill-bars-active">|||||||</span><span class="skill-bars-inactive">||||||||||||||</span></span>
-                            <div class="skill-right">
-                                <span class="skill-percent glow-red">37%</span>
-                                <span class="skill-bracket">]</span>
-                            </div>
-                        </div>
-
-                        <!-- Skill 5 -->
-                        <div class="skill-item">
-                            <div class="skill-left">
-                                <span class="skill-bracket">[</span>
-                                <span class="skill-name">LIGHTING</span>
-                            </div>
-                            <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||</span><span class="skill-bars-inactive">|||||</span></span>
-                            <div class="skill-right">
-                                <span class="skill-percent glow-red">78%</span>
-                                <span class="skill-bracket">]</span>
-                            </div>
-                        </div>
-
-                        <!-- Skill 6 -->
-                        <div class="skill-item">
-                            <div class="skill-left">
-                                <span class="skill-bracket">[</span>
-                                <span class="skill-name">TERRAIN</span>
-                            </div>
-                            <span class="skill-bars"><span class="skill-bars-active">||||||||</span><span class="skill-bars-inactive">||||||||||||</span></span>
-                            <div class="skill-right">
-                                <span class="skill-percent glow-red">40%</span>
-                                <span class="skill-bracket">]</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+                </div><!-- /hero-inner -->
+            </div><!-- /hero-content -->
 
             <div class="marquee-bar">
                 <div class="marquee-container">
@@ -251,87 +177,323 @@
             </div>
         </section>
 
-        <section id="projects" class="projects">
-            <div class="projects-inner">
+        <!-- ================================================================
+             PROJECT SHELL — IOI HITMAN STYLE CENTERED CAROUSEL
+             Active center card: full scale + full info visible
+             Inactive side cards: scaled down + darkened + info hidden
+             ================================================================ -->
+        <section id="projects" class="pshell-section">
 
-                <!-- Section Header -->
-                <div class="section-header reveal">
-                    <h2 class="section-title">PROJECT <span style="color: var(--c-brand-red)">SHELL</span></h2>
-                </div>
+            <!-- Section header -->
+            <div class="pshell-header reveal">
+                <h2 class="pshell-title title-reveal">PROJECT <span>SHELL</span></h2>
+            </div>
 
-                <!-- Project 01: Simon's Garage -->
-                <div class="project-card reveal">
+            <!-- Carousel track -->
+            <div class="pshell-track-outer" id="pshell-track-outer">
+                <div class="pshell-track" id="pshell-track" role="list" data-lenis-prevent>
 
-                    <!-- Top Bar -->
-                    <div class="project-topbar">
-                        <div class="project-topbar-left">
-                            <span class="project-number glow-red">01</span>
-                            <h3 class="project-title">Simon's Garage</h3>
-                        </div>
-                    </div>
+                    <!-- ── CARD 01 ── -->
+                    <article class="pshell-card" data-pshell-index="0" role="listitem" aria-label="Project 01 — Gibson Ridge">
 
-                    <!-- Image Viewport -->
-                    <div class="project-viewport">
-                        <div class="corner corner-tl"></div>
-                        <div class="corner corner-tr"></div>
-                        <div class="corner corner-bl"></div>
-                        <div class="corner corner-br"></div>
-
-                        <img
-                            src="assets/images/simons-garage.jpg"
-                            alt="Simon's Garage - 3D Environment Render"
-                            class="project-img"
-                        >
-                        <div class="project-img-overlay"></div>
-                    </div>
-
-                    <!-- Info Section -->
-                    <div class="project-info">
-
-                        <!-- Description -->
-                        <div class="project-desc">
-                            <div class="project-desc-label">PROJECT 1 // GARAGE</div>
-                            <div class="desc-dots">
-                                <div class="desc-dot desc-dot-red"></div>
-                                <div class="desc-dot desc-dot-dim"></div>
-                                <div class="desc-dot desc-dot-dim"></div>
+                        <!-- Project Name with PROCESS button and HUD tag -->
+                        <div class="pshell-card-header">
+                            <h3 class="pshell-card-name">GIBSON RIDGE</h3>
+                            <a href="project-breakdown.html?project=01" class="pshell-continue-btn magnetic-btn" aria-label="Open Gibson Ridge Process Breakdown">
+                                <span>PROCESS</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                            <div class="pshell-card-hud-meta">
+                                <span class="hud-tag">GAEA 2.0</span>
+                                <span class="hud-sep">|</span>
+                                <span class="hud-tag">PROCEDURAL</span>
                             </div>
-                            <p class="project-desc-text">
-                                A meticulously crafted, cluttered mechanic's garage. This environment study heavily focuses on environmental storytelling, intricate prop placement, and realistic wear-and-tear texturing. Assets were optimized for real-time engines, featuring custom high-to-low poly bakes, complex material layering for oil, rust, and dust, alongside cinematic lighting setups.
+                        </div>
+
+                        <!-- Borderless 3D Floating Window Image Wrapper with Sci-Fi HUD Corners -->
+                        <div class="pshell-img-wrap">
+                            <!-- Delicate Sci-Fi HUD Corner Brackets -->
+                            <div class="hud-bracket hud-bracket-tl"></div>
+                            <div class="hud-bracket hud-bracket-tr"></div>
+                            <div class="hud-bracket hud-bracket-bl"></div>
+                            <div class="hud-bracket hud-bracket-br"></div>
+
+                            <img src="assets/images/gibson-ridge.webp"
+                                 alt="Gibson Ridge — Desert Environment Render"
+                                 class="pshell-img" draggable="false" loading="lazy" decoding="async" data-lightbox
+                                 onerror="this.onerror=null;this.src='assets/images/gibson-ridge.jpg';">
+
+                            <!-- Dark vignette -->
+                            <div class="pshell-vignette"></div>
+
+                            <!-- Inactive dimmer overlay -->
+                            <div class="pshell-dimmer"></div>
+                        </div>
+
+                        <!-- 3D Floating Info panel with HUD Accents -->
+                        <div class="pshell-info">
+                            <!-- Description -->
+                            <p class="pshell-desc">
+                                A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze. The scene balances procedural Gaea terrain generation with hand-authored desert vegetation assets for a grounded, real-time composition.
                             </p>
                         </div>
+                    </article>
 
-                        <!-- Software Strip -->
-                        <div class="software-strip">
-                            <div class="software-label">[SOFTWARE]</div>
-                            <div class="software-tags">
-                                <!-- Unreal Engine 5 -->
-                                <div class="software-logo-tag" title="Unreal Engine 5">
-                                    <svg viewBox="0 0 24 24" class="sw-logo"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                                    <span>UE5</span>
-                                </div>
-                                <!-- Blender -->
-                                <div class="software-logo-tag" title="Blender">
-                                    <svg viewBox="0 0 24 24" class="sw-logo"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/></svg>
-                                    <span>BLENDER</span>
-                                </div>
-                                <!-- Substance Painter -->
-                                <div class="software-logo-tag" title="Substance Painter">
-                                    <svg viewBox="0 0 24 24" class="sw-logo"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-                                    <span>SUBSTANCE</span>
-                                </div>
-                                <!-- Marmoset Toolbag -->
-                                <div class="software-logo-tag" title="Marmoset Toolbag 5">
-                                    <svg viewBox="0 0 24 24" class="sw-logo"><polygon points="12,2 22,8 22,16 12,22 2,16 2,8"/><polygon points="12,6 18,9.5 18,14.5 12,18 6,14.5 6,9.5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
-                                    <span>MARMOSET</span>
-                                </div>
+                    <!-- ── CARD 02 ── -->
+                    <article class="pshell-card" data-pshell-index="1" role="listitem" aria-label="Project 02 — Simon's Garage">
+
+                        <!-- Project Name with PROCESS button and HUD tag -->
+                        <div class="pshell-card-header">
+                            <h3 class="pshell-card-name">SIMON'S GARAGE</h3>
+                            <a href="project-breakdown.html?project=02" class="pshell-continue-btn magnetic-btn" aria-label="Open Simon's Garage Process Breakdown">
+                                <span>PROCESS</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </a>
+                            <div class="pshell-card-hud-meta">
+                                <span class="hud-tag">LUMEN RT</span>
+                                <span class="hud-sep">|</span>
+                                <span class="hud-tag">420K TRIS</span>
                             </div>
                         </div>
 
+                        <div class="pshell-img-wrap">
+                            <!-- Delicate Sci-Fi HUD Corner Brackets -->
+                            <div class="hud-bracket hud-bracket-tl"></div>
+                            <div class="hud-bracket hud-bracket-tr"></div>
+                            <div class="hud-bracket hud-bracket-bl"></div>
+                            <div class="hud-bracket hud-bracket-br"></div>
+
+                            <img src="assets/images/simons-garage.webp"
+                                 alt="Simon's Garage — 3D Environment Render"
+                                 class="pshell-img" draggable="false" loading="lazy" decoding="async" data-lightbox
+                                 onerror="this.onerror=null;this.src='assets/images/simons-garage.jpg';">
+
+                            <div class="pshell-vignette"></div>
+                            <div class="pshell-dimmer"></div>
+                        </div>
+
+                        <div class="pshell-info">
+                            <p class="pshell-desc">
+                                A meticulously crafted mechanic's garage environment. This environment study focuses on environmental storytelling, intricate prop placement, and realistic wear-and-tear texturing. Assets feature high-to-low poly bakes, complex material layering for oil, rust and dust, alongside cinematic lighting setups.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- ── CARD 03 ── -->
+                    <article class="pshell-card" data-pshell-index="2" role="listitem" aria-label="Project 03 — Cyberpunk Alley">
+
+                        <!-- Project Name with HUD tag -->
+                        <div class="pshell-card-header">
+                            <h3 class="pshell-card-name">CYBERPUNK ALLEY</h3>
+                            <div class="pshell-card-hud-meta">
+                                <span class="hud-tag">NIGHT SHADER</span>
+                                <span class="hud-sep">|</span>
+                                <span class="hud-tag">PBR UDIM</span>
+                            </div>
+                        </div>
+
+                        <div class="pshell-img-wrap">
+                            <!-- Delicate Sci-Fi HUD Corner Brackets -->
+                            <div class="hud-bracket hud-bracket-tl"></div>
+                            <div class="hud-bracket hud-bracket-tr"></div>
+                            <div class="hud-bracket hud-bracket-bl"></div>
+                            <div class="hud-bracket hud-bracket-br"></div>
+
+                            <!-- Awaiting publication placeholder -->
+                            <div class="pshell-pending">
+                                <span class="pshell-pending-badge">STATUS: IN QUEUE</span>
+                                <span class="pshell-pending-text">AWAITING PUBLICATION</span>
+                                <span class="pshell-pending-sub">FULL BREAKDOWN WILL BE AVAILABLE AFTER RELEASE</span>
+                            </div>
+
+                            <div class="pshell-vignette"></div>
+                            <div class="pshell-dimmer"></div>
+                        </div>
+
+                        <div class="pshell-info">
+                            <p class="pshell-desc">
+                                A rain-drenched sci-fi alleyway with high-density neon light reflections, modular cable bundles, wet asphalt shaders, and cinematic volumetric fog. Every material was hand-authored using Substance Painter with custom PBR layering.
+                            </p>
+                        </div>
+                    </article>
+
+                </div><!-- /pshell-track -->
+
+                <!-- Navigation arrows: stylish white SCI-FI arrows with tech brackets -->
+                <button class="pshell-side-arrow pshell-side-arrow-prev" id="pshell-prev" aria-label="Previous project">
+                    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor">
+                        <!-- Primary sharp sci-fi chevron -->
+                        <path d="M26 8 L14 20 L26 32" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
+                        <!-- Secondary tech accent line -->
+                        <path d="M30 12 L22 20 L30 28" stroke-width="1.2" opacity="0.4" stroke-linecap="square"/>
+                        <!-- Center tech tick -->
+                        <line x1="8" y1="20" x2="13" y2="20" stroke-width="2" stroke-linecap="square"/>
+                    </svg>
+                </button>
+                <button class="pshell-side-arrow pshell-side-arrow-next" id="pshell-next" aria-label="Next project">
+                    <svg viewBox="0 0 40 40" fill="none" stroke="currentColor">
+                        <!-- Primary sharp sci-fi chevron -->
+                        <path d="M14 8 L26 20 L14 32" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
+                        <!-- Secondary tech accent line -->
+                        <path d="M10 12 L18 20 L10 28" stroke-width="1.2" opacity="0.4" stroke-linecap="square"/>
+                        <!-- Center tech tick -->
+                        <line x1="27" y1="20" x2="32" y2="20" stroke-width="2" stroke-linecap="square"/>
+                    </svg>
+                </button>
+
+            </div><!-- /pshell-track-outer -->
+
+        </section>
+
+        <!-- ================================================================
+             SKILLS — percentage of skills utilisation
+             ================================================================ -->
+        <section id="skills" class="skills-section">
+            <div class="skills-inner reveal">
+
+                <h2 class="skills-title title-reveal">SKILLS</h2>
+
+                <div class="skills-header">
+                    <span class="skills-header-deco"></span>
+                    % PERCENTAGE OF SKILLS UTILISATION %
+                    <span class="skills-header-deco"></span>
+                </div>
+
+                <div class="skills-grid">
+
+                    <!-- Skill 1 -->
+                    <div class="skill-item">
+                        <div class="skill-left">
+                            <span class="skill-bracket">[</span>
+                            <span class="skill-name">MODELING</span>
+                        </div>
+                        <span class="skill-bars skill-bars-active">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</span>
+                        <div class="skill-right">
+                            <span class="skill-percent">100%</span>
+                            <span class="skill-bracket">]</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill 2 -->
+                    <div class="skill-item">
+                        <div class="skill-left">
+                            <span class="skill-bracket">[</span>
+                            <span class="skill-name">UV-MAPPING</span>
+                        </div>
+                        <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||||||||||||||||||||||||||||||||||||||</span><span class="skill-bars-inactive">|||||||||||||||||</span></span>
+                        <div class="skill-right">
+                            <span class="skill-percent">75%</span>
+                            <span class="skill-bracket">]</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill 3 -->
+                    <div class="skill-item">
+                        <div class="skill-left">
+                            <span class="skill-bracket">[</span>
+                            <span class="skill-name">PBR TEXTURING</span>
+                        </div>
+                        <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||||||||||||||||||||||</span><span class="skill-bars-inactive">|||||||||||||||||||||||||||||||||</span></span>
+                        <div class="skill-right">
+                            <span class="skill-percent">55%</span>
+                            <span class="skill-bracket">]</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill 4 -->
+                    <div class="skill-item">
+                        <div class="skill-left">
+                            <span class="skill-bracket">[</span>
+                            <span class="skill-name">BAKING</span>
+                        </div>
+                        <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||||||||||||</span><span class="skill-bars-inactive">|||||||||||||||||||||||||||||||||||||||||||</span></span>
+                        <div class="skill-right">
+                            <span class="skill-percent">37%</span>
+                            <span class="skill-bracket">]</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill 5 -->
+                    <div class="skill-item">
+                        <div class="skill-left">
+                            <span class="skill-bracket">[</span>
+                            <span class="skill-name">LIGHTING</span>
+                        </div>
+                        <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||||||||||||||||||||||||||||||||||||||||</span><span class="skill-bars-inactive">|||||||||||||||</span></span>
+                        <div class="skill-right">
+                            <span class="skill-percent">78%</span>
+                            <span class="skill-bracket">]</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill 6 -->
+                    <div class="skill-item">
+                        <div class="skill-left">
+                            <span class="skill-bracket">[</span>
+                            <span class="skill-name">TERRAIN</span>
+                        </div>
+                        <span class="skill-bars"><span class="skill-bars-active">|||||||||||||||||||||||||||</span><span class="skill-bars-inactive">|||||||||||||||||||||||||||||||||||||||||</span></span>
+                        <div class="skill-right">
+                            <span class="skill-percent">40%</span>
+                            <span class="skill-bracket">]</span>
+                        </div>
                     </div>
 
                 </div>
 
+            </div>
+        </section>
+
+        <!-- ================================================================
+             EXPERIENCE / RESUME
+             ================================================================ -->
+        <section id="experience" class="exp-section">
+            <div class="exp-inner reveal">
+
+                <h2 class="skills-title title-reveal">EXPERIENCE</h2>
+
+                <div class="exp-grid">
+
+                    <article class="exp-item">
+                        <span class="exp-period">2024 — NOW</span>
+                        <h3 class="exp-role">INDEPENDENT 3D ENVIRONMENT ARTIST</h3>
+                        <p class="exp-desc">
+                            Full-cycle production of personal real-time environments. Managed all stages of development from initial blockout and hard-surface asset creation to PBR texturing, lighting, and final scene composition in Unreal Engine 5.
+                        </p>
+                    </article>
+
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- PRIMARY TOOLS SECTION — hidden for now -->
+        <section id="tools" class="tools-section" style="display:none;" aria-hidden="true">
+            <div class="tools-inner reveal">
+                <div class="tools-heading">
+                    <h2 class="tools-title">PRIMARY <span>TOOLS</span></h2>
+                </div>
+
+                <div class="tools-container">
+                    <div class="tools-group">
+                        <span class="tool-name">SUBSTANCE PAINTER</span>
+                        <span class="tool-divider">—</span>
+                        <span class="tool-name">SUBSTANCE DESIGNER</span>
+                    </div>
+                    <div class="tools-group">
+                        <span class="tool-name">BLENDER</span>
+                        <span class="tool-divider">—</span>
+                        <span class="tool-name">UNREAL ENGINE 5</span>
+                        <span class="tool-divider">—</span>
+                        <span class="tool-name">GAEA</span>
+                    </div>
+                    <div class="tools-group">
+                        <span class="tool-name">ADOBE PHOTOSHOP</span>
+                        <span class="tool-divider">—</span>
+                        <span class="tool-name">ADOBE AFTEREFFECTS</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -340,7 +502,7 @@
 
             <div class="contact-inner reveal">
 
-                <h2 class="contact-title">
+                <h2 class="contact-title title-reveal">
                     TIME TO CREATE <span>TOGETHER</span>
                 </h2>
 
@@ -348,10 +510,9 @@
                     NEED AN ARTIST WHO CAN BUILD STUNNING 3D ENVIRONMENTS AND HANDLE COMPLEX PIPELINES? MY WORK IS RIGHT IN FRONT OF YOU. CLICK BELOW AND LET US MAKE SOMETHING GREAT.
                 </p>
 
-                <a href="mailto:hello@example.com" class="contact-cta">
-                    <span class="contact-cta-icon">◈</span>
+                <!-- Modernized Sharp CONTACT CTA -->
+                <a href="https://linktr.ee/juissuri" target="_blank" rel="noopener noreferrer" class="contact-cta magnetic-btn" id="main-contact-btn" aria-label="Contact me">
                     <span class="contact-cta-text">CONTACT</span>
-                    <span class="contact-cta-icon">◈</span>
                     <div class="contact-cta-scanline"></div>
                 </a>
             </div>
@@ -363,31 +524,27 @@
 
             <!-- Footer Logo -->
             <div class="footer-logo-group">
-                <div id="footer-logo" class="logo logo-container" title="Click to interact">
-                    <svg class="logo-svg"><use href="#logo-laptop"/></svg>
+                <div class="logo logo--text-only" aria-label="JUI">
                     <span class="logo-text">JUI</span>
                 </div>
             </div>
 
-            <!-- Copyright & Languages -->
-            <div class="footer-copyright-group">
-                <div class="footer-copyright">
-                    &copy; 2026 3D ENVIRONMENT ARTIST. ALLE SYSTEME FUNKTIONSF&Auml;HIG.
-                </div>
-                <div class="footer-languages">
-                    LANGUAGES: RUSSIAN (NATIVE), UKRAINIAN (NATIVE), ENGLISH (INTERMEDIATE), GERMAN (A1&ndash;B2)
-                </div>
+            <!-- Single Row Horizontal Social Links -->
+            <div class="social-links">
+                <a href="https://www.instagram.com/juissuri/" target="_blank" rel="noopener noreferrer" class="social-link">INSTAGRAM</a>
+                <span class="social-sep">/</span>
+                <a href="https://x.com/juissuri" target="_blank" rel="noopener noreferrer" class="social-link">X/TWITTER</a>
+                <span class="social-sep">/</span>
+                <a href="https://t.me/juissuri" target="_blank" rel="noopener noreferrer" class="social-link">TELEGRAM</a>
+                <span class="social-sep">/</span>
+                <a href="https://www.artstation.com/juissuri" target="_blank" rel="noopener noreferrer" class="social-link">ARTSTATION</a>
             </div>
 
-            <!-- Social Links -->
-            <div class="social-links">
-                <a href="https://www.instagram.com/juissuri/" target="_blank" class="social-link">INSTAGRAM</a>
-                <span class="social-sep">/</span>
-                <a href="https://x.com/juissuri" target="_blank" class="social-link">X/TWITTER</a>
-                <span class="social-sep">/</span>
-                <a href="https://t.me/juissuri" target="_blank" class="social-link">TELEGRAM</a>
-                <span class="social-sep">/</span>
-                <a href="https://www.artstation.com/juissurri" target="_blank" class="social-link">ARTSTATION</a>
+            <!-- Updated Copyright Text -->
+            <div class="footer-copyright-group">
+                <div class="footer-copyright">
+                    Copyright &copy; 2026 Lytvin Daria. Designed and developed by the creator. All rights reserved.
+                </div>
             </div>
 
             <!-- Note -->
@@ -397,8 +554,63 @@
         </div>
     </footer>
 
-    <audio id="bg-audio" loop preload="auto" src="assets/music/consolidated.mp3"></audio>
+    <!-- Sci-Fi ID Card 'About Me' Modal Window -->
+    <div class="about-modal" id="about-modal" aria-hidden="true" role="dialog" aria-labelledby="about-modal-title">
+        <div class="about-modal-backdrop" id="about-modal-backdrop"></div>
+        <div class="id-card-container">
+            <div class="id-card-header">
+                <button class="id-card-close" id="about-modal-close" type="button" aria-label="Close About Me modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="id-card-body">
+                <!-- Profile Photo -->
+                <div class="id-card-photo-wrapper">
+                    <img src="assets/images/JUIS.webp" alt="Profile" id="about-profile-img" class="id-card-photo"
+                         onerror="this.onerror=null;this.src='assets/images/JUIS.png';">
+                    <div class="id-card-photo-frame"></div>
+                    <div class="id-card-photo-overlay"></div>
+                </div>
 
+                <!-- Personal Info & Bio -->
+                <div class="id-card-info">
+                    <div class="id-card-field-group">
+                        <div class="id-card-field">
+                            <span class="id-label">NAME:</span>
+                            <span class="id-value">Daria Lytvin</span>
+                        </div>
+                        <div class="id-card-field">
+                            <span class="id-label">AGE:</span>
+                            <span class="id-value">19</span>
+                        </div>
+                        <div class="id-card-field">
+                            <span class="id-label">LOCATION:</span>
+                            <span class="id-value">Germany</span>
+                        </div>
+                    </div>
+
+                    <div class="id-card-section">
+                        <span class="id-label">Languages:</span>
+                        <div class="id-languages-text">
+                            Russian (native), Ukrainian (native), English (intermediate), German (A1&ndash;B2)
+                        </div>
+                    </div>
+
+                    <div class="id-card-section id-bio-section">
+                        <span class="id-label">Biography:</span>
+                        <div class="id-bio-text">
+                            I create 3D worlds. Cinematic aesthetics are my passion, but I can also easily adapt to a variety of artistic styles and settings. I’m always open to new horizons and a wide range of projects. 🎬 I specialise in creating environments for the games industry and cinematic scenes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lenis Smooth Scroll (local) -->
+    <script src="js/lenis.min.js"></script>
+    <script src="js/lightbox.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

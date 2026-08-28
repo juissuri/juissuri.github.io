@@ -299,50 +299,34 @@ function setupPShellCarousel() {
         }
     });
 
-    /* ── Pointer Drag — enabled for Android swipe fix ── */
-    let isDown = false;
-    let startX = 0;
-    let startScrollLeft = 0;
-    let isDragging = false;
-
-    track.addEventListener('pointerdown', (e) => {
-        // Only left button / touch
-        if (e.button !== 0 && e.pointerType === 'mouse') return;
-        isDown = true;
-        isDragging = false;
+    /* ── Native swipe via CSS scroll-snap (Android fix) ── */
+    // Android Chrome needs explicit touch handling; Lenis is excluded via data-lenis-prevent
+    let touchStartX = 0;
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
         hasDragged = false;
         track.classList.add('is-dragging');
-        startX = e.clientX;
-        startScrollLeft = track.scrollLeft;
-        try { track.setPointerCapture(e.pointerId); } catch(_){}
-    });
-    track.addEventListener('pointermove', (e) => {
-        if (!isDown) return;
-        const dx = e.clientX - startX;
-        if (Math.abs(dx) > 6) isDragging = true;
-        // Allow native vertical scroll to pass through if vertical dominant
-        if (isDragging) {
-            // Prevent text selection and page scroll hijack during horizontal drag
-            if (Math.abs(dx) > 10) e.preventDefault();
-            track.scrollLeft = startScrollLeft - dx;
-        }
-    });
-    const endDrag = (e) => {
-        if (!isDown) return;
-        isDown = false;
+    }, {passive:true});
+    track.addEventListener('touchmove', (e) => {
+        if (Math.abs(e.touches[0].clientX - touchStartX) > 10) hasDragged = true;
+    }, {passive:true});
+    track.addEventListener('touchend', () => {
         track.classList.remove('is-dragging');
-        try { if (e && e.pointerId) track.releasePointerCapture(e.pointerId); } catch(_){}
-        if (isDragging) {
-            hasDragged = true;
-            // Prevent the click that fires after drag from triggering card navigation
-            setTimeout(() => { hasDragged = false; isDragging = false; }, 120);
-        } else {
-            isDragging = false;
-        }
-    };
-    track.addEventListener('pointerup', endDrag);
-    track.addEventListener('pointercancel', endDrag);
-    track.addEventListener('pointerleave', endDrag);
+        // Snap to nearest card after swipe ends (helps Android proximity snap)
+        clearTimeout(track._snapTimer);
+        track._snapTimer = setTimeout(() => {
+            const scrollCenter = track.scrollLeft + track.clientWidth / 2;
+            let closestIdx = 0;
+            let closestDist = Infinity;
+            cards.forEach((c, i) => {
+                const center = c.offsetLeft + c.clientWidth / 2;
+                const dist = Math.abs(center - scrollCenter);
+                if (dist < closestDist) { closestDist = dist; closestIdx = i; }
+            });
+            if (closestIdx !== activeIdx) setActive(closestIdx);
+        }, 80);
+        setTimeout(() => { hasDragged = false; }, 220);
+    }, {passive:true});
 
     /* ── Click handling on cards ── */
     cards.forEach((card, idx) => {

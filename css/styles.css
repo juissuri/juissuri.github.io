@@ -459,7 +459,7 @@ body.dragging{user-select:none;-webkit-user-select:none}
     letter-spacing: 0.3em;
     text-transform: uppercase;
     text-decoration: none;
-    border-radius: 2px;
+    border-radius: 10px;
     transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     white-space: nowrap;
@@ -651,6 +651,18 @@ body.dragging{user-select:none;-webkit-user-select:none}
 /* CONTACT SECTION */
 .contact{padding:8rem 0;position:relative;background:linear-gradient(90deg,#6B7280 0%,#9CA3AF 28%,#D1D5DB 52%,#E5E7EB 76%,#F3F4F6 100%);color:var(--c-black);overflow:hidden}
 .contact-bg{position:absolute;inset:0;opacity:0.07;filter:none;background-image:linear-gradient(to right,rgba(0,0,0,0.08) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,0,0,0.08) 1px,transparent 1px);background-size:50px 50px;display:block}
+.contact--handshake{background:#000000;color:var(--c-white);min-height:76vh;display:flex;align-items:stretch;justify-content:center;padding:0;border-top:none}
+.contact-handshake-bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:#000}
+.contact-handshake-img{width:100%;height:100%;object-fit:cover;object-position:center 68%;filter:grayscale(1) contrast(1.12) brightness(0.92);display:block}
+.contact-handshake-scrim{position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 18%, transparent 32%, transparent 58%, rgba(0,0,0,0.55) 82%, rgba(0,0,0,0.88) 100%), radial-gradient(85% 70% at 50% 68%, transparent 38%, rgba(0,0,0,0.5) 78%)}
+.contact-handshake-grid{position:absolute;inset:0;background-image:linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);background-size:48px 48px;opacity:0.32;mask-image:radial-gradient(70% 60% at 50% 38%, #000 42%, transparent 76%)}
+.contact-handshake-inner{padding:0;max-width:100%;width:100%;min-height:76vh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:0;margin:0 auto;text-align:center}
+.contact--handshake .contact-title{margin:0;padding:1.4rem 1.5rem 0.4rem;font-size:clamp(3rem,8vw,7rem);line-height:0.9;max-width:1100px}
+.contact--handshake .contact-text{display:none !important}
+.contact--handshake .contact-cta{margin:0 0 0.4rem 0}
+.contact--handshake .contact-title{color:#FFFFFF;text-shadow:0 2px 20px rgba(0,0,0,0.65)}
+.contact--handshake .contact-title span{color:rgba(255,255,255,0.92)}
+.contact--handshake .contact-text{color:rgba(255,255,255,0.82);border-color:rgba(255,255,255,0.14);max-width:42rem}
 .contact-inner{max-width:var(--max-w);margin:0 auto;padding:0 1.5rem;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;text-align:center}
 .contact-title{font-family:var(--font-display);font-size:clamp(4rem,12vw,14rem);line-height:1;color:var(--c-black);margin-bottom:2.5rem}
 .contact-title span{color:var(--c-dark-3)}
@@ -729,7 +741,7 @@ body.dragging{user-select:none;-webkit-user-select:none}
 /* FOOTER — HIGH VISIBILITY & CONTRAST */
 .footer {
     background-color: var(--c-black);
-    border-top: 1px solid var(--c-border-mid);
+    border-top: none;
     padding: 4rem 0 3.5rem;
 }
 .footer-inner {
@@ -939,7 +951,7 @@ body.dragging{user-select:none;-webkit-user-select:none}
     .pshell-pending-text{font-size:1.5rem}
     .pshell-pending-badge{font-size:0.58rem}
     /* SKILLS — fix pipes overflow */
-    .skills-section{padding:2.5rem 0 2rem}
+    .skills-section{padding:2rem 0 1.2rem}
     .skills-inner{padding:0 1rem}
     .skills-title{font-size:clamp(2.4rem, 10vw, 3.2rem);margin-bottom:1rem}
     .dossier-header{padding:0.85rem 0.75rem 0.7rem;margin-bottom:1rem}
@@ -956,7 +968,7 @@ body.dragging{user-select:none;-webkit-user-select:none}
     .skill-right{width:3.6rem}
     .skill-percent{font-size:0.82rem}
     /* EXPERIENCE */
-    .exp-section{padding:2.5rem 0 3rem}
+    .exp-section{padding:1.8rem 0 2rem}
     .exp-inner{padding:0 1rem}
     .exp-grid{gap:1.5rem}
     .exp-item{padding-top:1.15rem}
@@ -973,6 +985,12 @@ body.dragging{user-select:none;-webkit-user-select:none}
     .contact-text{font-size:0.78rem;letter-spacing:0.1em;line-height:1.75;padding:1.15rem 0.75rem;margin-bottom:1.75rem}
     .contact-cta{padding:0.95rem 1.5rem;font-size:0.85rem;letter-spacing:0.18em;width:100%;max-width:22rem}
     .contact-cta-text{font-size:0.85rem;letter-spacing:0.16em}
+    .contact--handshake{min-height:58vh}
+    .contact-handshake-inner{min-height:58vh;padding:0;gap:0;max-width:100%;align-items:center;text-align:center;margin:0 auto;justify-content:space-between}
+    .contact--handshake .contact-title{padding:1.2rem 1rem 0.4rem;font-size:clamp(2.4rem,8.5vw,4.2rem);line-height:0.9}
+    .contact--handshake .contact-cta{margin:0 0 0.3rem 0}
+    .contact-handshake-img{object-position:center 68%}
+    .contact-handshake-scrim{background:linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, transparent 32%, transparent 62%, rgba(0,0,0,0.72) 100%), radial-gradient(85% 70% at 50% 68%, transparent 40%, rgba(0,0,0,0.5) 78%)}
     /* FOOTER */
     .footer{padding:2.5rem 0 2rem}
     .footer-inner{padding:0 1rem;gap:1.25rem}
@@ -1050,7 +1068,7 @@ body.dragging{user-select:none;-webkit-user-select:none}
 /* ==========================================================================
    SKILLS SECTION — standalone block after projects
    ========================================================================== */
-.skills-section{padding:6.5rem 0;border-bottom:1px solid var(--c-border);position:relative;overflow:hidden}
+.skills-section{padding:4.5rem 0 3rem;border-bottom:1px solid var(--c-border);position:relative;overflow:hidden}
 .skills-inner{max-width:115rem;margin:0 auto;padding:0 2rem;width:100%}
 .skills-section .skills-header{margin-top:0}
 .skills-title{font-family:var(--font-display);font-size:clamp(4.5rem,9vw,8.5rem);line-height:1;letter-spacing:0.06em;text-align:center;margin:0 0 2rem;background:var(--gradient-orange-strong);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
@@ -1158,7 +1176,7 @@ body.is-preloading{overflow:hidden}
 /* ==========================================================================
    EXPERIENCE / RESUME SECTION
    ========================================================================== */
-.exp-section{padding:6rem 0 7rem;border-bottom:1px solid var(--c-border);position:relative;overflow:hidden}
+.exp-section{padding:3.5rem 0 4.5rem;border-bottom:1px solid var(--c-border);position:relative;overflow:hidden}
 .exp-inner{max-width:90rem;margin:0 auto;padding:0 2rem;width:100%;display:flex;flex-direction:column;align-items:center}
 .exp-grid{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2.5rem;margin-top:1rem}
 .exp-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.85rem;border-top:1px solid var(--c-border-mid);padding-top:1.75rem;max-width:56rem;margin:0 auto;transition:border-color 300ms ease}

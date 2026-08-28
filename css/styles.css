@@ -149,18 +149,10 @@ body.dragging{user-select:none;-webkit-user-select:none}
 .about-me-btn:hover .about-me-glow{box-shadow:0 0 14px rgba(255,255,255,0.18)}
 .typing-cursor{animation:blink 0.9s step-end infinite;color:var(--c-gray-mid)}
 
-/* HERO — warm dark to match orange (not white) */
-.hero{position:relative;min-height:100vh;padding-top:7rem;display:flex;flex-direction:column;justify-content:center;overflow:hidden;border-bottom:1px solid rgba(42,42,42,0.9);background-color:#0A0A0A;background-image:radial-gradient(90% 60% at 50% 0%, rgba(156,163,175,0.11) 0%, transparent 58%), linear-gradient(180deg,#0A0A0A 0%,#141414 55%,#080808 100%)}
-.hero-lines{position:absolute;inset:0;pointer-events:none;display:flex;justify-content:center;z-index:0}
-.hero-line{width:1px;height:100%;background-color:rgba(75,85,99,0.28)}
-.hero.bg-tech-grid{
-    background-size:50px 50px, 50px 50px, auto, auto;
-    background-image:
-        linear-gradient(to right, rgba(156,163,175,0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(156,163,175,0.06) 1px, transparent 1px),
-        radial-gradient(90% 60% at 50% 0%, rgba(156,163,175,0.11) 0%, transparent 58%),
-        linear-gradient(180deg,#0A0A0A 0%,#141414 55%,#080808 100%);
-}
+/* HERO — pure black (grid removed) */
+.hero{position:relative;min-height:100vh;padding-top:7rem;display:flex;flex-direction:column;justify-content:center;overflow:hidden;border-bottom:1px solid var(--c-border);background:#000000}
+.hero-lines{display:none}
+.hero-line{display:none}
 .hero-line-left{position:absolute;left:25%}
 .hero-line-right{position:absolute;right:25%}
 .hero-content{max-width:var(--max-w);margin:0 auto;padding:0 1.5rem;width:100%;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding-bottom:6rem}
@@ -273,11 +265,16 @@ body.dragging{user-select:none;-webkit-user-select:none}
     gap: 2.5vw;
     padding: 1.5rem calc(50vw - min(45vw, 750px));
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     cursor: grab;
     will-change: scroll-position;
+    touch-action: pan-x pan-y;
+    overscroll-behavior-x: contain;
+    -ms-overflow-style: none;
 }
 .pshell-track::-webkit-scrollbar { display: none; }
 .pshell-track.is-dragging { cursor: grabbing; user-select: none; }
@@ -652,12 +649,12 @@ body.dragging{user-select:none;-webkit-user-select:none}
 }
 
 /* CONTACT SECTION */
-.contact{padding:8rem 0;position:relative;background:linear-gradient(90deg,#6B7280 0%,#9CA3AF 28%,#D1D5DB 52%,#E5E7EB 76%,#F3F4F6 100%);color:var(--c-black);overflow:hidden}
-.contact-bg{position:absolute;inset:0;opacity:0.07;filter:none;background-image:linear-gradient(to right,rgba(0,0,0,0.08) 1px,transparent 1px),linear-gradient(to bottom,rgba(0,0,0,0.08) 1px,transparent 1px);background-size:50px 50px}
+.contact{padding:8rem 0;position:relative;background:#000000;color:var(--c-white);overflow:hidden;border-top:1px solid var(--c-border)}
+.contact-bg{display:none}
 .contact-inner{max-width:var(--max-w);margin:0 auto;padding:0 1.5rem;position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;text-align:center}
-.contact-title{font-family:var(--font-display);font-size:clamp(4rem,12vw,14rem);line-height:1;color:var(--c-black);margin-bottom:2.5rem}
-.contact-title span{color:var(--c-dark-3)}
-.contact-text{font-family:var(--font-mono);font-size:clamp(1rem, 1.3vw, 1.22rem);font-weight:700;text-transform:uppercase;letter-spacing:.16em;line-height:1.9;margin-bottom:3.5rem;max-width:78rem;width:100%;color:var(--c-dark-3);border-top:1px solid rgba(0,0,0,0.18);border-bottom:1px solid rgba(0,0,0,0.18);padding:2rem 1.5rem}
+.contact-title{font-family:var(--font-display);font-size:clamp(4rem,12vw,14rem);line-height:1;color:var(--c-white);margin-bottom:2.5rem}
+.contact-title span{color:var(--c-gray-light)}
+.contact-text{font-family:var(--font-mono);font-size:clamp(1rem, 1.3vw, 1.22rem);font-weight:700;text-transform:uppercase;letter-spacing:.16em;line-height:1.9;margin-bottom:3.5rem;max-width:78rem;width:100%;color:var(--c-gray-light);border-top:1px solid rgba(255,255,255,0.14);border-bottom:1px solid rgba(255,255,255,0.14);padding:2rem 1.5rem}
 
 /* MAIN CONTACT CTA */
 .contact-cta {

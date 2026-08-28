@@ -299,14 +299,55 @@ function setupPShellCarousel() {
         }
     });
 
-    /* ── Pointer Drag: DISABLED — arrow-only navigation ── */
-    // Click-and-drag on the carousel track is intentionally disabled.
-    // Users navigate using only the side arrow buttons.
-    // Touch swipe is still allowed for mobile via CSS scroll-snap.
+    /* ── Pointer Drag — enabled for Android swipe fix ── */
+    let isDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let isDragging = false;
+
+    track.addEventListener('pointerdown', (e) => {
+        // Only left button / touch
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        isDown = true;
+        isDragging = false;
+        hasDragged = false;
+        track.classList.add('is-dragging');
+        startX = e.clientX;
+        startScrollLeft = track.scrollLeft;
+        try { track.setPointerCapture(e.pointerId); } catch(_){}
+    });
+    track.addEventListener('pointermove', (e) => {
+        if (!isDown) return;
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > 6) isDragging = true;
+        // Allow native vertical scroll to pass through if vertical dominant
+        if (isDragging) {
+            // Prevent text selection and page scroll hijack during horizontal drag
+            if (Math.abs(dx) > 10) e.preventDefault();
+            track.scrollLeft = startScrollLeft - dx;
+        }
+    });
+    const endDrag = (e) => {
+        if (!isDown) return;
+        isDown = false;
+        track.classList.remove('is-dragging');
+        try { if (e && e.pointerId) track.releasePointerCapture(e.pointerId); } catch(_){}
+        if (isDragging) {
+            hasDragged = true;
+            // Prevent the click that fires after drag from triggering card navigation
+            setTimeout(() => { hasDragged = false; isDragging = false; }, 120);
+        } else {
+            isDragging = false;
+        }
+    };
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('pointerleave', endDrag);
 
     /* ── Click handling on cards ── */
     cards.forEach((card, idx) => {
         card.addEventListener('click', (e) => {
+            if (hasDragged) { e.preventDefault(); return; }
             // If clicking an interactive link or button (like CONTINUE button), let it execute naturally
             if (e.target.closest('a, button')) return;
 

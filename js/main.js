@@ -71,6 +71,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // 5. SCI-FI ID CARD 'ABOUT ME' MODAL SYSTEM
     setupAboutMeModal();
 
+    // 5b. MOBILE BURGER NAV
+    setupMobileNav();
+
     // 6. 'ABOUT ME' TYPING EFFECT
     setupTypingEffect();
 });
@@ -588,6 +591,50 @@ function setupMagneticBrackets() {
     })();
 }
 
+
+function setupMobileNav(){
+    const burger = document.getElementById('nav-burger');
+    const drawer = document.getElementById('nav-drawer');
+    if(!burger || !drawer) return;
+    const close = ()=>{
+        drawer.classList.remove('is-open');
+        burger.setAttribute('aria-expanded','false');
+        drawer.setAttribute('aria-hidden','true');
+    };
+    const open = ()=>{
+        drawer.classList.add('is-open');
+        burger.setAttribute('aria-expanded','true');
+        drawer.setAttribute('aria-hidden','false');
+    };
+    burger.addEventListener('click', ()=>{
+        drawer.classList.contains('is-open') ? close() : open();
+    });
+    drawer.querySelectorAll('a').forEach(a=>{
+        a.addEventListener('click', close);
+    });
+    // Drawer About me -> delegates to main About me modal
+    const drawerAbout = document.getElementById('about-me-btn-drawer');
+    const mainAbout = document.getElementById('about-me-btn');
+    if(drawerAbout && mainAbout){
+        drawerAbout.addEventListener('click', ()=>{
+            close();
+            // small delay so drawer close anim completes before modal opens
+            setTimeout(()=> mainAbout.click(), 180);
+        });
+    }
+    document.addEventListener('click', (e)=>{
+        if(!drawer.contains(e.target) && !burger.contains(e.target) && drawer.classList.contains('is-open')){
+            close();
+        }
+    });
+    document.addEventListener('keydown', (e)=>{
+        if(e.key==='Escape' && drawer.classList.contains('is-open')) close();
+    });
+    // close on resize to desktop
+    window.addEventListener('resize', ()=>{
+        if(window.innerWidth>860 && drawer.classList.contains('is-open')) close();
+    });
+}
 
 /* ==========================================================================
    ACTIVE SECTION NAV HIGHLIGHT

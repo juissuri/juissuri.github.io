@@ -11,9 +11,6 @@ const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 const FINE_POINTER = window.matchMedia('(pointer: fine)').matches;
 
 document.addEventListener("DOMContentLoaded", function() {
-    // 0. TERMINAL PRELOADER
-    setupPreloader();
-
     // 0b. LENIS SMOOTH SCROLL
     setupLenis();
 
@@ -37,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // 1b. HERO SUBHEADER DECODE EFFECT
     setupDecodeEffect();
 
+    // 2b. CONTACT SPOTLIGHT (premium)
+    setupContactSpotlight();
+
     // 2. TOP SCROLL PROGRESS BAR
     const progressBar = document.getElementById('scroll-progress');
     if (progressBar) {
@@ -52,15 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 4. PROJECT SHELL CAROUSEL
     setupPShellCarousel();
-
-    // 4b. IMAGE PARALLAX
-    setupImageParallax();
-
-    // 4c. MAGNETIC HUD BRACKETS
-    setupMagneticBrackets();
-
-    // 4d. 3D TILT ON ACTIVE CARD
-    setupCardTilt();
 
     // 4e. ACTIVE SECTION NAV HIGHLIGHT
     setupNavHighlight();
@@ -79,59 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-/* ==========================================================================
-   TERMINAL PRELOADER
-   ========================================================================== */
-function setupPreloader() {
-    const preloader = document.getElementById('preloader');
-    if (!preloader) { document.body.classList.remove('is-preloading'); return; }
-
-    const barEl = document.getElementById('preloader-bar');
-    const percentEl = document.getElementById('preloader-percent');
-
-    if (REDUCED_MOTION) {
-        preloader.classList.add('done');
-        document.body.classList.remove('is-preloading');
-        setTimeout(() => preloader.remove(), 800);
-        return;
-    }
-
-    // Progress 0 -> 100
-    const DURATION = 1800;
-    const start = performance.now();
-
-    function frame(now) {
-        const progress = Math.min(1, (now - start) / DURATION);
-        const eased = 1 - Math.pow(1 - progress, 2);
-        const percent = Math.round(eased * 100);
-        barEl.style.width = `${percent}%`;
-        percentEl.textContent = `${percent}%`;
-
-        if (progress < 1) {
-            requestAnimationFrame(frame);
-        } else {
-            setTimeout(() => {
-                preloader.classList.add('done');
-                document.body.classList.remove('is-preloading');
-                if (window.__lenis) window.__lenis.start();
-                setTimeout(() => preloader.remove(), 900);
-            }, 300);
-        }
-    }
-
-    if (window.__lenis) window.__lenis.stop();
-    requestAnimationFrame(frame);
-
-    // Failsafe: never let the preloader trap the page
-    setTimeout(() => {
-        if (document.body.contains(preloader) && !preloader.classList.contains('done')) {
-            preloader.classList.add('done');
-            document.body.classList.remove('is-preloading');
-            if (window.__lenis) window.__lenis.start();
-            setTimeout(() => preloader.remove(), 900);
-        }
-    }, 5000);
-}
+/* TERMINAL PRELOADER — removed for minimalism (instant display) */
 
 
 /* ==========================================================================
@@ -432,6 +371,24 @@ function setupMagneticButtons() {
 }
 
 
+/* CONTACT premium spotlight — follows cursor */
+function setupContactSpotlight(){
+    const btn=document.getElementById('main-contact-btn');
+    if(!btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if(!window.matchMedia('(pointer:fine)').matches) return;
+    btn.addEventListener('mousemove', (e)=>{
+        const r=btn.getBoundingClientRect();
+        const x=((e.clientX-r.left)/r.width)*100;
+        const y=((e.clientY-r.top)/r.height)*100;
+        btn.style.setProperty('--mx', x+'%');
+        btn.style.setProperty('--my', y+'%');
+    });
+    btn.addEventListener('mouseleave', ()=>{
+        btn.style.setProperty('--mx','50%');
+        btn.style.setProperty('--my','50%');
+    });
+}
+
 /* ==========================================================================
    'ABOUT ME' TYPING EFFECT
    ========================================================================== */
@@ -481,6 +438,18 @@ function setupTypingEffect() {
     }
 
     setTimeout(tick, HOLD_MS);
+
+    // Variant A — hover scramble for About Me (desktop only, during hold phase)
+    const aboutBtnHover = document.getElementById('about-me-btn');
+    if (aboutBtnHover && FINE_POINTER && !REDUCED_MOTION) {
+        aboutBtnHover.addEventListener('mouseenter', () => {
+            if (typingText.dataset.scrambling) return;
+            const curPhrase = PHRASES[phraseIdx];
+            if (typingText.textContent === curPhrase) {
+                scrambleText(typingText, 420);
+            }
+        });
+    }
 }
 
 
@@ -551,70 +520,7 @@ function setupDecodeEffect() {
 }
 
 
-/* ==========================================================================
-   IMAGE PARALLAX — project renders drift on scroll
-   ========================================================================== */
-function setupImageParallax() {
-    if (REDUCED_MOTION) return;
-
-    const imgs = Array.from(document.querySelectorAll('.pshell-card .pshell-img'));
-    if (!imgs.length) return;
-
-    function update() {
-        imgs.forEach(img => {
-            const rect = img.parentElement.getBoundingClientRect();
-            if (rect.bottom < -150 || rect.top > window.innerHeight + 150) return;
-
-            const progress = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
-            const y = progress * -42;
-            img.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0) scale(1.15)`;
-        });
-        requestAnimationFrame(update);
-    }
-
-    update();
-}
-
-
-/* ==========================================================================
-   MAGNETIC HUD BRACKETS — card corners gravitate toward the cursor
-   ========================================================================== */
-function setupMagneticBrackets() {
-    if (REDUCED_MOTION || !FINE_POINTER) return;
-
-    const track = document.getElementById('pshell-track');
-    if (!track) return;
-
-    let mouseX = -9999, mouseY = -9999;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    (function loop() {
-        const brackets = track.querySelectorAll('.pshell-card.is-active .hud-bracket');
-        const radius = 150;
-
-        brackets.forEach(bracket => {
-            const rect = bracket.getBoundingClientRect();
-            const cx = rect.left + rect.width / 2;
-            const cy = rect.top + rect.height / 2;
-            const dx = mouseX - cx;
-            const dy = mouseY - cy;
-            const dist = Math.hypot(dx, dy) || 1;
-
-            if (dist < radius) {
-                const pull = (1 - dist / radius) * 12;
-                bracket.style.transform = `translate(${(dx / dist * pull).toFixed(1)}px, ${(dy / dist * pull).toFixed(1)}px)`;
-            } else {
-                bracket.style.transform = '';
-            }
-        });
-
-        requestAnimationFrame(loop);
-    })();
-}
+/* IMAGE PARALLAX + MAGNETIC BRACKETS removed for minimalism */
 
 
 function setupMobileNav(){
@@ -712,47 +618,4 @@ function setupTitleReveal() {
 }
 
 
-/* ==========================================================================
-   3D TILT — active project card leans toward the cursor
-   ========================================================================== */
-function setupCardTilt() {
-    if (REDUCED_MOTION || !FINE_POINTER) return;
-
-    const track = document.getElementById('pshell-track');
-    if (!track) return;
-
-    let targetRX = 0, targetRY = 0, curRX = 0, curRY = 0;
-
-    const getWrap = () => track.querySelector('.pshell-card.is-active .pshell-img-wrap');
-
-    document.addEventListener('mousemove', (e) => {
-        const wrap = getWrap();
-        if (!wrap) { targetRX = 0; targetRY = 0; return; }
-
-        const rect = wrap.getBoundingClientRect();
-        const inside = e.clientX > rect.left - 80 && e.clientX < rect.right + 80 &&
-                       e.clientY > rect.top - 80 && e.clientY < rect.bottom + 80;
-
-        if (inside) {
-            const px = (e.clientX - rect.left) / rect.width - 0.5;
-            const py = (e.clientY - rect.top) / rect.height - 0.5;
-            targetRY = px * 6;
-            targetRX = -py * 6;
-        } else {
-            targetRX = 0;
-            targetRY = 0;
-        }
-    });
-
-    (function loop() {
-        curRX += (targetRX - curRX) * 0.08;
-        curRY += (targetRY - curRY) * 0.08;
-
-        const wrap = getWrap();
-        if (wrap) {
-            wrap.style.transform = `perspective(1200px) rotateX(${curRX.toFixed(2)}deg) rotateY(${curRY.toFixed(2)}deg)`;
-        }
-
-        requestAnimationFrame(loop);
-    })();
-}
+/* 3D TILT removed for minimalism */

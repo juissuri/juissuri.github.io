@@ -83,31 +83,31 @@
         .process-block:last-child { margin-bottom: 0; }
 
         .process-head {
-            max-width: 830px;
-            margin: 0 auto 2.5rem;
+            max-width: 980px;
+            margin: 0 auto 2.8rem;
             text-align: center;
         }
         .process-name {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+            font-size: clamp(1.9rem, 2.8vw, 2.6rem);
             font-weight: 700;
             letter-spacing: -0.01em;
             color: #FFFFFF;
             line-height: 1.25;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
         .process-text {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.92rem;
-            line-height: 1.6;
+            font-size: 1.08rem;
+            line-height: 1.75;
             color: #B0B0B5;
-            max-width: 520px;
+            max-width: 760px;
             margin: 0 auto;
         }
         .process-text + .process-text { margin-top: 0.75rem; }
 
         .process-media {
-            max-width: 830px;
+            max-width: 1080px;
             margin: 0 auto;
             aspect-ratio: 16 / 7.5;
             background: linear-gradient(110deg, #212124 0%, #26262a 50%, #212124 100%);
@@ -119,6 +119,31 @@
         @keyframes mediaWait {
             from { background-position: 0% 50%; }
             to   { background-position: 100% 50%; }
+        }
+        .process-media--reference{
+            max-width:1120px;
+            aspect-ratio:auto;
+            background:none;
+            border:none;
+            animation:none;
+            height:auto;
+            overflow:hidden;
+            border-radius:18px;
+        }
+        .process-media--reference img{
+            display:block;
+            width:100%;
+            height:auto;
+            border-radius:18px;
+            border:1px solid rgba(255,255,255,0.06);
+            background:#1E1E20;
+            cursor:zoom-in;
+            transition:transform 200ms ease, filter 200ms ease, border-color 200ms ease;
+        }
+        .process-media--reference img:hover{
+            transform:scale(1.005);
+            filter:brightness(1.04);
+            border-color:rgba(255,255,255,0.12);
         }
 
         @media (max-width: 720px) {
@@ -152,12 +177,15 @@
 
         <article class="process-block">
             <div class="process-head">
-                <h2 class="process-name">Modeling.</h2>
+                <h2 class="process-name">Reference.</h2>
                 <div>
-                    <p class="process-text">The first stage of creating a 3D model. Every asset starts as a clean blockout where scale, proportions and silhouette are established before any detail is added.</p>
+                    <p class="process-text">The project starts with gathering references — real-world desert outposts, terrain silhouettes, material samples and lighting moods. Boards are organized by Main Focus, Landscape, Render / Light / Atmosphere, Assets Detail, Texture and Organic elements to define the visual direction before modeling begins.</p>
                 </div>
             </div>
-            <div class="process-media"></div>
+            <div class="process-media process-media--reference">
+                <img src="assets/images/reference-gibson.jpg" alt="Gibson Ridge — Reference board: Main Focus, Assets Detail, Texture, Organic" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="process-media-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem;">Add reference image to<br>assets/images/reference-gibson.jpg</div>
+            </div>
         </article>
 
         <article class="process-block">
@@ -187,7 +215,10 @@
                     <p class="process-text">All assets are imported into Unreal Engine, where the scene comes together — placement, lighting setup, post-process volumes and camera work define the mood of the environment.</p>
                 </div>
             </div>
-            <div class="process-media"></div>
+            <div class="process-media process-media--reference">
+                <img src="assets/images/scene-setup.jpg" alt="Scene Setup — Unreal Engine viewport with desert outpost, point lights and PostProcessVolume" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="process-media-fallback" style="display:none; width:100%; height:100%; min-height:220px; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem; border:1px dashed rgba(255,255,255,0.08); border-radius:18px; background:rgba(255,255,255,0.02)">Add scene image to<br>assets/images/scene-setup.jpg</div>
+            </div>
         </article>
 
         <article class="process-block">
@@ -237,5 +268,6 @@
             document.getElementById('process-title').textContent = data.title;
         })();
     </script>
+    <script src="js/lightbox.js"></script>
 </body>
 </html>

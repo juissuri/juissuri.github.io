@@ -56,18 +56,24 @@
             <div class="navbar-center">
                 <button class="about-me-btn magnetic-btn" id="about-me-btn" type="button" aria-label="Open About Me Profile">
                     <span class="about-me-glow"></span>
-                    <span class="about-me-text" id="typing-text">About me</span><span class="typing-cursor">_</span>
+                    <span class="about-me-text" id="typing-text" data-i18n="nav_about">About me</span><span class="typing-cursor">_</span>
                 </button>
             </div>
 
             <!-- Right Navigation -->
             <div class="navbar-right">
                 <div class="nav-links">
-                    <a href="#projects" class="nav-link">PROJECTS</a>
+                    <a href="#projects" class="nav-link" data-i18n="nav_projects">PROJECTS</a>
                     <span class="nav-pipe">|</span>
-                    <a href="#experience" class="nav-link">EXPERIENCE</a>
+                    <a href="#experience" class="nav-link" data-i18n="nav_experience">EXPERIENCE</a>
                     <span class="nav-pipe">|</span>
-                    <a href="#contact" class="nav-link">CONTACT</a>
+                    <a href="#contact" class="nav-link" data-i18n="nav_contact">CONTACT</a>
+                </div>
+                <div class="lang-switch" role="group" aria-label="Language">
+                    <button type="button" class="lang-btn is-active" data-lang="en" aria-label="English">EN</button>
+                    <button type="button" class="lang-btn" data-lang="de" aria-label="Deutsch">DE</button>
+                    <button type="button" class="lang-btn" data-lang="ru" aria-label="Русский">RU</button>
+                    <button type="button" class="lang-btn" data-lang="uk" aria-label="Українська">UA</button>
                 </div>
             </div>
 
@@ -77,10 +83,16 @@
         </div>
 
         <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
-            <a href="#projects" class="nav-drawer-link">PROJECTS</a>
-            <a href="#experience" class="nav-drawer-link">EXPERIENCE</a>
-            <a href="#contact" class="nav-drawer-link">CONTACT</a>
-            <button class="about-me-btn about-me-btn--drawer" id="about-me-btn-drawer" type="button">About me<span class="typing-cursor">_</span></button>
+            <a href="#projects" class="nav-drawer-link" data-i18n="nav_projects">PROJECTS</a>
+            <a href="#experience" class="nav-drawer-link" data-i18n="nav_experience">EXPERIENCE</a>
+            <a href="#contact" class="nav-drawer-link" data-i18n="nav_contact">CONTACT</a>
+            <button class="about-me-btn about-me-btn--drawer" id="about-me-btn-drawer" type="button"><span data-i18n="nav_about">About me</span><span class="typing-cursor">_</span></button>
+            <div class="lang-switch lang-switch--drawer" role="group" aria-label="Language">
+                <button type="button" class="lang-btn is-active" data-lang="en">EN</button>
+                <button type="button" class="lang-btn" data-lang="de">DE</button>
+                <button type="button" class="lang-btn" data-lang="ru">RU</button>
+                <button type="button" class="lang-btn" data-lang="uk">UA</button>
+            </div>
         </div>
     </nav>
 
@@ -105,7 +117,7 @@
                     <!-- Sub Header — moved below title -->
                     <div class="hero-subheader">
                         <span class="hero-line-deco"></span>
-                        <span class="hero-subheader-text">COMPUTER GENERATED IMAGERY</span>
+                        <span class="hero-subheader-text" data-i18n="hero_subheader">COMPUTER GENERATED IMAGERY</span>
                         <span class="hero-line-deco"></span>
                     </div>
 
@@ -115,7 +127,7 @@
             </div><!-- /hero-content -->
 
             <a href="#about-me" class="hero-scroll" aria-label="Scroll down">
-                <span class="hero-scroll-text">SCROLL DOWN</span>
+                <span class="hero-scroll-text" data-i18n="hero_scroll">SCROLL DOWN</span>
             </a>
         </section>
 
@@ -134,24 +146,24 @@
         <section id="about-me" class="about-me-section">
             <div class="about-me-inner reveal">
                 <div class="about-me-text-col">
-                    <h2 class="about-me-title">ABOUT ME</h2>
+                    <h2 class="about-me-title" data-i18n="about_title">ABOUT ME</h2>
                     <div class="about-me-email">juissuri@gmail.com</div>
-                    <p class="about-me-bio">
+                    <p class="about-me-bio" data-i18n="about_bio">
                         3D Environment Artist with a passion for cinematic aesthetics and large-scale world-building. Specializing in asset creation, UV mapping, PBR texturing, lighting, and scene composition. Always open to new horizons and a wide range of projects.
                     </p>
                     <div class="about-me-details">
                         <div class="about-me-detail">
-                            <span class="about-me-detail-label">AGE</span>
+                            <span class="about-me-detail-label" data-i18n="about_age_label">AGE</span>
                             <span class="about-me-detail-value">19</span>
                         </div>
                         <span class="about-me-detail-sep">/</span>
                         <div class="about-me-detail">
-                            <span class="about-me-detail-label">LOCATION</span>
-                            <span class="about-me-detail-value">Germany</span>
+                            <span class="about-me-detail-label" data-i18n="about_location_label">LOCATION</span>
+                            <span class="about-me-detail-value" data-i18n="about_location_value">Germany</span>
                         </div>
                         <span class="about-me-detail-sep">/</span>
                         <div class="about-me-detail">
-                            <span class="about-me-detail-label">LANGUAGES</span>
+                            <span class="about-me-detail-label" data-i18n="about_languages_label">LANGUAGES</span>
                             <span class="about-me-detail-value">RU · UA · EN · DE</span>
                         </div>
                     </div>
@@ -171,32 +183,83 @@
         <section id="projects" class="pshell-section pshell-section--files">
             <div class="files-directory reveal">
                 <div class="files-directory-header">
-                    <h2 class="pshell-title title-reveal">PROJECT FILES</h2>
+                    <h2 class="pshell-title title-reveal" data-i18n="projects_title">PROJECT FILES</h2>
                 </div>
                 <div class="files-list">
-                    <a href="project-view.html?id=01" class="file-row" aria-label="Open Gibson Ridge">
-                        <span class="file-num">01</span>
-                        <span class="file-name">GIBSON RIDGE</span>
-                        <span class="file-meta">Desert Outpost — 2026</span>
-                        <span class="file-preview" aria-hidden="true"><img src="assets/images/PROJECT1.jpeg" alt="" loading="lazy"></span>
-                        <span class="file-arrow">→</span>
-                    </a>
-                    <a href="project-view.html?id=02" class="file-row" aria-label="Open Simon's Garage">
-                        <span class="file-num">02</span>
-                        <span class="file-name">SIMON'S GARAGE</span>
-                        <span class="file-meta">Interior — 2026</span>
-                        <span class="file-preview" aria-hidden="true"><img src="assets/images/simons-garage.webp" alt="" loading="lazy"></span>
-                        <span class="file-arrow">→</span>
-                    </a>
-                    <a href="project-view.html?id=03" class="file-row" aria-label="Open Mountains">
-                        <span class="file-num">03</span>
-                        <span class="file-name">MOUNTAINS</span>
-                        <span class="file-meta">Environment — 2026</span>
-                        <span class="file-preview" aria-hidden="true"><img src="assets/images/hero-waves.jpg" alt="" loading="lazy"></span>
-                        <span class="file-arrow">→</span>
-                    </a>
+                    <div class="file-row-wrap">
+                        <div class="file-row-main">
+                            <a href="project-view.html?id=01" class="file-row" aria-label="Open Gibson Ridge">
+                                <span class="file-num">01</span>
+                                <span class="file-name">GIBSON RIDGE</span>
+                                <span class="file-meta" data-i18n="file_meta_01">Desert Outpost — 2026</span>
+                                <span class="file-preview" aria-hidden="true"><img src="assets/images/PROJECT1.jpeg" alt="" loading="lazy"></span>
+                                <span class="file-arrow">→</span>
+                            </a>
+                            <button class="file-details-btn" type="button" data-target="details-01" aria-expanded="false" aria-controls="details-01" data-i18n="details_btn">DETAILS</button>
+                        </div>
+                        <div class="file-details" id="details-01" hidden>
+                            <div class="file-details-grid">
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value">Gaea • Blender • UE5 • Substance</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_status_label">STATUS</span><span class="file-details-value" data-i18n="details_status_published">Published</span></div>
+                            </div>
+                            <p class="file-details-desc" data-i18n="details_desc_01">A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze. Procedural Gaea terrain + hand-authored vegetation.</p>
+                            <div class="file-details-actions">
+                                <a href="project-view.html?id=01" class="file-details-link" data-i18n="open_visual">OPEN VISUAL →</a>
+                                <a href="project-breakdown.html?project=01" class="file-details-link file-details-link--ghost" data-i18n="all_details">all project creation details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="file-row-wrap">
+                        <div class="file-row-main">
+                            <a href="project-view.html?id=02" class="file-row" aria-label="Open Simon's Garage">
+                                <span class="file-num">02</span>
+                                <span class="file-name">SIMON'S GARAGE</span>
+                                <span class="file-meta" data-i18n="file_meta_02">Interior — 2026</span>
+                                <span class="file-preview" aria-hidden="true"><img src="assets/images/simons-garage.webp" alt="" loading="lazy"></span>
+                                <span class="file-arrow">→</span>
+                            </a>
+                            <button class="file-details-btn" type="button" data-target="details-02" aria-expanded="false" aria-controls="details-02" data-i18n="details_btn">DETAILS</button>
+                        </div>
+                        <div class="file-details" id="details-02" hidden>
+                            <div class="file-details-grid">
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value">Blender • Substance • UE5</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_status_label">STATUS</span><span class="file-details-value" data-i18n="details_status_awaiting">Awaiting Publication</span></div>
+                            </div>
+                            <p class="file-details-desc" data-i18n="details_desc_02">Awaiting publication — full breakdown soon. Interior study focused on material fidelity and grounded storytelling through props.</p>
+                            <div class="file-details-actions">
+                                <a href="project-view.html?id=02" class="file-details-link" data-i18n="open_visual">OPEN VISUAL →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="file-row-wrap">
+                        <div class="file-row-main">
+                            <a href="project-view.html?id=03" class="file-row" aria-label="Open Mountains">
+                                <span class="file-num">03</span>
+                                <span class="file-name">MOUNTAINS</span>
+                                <span class="file-meta" data-i18n="file_meta_03">Environment — 2026</span>
+                                <span class="file-preview" aria-hidden="true"><img src="assets/images/hero-waves.jpg" alt="" loading="lazy"></span>
+                                <span class="file-arrow">→</span>
+                            </a>
+                            <button class="file-details-btn" type="button" data-target="details-03" aria-expanded="false" aria-controls="details-03" data-i18n="details_btn">DETAILS</button>
+                        </div>
+                        <div class="file-details" id="details-03" hidden>
+                            <div class="file-details-grid">
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value">Gaea • Blender • UE5</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="details_status_label">STATUS</span><span class="file-details-value" data-i18n="details_status_awaiting">Awaiting Publication</span></div>
+                            </div>
+                            <p class="file-details-desc">Awaiting publication — full breakdown soon. Large-scale mountain environment exploring scale, atmosphere, and distant haze.</p>
+                            <div class="file-details-actions">
+                                <a href="project-view.html?id=03" class="file-details-link">OPEN VISUAL →</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <a href="projects.html" class="files-open-all">OPEN ARCHIVE &nbsp;→</a>
             </div>
 
         </section>
@@ -207,11 +270,11 @@
         <section id="skills" class="skills-section">
             <div class="skills-inner reveal">
 
-                <h2 class="skills-title title-reveal">SKILLS</h2>
+                <h2 class="skills-title title-reveal" data-i18n="skills_title">SKILLS</h2>
 
                 <div class="skills-header">
                     <span class="skills-header-deco"></span>
-                    % PERCENTAGE OF SKILLS UTILISATION %
+                    <span data-i18n="skills_header">% PERCENTAGE OF SKILLS UTILISATION %</span>
                     <span class="skills-header-deco"></span>
                 </div>
 
@@ -294,14 +357,14 @@
         <section id="experience" class="exp-section">
             <div class="exp-inner reveal">
 
-                <h2 class="skills-title title-reveal">EXPERIENCE</h2>
+                <h2 class="skills-title title-reveal" data-i18n="exp_title">EXPERIENCE</h2>
 
                 <div class="exp-grid">
 
                     <article class="exp-item">
                         <span class="exp-period">2024 — NOW</span>
-                        <h3 class="exp-role">INDEPENDENT 3D ENVIRONMENT ARTIST</h3>
-                        <p class="exp-desc">
+                        <h3 class="exp-role" data-i18n="exp_role">INDEPENDENT 3D ENVIRONMENT ARTIST</h3>
+                        <p class="exp-desc" data-i18n="exp_desc">
                             Full-cycle production of personal real-time environments. Managed all stages of development from initial blockout and hard-surface asset creation to PBR texturing, lighting, and final scene composition in Unreal Engine 5.
                         </p>
                     </article>
@@ -352,12 +415,12 @@
             <div class="contact-inner contact-handshake-inner reveal">
 
                 <div class="contact-quote">
-                    <p class="contact-quote-text">“My goal isn't just to show beautiful visuals, but to build a world players can truly believe in, where they can find a piece of themselves”</p>
+                    <p class="contact-quote-text" data-i18n="contact_quote_text">“My goal isn't just to show beautiful visuals, but to build a world players can truly believe in, where they can find a piece of themselves”</p>
                     <span class="contact-quote-author">— Hideo Kojima</span>
                 </div>
 
                 <a href="https://linktr.ee/juissuri" target="_blank" rel="noopener noreferrer" class="contact-cta magnetic-btn" id="main-contact-btn" aria-label="Contact me">
-                    <span class="contact-cta-text">Let's Contact</span>
+                    <span class="contact-cta-text" data-i18n="contact_cta">Let's Contact</span>
                 </a>
             </div>
         </section>
@@ -367,14 +430,14 @@
         <div class="footer-inner">
             <div class="footer-divider"></div>
             <div class="footer-bottom">
-                <div class="footer-copyright">© 2026 Lytvin Daria. All rights reserved. Designed and developed by the creator.</div>
+                <div class="footer-copyright" data-i18n="footer_copyright">© 2026 Lytvin Daria. All rights reserved. Designed and developed by the creator.</div>
                 <div class="footer-legal">
                     <a href="https://www.instagram.com/juissuri/" target="_blank" rel="noopener noreferrer" class="footer-legal-link">Instagram</a>
                     <a href="https://x.com/juissuri" target="_blank" rel="noopener noreferrer" class="footer-legal-link">X/Twitter</a>
                     <a href="https://t.me/juissuri" target="_blank" rel="noopener noreferrer" class="footer-legal-link">Telegram</a>
                     <a href="https://www.artstation.com/juissuri" target="_blank" rel="noopener noreferrer" class="footer-legal-link">ArtStation</a>
                     <span class="footer-legal-sep">•</span>
-                    <span class="footer-note-inline">All projects featured in this portfolio represent non-commercial experience.</span>
+                    <span class="footer-note-inline" data-i18n="footer_note">All projects featured in this portfolio represent non-commercial experience.</span>
                 </div>
             </div>
         </div>
@@ -403,29 +466,29 @@
                 <div class="id-card-info">
                     <div class="id-card-field-group">
                         <div class="id-card-field">
-                            <span class="id-label">NAME:</span>
+                            <span class="id-label" data-i18n="modal_name_label">NAME:</span>
                             <span class="id-value">Daria Lytvin</span>
                         </div>
                         <div class="id-card-field">
-                            <span class="id-label">AGE:</span>
+                            <span class="id-label" data-i18n="modal_age_label">AGE:</span>
                             <span class="id-value">19</span>
                         </div>
                         <div class="id-card-field">
-                            <span class="id-label">LOCATION:</span>
-                            <span class="id-value">Germany</span>
+                            <span class="id-label" data-i18n="modal_location_label">LOCATION:</span>
+                            <span class="id-value" data-i18n="modal_location_value">Germany</span>
                         </div>
                     </div>
 
                     <div class="id-card-section">
-                        <span class="id-label">Languages:</span>
-                        <div class="id-languages-text">
+                        <span class="id-label" data-i18n="modal_languages_label">Languages:</span>
+                        <div class="id-languages-text" data-i18n="modal_languages_text">
                             Russian (native), Ukrainian (native), English (intermediate), German (A1&ndash;B2)
                         </div>
                     </div>
 
                     <div class="id-card-section id-bio-section">
-                        <span class="id-label">Biography:</span>
-                        <div class="id-bio-text">
+                        <span class="id-label" data-i18n="modal_bio_label">Biography:</span>
+                        <div class="id-bio-text" data-i18n="modal_bio_text">
                             I create 3D worlds. Cinematic aesthetics are my passion, but I can also easily adapt to a variety of artistic styles and settings. I’m always open to new horizons and a wide range of projects.
                         </div>
                     </div>
@@ -437,6 +500,7 @@
     <!-- Lenis Smooth Scroll (local) -->
     <script src="js/lenis.min.js"></script>
     <script src="js/lightbox.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

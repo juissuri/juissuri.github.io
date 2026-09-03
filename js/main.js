@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 6. 'ABOUT ME' TYPING EFFECT
     setupTypingEffect();
+
+    // 7. FILE DETAILS TOGGLE
+    setupFileDetails();
 });
 
 
@@ -532,7 +535,15 @@ function setupTypingEffect() {
     const typingText = document.getElementById('typing-text');
     if (!typingText) return;
 
-    const PHRASES = ['About me', 'Dossier', 'ID Card'];
+    let PHRASES = ['About me', 'Dossier', 'ID Card'];
+    if(window.JUI_I18N && window.JUI_I18N.DICT[window.JUI_I18N.current]){
+        PHRASES[0] = window.JUI_I18N.DICT[window.JUI_I18N.current].nav_about || PHRASES[0];
+        typingText.textContent = PHRASES[0];
+    }
+    // i18n hook — update first phrase when language changes
+    window.__updateTypingText = (newText) => {
+        PHRASES[0] = newText;
+    };
     const TYPE_SPEED_MS = 90;
     const ERASE_SPEED_MS = 45;
     const HOLD_MS = 2600;
@@ -753,5 +764,25 @@ function setupTitleReveal() {
     titles.forEach(t => observer.observe(t));
 }
 
+function setupFileDetails(){
+    const btns = document.querySelectorAll('.file-details-btn');
+    if(!btns.length) return;
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-target');
+            const panel = document.getElementById(id);
+            if(!panel) return;
+            const isOpen = !panel.hasAttribute('hidden');
+            // close all
+            document.querySelectorAll('.file-details').forEach(p => p.setAttribute('hidden',''));
+            document.querySelectorAll('.file-details-btn').forEach(b => b.setAttribute('aria-expanded','false'));
+            if(!isOpen){
+                panel.removeAttribute('hidden');
+                btn.setAttribute('aria-expanded','true');
+                panel.scrollIntoView({behavior: REDUCED_MOTION ? 'auto' : 'smooth', block:'nearest'});
+            }
+        });
+    });
+}
 
 /* 3D TILT removed for minimalism */

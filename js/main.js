@@ -11,25 +11,8 @@ const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 const FINE_POINTER = window.matchMedia('(pointer: fine)').matches;
 
 document.addEventListener("DOMContentLoaded", function() {
-    // 0b. LENIS SMOOTH SCROLL
-    setupLenis();
-
-    // 1. STAGGERED SCROLL REVEAL ANIMATIONS
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.12 };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                const children = entry.target.querySelectorAll('.skill-item, .tool-item, .pshell-sw-item');
-                children.forEach((child, index) => {
-                    child.style.setProperty('--delay', index);
-                });
-                animatePercentCounters(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // STORY SCROLL — великолепный сторителлинг
+    setupStoryScroll();
 
     // 1b. HERO SUBHEADER DECODE EFFECT
     setupDecodeEffect();
@@ -37,27 +20,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // 2b. CONTACT SPOTLIGHT (premium)
     setupContactSpotlight();
 
-    // 2. TOP SCROLL PROGRESS BAR
-    const progressBar = document.getElementById('scroll-progress');
-    if (progressBar) {
-        window.addEventListener('scroll', () => {
-            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercentage = windowHeight > 0 ? (window.scrollY / windowHeight) * 100 : 0;
-            progressBar.style.width = `${Math.min(100, Math.max(0, scrollPercentage))}%`;
-        }, { passive: true });
-    }
-
     // 3. MAGNETIC BUTTONS PHYSICS EFFECT
     setupMagneticButtons();
 
     // 4. PROJECT SHELL CAROUSEL
     setupPShellCarousel();
-
-    // 4e. ACTIVE SECTION NAV HIGHLIGHT
-    setupNavHighlight();
-
-    // 4e. SECTION TITLE REVEAL
-    setupTitleReveal();
+    setupProjectFilesTransition();
 
     // 5. SCI-FI ID CARD 'ABOUT ME' MODAL SYSTEM
     setupAboutMeModal();
@@ -72,31 +40,184 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /* TERMINAL PRELOADER — removed for minimalism (instant display) */
 
-
 /* ==========================================================================
-   LENIS SMOOTH SCROLL + ANCHOR LINKS
+   STORY SCROLL — великолепный сторителлинг, рассказывает сайт
+   Глава 01 Intro → 02 Projects → 03 Skills → 04 Contact
+   Плавный Lenis + прогресс с главами + параллакс героя +
+   кинематографичные reveal для каждой секции
    ========================================================================== */
-function setupLenis() {
-    if (!window.Lenis || REDUCED_MOTION) return;
+function setupStoryScroll(){
+    const REDUCED = REDUCED_MOTION;
+    const progressBar = document.getElementById('scroll-progress');
+    const hero = document.querySelector('.hero');
+    const heroInner = document.querySelector('.hero-inner');
+    const heroTitle = document.querySelector('.hero-title');
+    const heroAbout = document.querySelector('.hero-about-wrap');
+    const marquee = document.querySelector('.marquee-bar');
+    const sections = [
+        {el: document.querySelector('.hero'), label: '01 INTRO'},
+        {el: document.querySelector('#projects'), label: '02 PROJECTS'},
+        {el: document.querySelector('#skills'), label: '03 SKILLS'},
+        {el: document.querySelector('#experience'), label: '03 EXPERIENCE'},
+        {el: document.querySelector('#contact'), label: '04 CONTACT'}
+    ].filter(s=>s.el);
 
-    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
-    window.__lenis = lenis;
-
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
+    // — Build chapter indicator
+    let chapterEl = document.getElementById('story-chapter');
+    if(!chapterEl && progressBar){
+        chapterEl = document.createElement('div');
+        chapterEl.id = 'story-chapter';
+        chapterEl.className = 'story-chapter';
+        chapterEl.innerHTML = '<span class="story-chapter-num">01</span><span class="story-chapter-label">INTRO</span><span class="story-chapter-progress"></span>';
+        progressBar.insertAdjacentElement('afterend', chapterEl);
     }
-    requestAnimationFrame(raf);
 
-    // Route anchor links through Lenis
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const target = document.querySelector(link.getAttribute('href'));
-            if (!target) return;
-            e.preventDefault();
-            lenis.scrollTo(target, { offset: -72, duration: 1.4 });
+    // — LENIS
+    let lenis = null;
+    if(window.Lenis && !REDUCED){
+        lenis = new Lenis({ duration: 1.0, smoothWheel:true, smoothTouch:false, gestureOrientation:'vertical', touchMultiplier:1.6, lerp:0.08 });
+        window.__lenis = lenis;
+        const raf = (t)=>{ lenis.raf(t); requestAnimationFrame(raf); };
+        requestAnimationFrame(raf);
+        document.querySelectorAll('a[href^="#"]').forEach(link=>{
+            link.addEventListener('click', (e)=>{
+                const href=link.getAttribute('href');
+                if(!href || href==='#') return;
+                const target=document.querySelector(href);
+                if(!target) return;
+                e.preventDefault();
+                // bottom navbar — no top offset needed
+                const offset = 0;
+                lenis.scrollTo(target, {offset, duration:1.15});
+            });
         });
+    }
+
+    // — REVEAL observer (staggered, but now with story delay)
+    const revealObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){
+                entry.target.classList.add('active');
+                const children = entry.target.querySelectorAll('.skill-item');
+                children.forEach((c,i)=>c.style.setProperty('--delay', i));
+                animatePercentCounters(entry.target);
+            }
+        });
+    }, {threshold:0.14, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+    // — Title reveal
+    const titleObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+            if(e.isIntersecting){ e.target.classList.add('in-view'); titleObserver.unobserve(e.target); }
+        });
+    }, {threshold:0.3});
+    document.querySelectorAll('.title-reveal').forEach(t=>{
+        if(REDUCED) t.classList.add('in-view'); else titleObserver.observe(t);
     });
+
+    // — Nav highlight (bottom bar)
+    const navMap = [
+        {section: document.querySelector('#projects'), link: document.querySelector('.nav-link[href="#projects"]')},
+        {section: document.querySelector('#experience'), link: document.querySelector('.nav-link[href="#experience"]')},
+        {section: document.querySelector('#contact'), link: document.querySelector('.nav-link[href="#contact"]')}
+    ].filter(x=>x.section && x.link);
+    if(navMap.length){
+        const navObs = new IntersectionObserver((entries)=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    navMap.forEach(m=>m.link.classList.toggle('nav-active', m.section===entry.target));
+                }
+            });
+        }, {rootMargin:'-45% 0px -50% 0px'});
+        navMap.forEach(m=>navObs.observe(m.section));
+    }
+
+    // — Story scroll loop (rAF, not scroll event)
+    let ticking = false;
+    let lastChapter = '';
+    function onStoryFrame(){
+        ticking = false;
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docH>0 ? Math.min(1, Math.max(0, scrollY/docH)) : 0;
+
+        // progress bar width (transform for perf)
+        if(progressBar){
+            progressBar.style.width = (progress*100)+'%';
+        }
+        if(chapterEl){
+            chapterEl.style.setProperty('--chapter-progress', progress);
+        }
+
+        // chapter detection
+        let currentLabel = sections[0]?.label || '01 INTRO';
+        let currentNum = '01';
+        for(let i=sections.length-1;i>=0;i--){
+            const rect = sections[i].el.getBoundingClientRect();
+            if(rect.top <= window.innerHeight*0.45){
+                currentLabel = sections[i].label;
+                break;
+            }
+        }
+        currentNum = currentLabel.slice(0,2);
+        const labelOnly = currentLabel.slice(3);
+        if(chapterEl && currentLabel!==lastChapter){
+            lastChapter = currentLabel;
+            const numEl = chapterEl.querySelector('.story-chapter-num');
+            const labEl = chapterEl.querySelector('.story-chapter-label');
+            if(numEl) numEl.textContent = currentNum;
+            if(labEl) labEl.textContent = labelOnly;
+            chapterEl.setAttribute('data-chapter', currentLabel);
+        }
+
+        // HERO parallax — рассказывает как вступление
+        if(hero && !REDUCED){
+            const rect = hero.getBoundingClientRect();
+            // hero fades and scales as it leaves viewport
+            const heroProgress = Math.min(1, Math.max(0, -rect.top / (rect.height*0.7)));
+            if(heroInner){
+                heroInner.style.transform = `translateY(${heroProgress* -22}px) scale(${1 - heroProgress*0.04})`;
+                heroInner.style.opacity = String(1 - heroProgress*0.55);
+            }
+            if(heroTitle){
+                heroTitle.style.transform = `translateY(${heroProgress* -12}px)`;
+                heroTitle.style.filter = `blur(${heroProgress*1.2}px)`;
+            }
+            if(heroAbout){
+                heroAbout.style.transform = `translateY(${heroProgress* 10}px)`;
+                heroAbout.style.opacity = String(1 - heroProgress*0.9);
+            }
+            if(marquee){
+                marquee.style.transform = `translateY(${heroProgress* 18}px)`;
+                marquee.style.opacity = String(1 - heroProgress*0.7);
+            }
+        }
+
+        // PROJECTS — вьюпорт убран по запросу (без параллакса)
+    }
+
+    function requestTick(){
+        if(!ticking){
+            ticking = true;
+            requestAnimationFrame(onStoryFrame);
+        }
+    }
+
+    if(REDUCED){
+        // no parallax, just progress
+        window.addEventListener('scroll', ()=>{
+            const docH = document.documentElement.scrollHeight - window.innerHeight;
+            const p = docH>0 ? window.scrollY/docH : 0;
+            if(progressBar) progressBar.style.width = (p*100)+'%';
+        }, {passive:true});
+    } else {
+        window.addEventListener('scroll', requestTick, {passive:true});
+        // initial
+        requestTick();
+        // also on lenis scroll
+        if(lenis) lenis.on('scroll', requestTick);
+    }
 }
 
 
@@ -286,6 +407,21 @@ function setupPShellCarousel() {
     setActive(0);
 }
 
+/* Project Files — transition to new page */
+function setupProjectFilesTransition(){
+    document.querySelectorAll('a[href="projects.html"], a[href^="project-breakdown.html"], .pshell-title-link').forEach(link=>{
+        link.addEventListener('click', (e)=>{
+            const href = link.getAttribute('href') || link.closest('a')?.getAttribute('href');
+            if(!href) return;
+            if(document.startViewTransition){
+                e.preventDefault();
+                document.startViewTransition(()=>{
+                    window.location.href = href;
+                });
+            }
+        });
+    });
+}
 
 /* ==========================================================================
    SCI-FI ID CARD 'ABOUT ME' MODAL SYSTEM

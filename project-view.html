@@ -3,30 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VISUAL — JUI</title>
+    <title>VISUAL, JUI</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000000'/%3E%3Ctext x='32' y='46' font-family='Inter,Arial,sans-serif' font-size='42' font-weight='900' fill='%23FFFFFF' text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
         body{margin:0;background:#000;overflow:hidden}
-        .visual-hero{position:relative;width:100vw;height:100vh;overflow:hidden;background:#000}
+        .visual-hero{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden;background:#000}
         .visual-bg{position:absolute;inset:0}
         .visual-bg img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.7) contrast(1.06) brightness(0.88)}
         .visual-overlay{position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.12) 45%, transparent 72%)}
         .visual-content{position:absolute;left:6%;top:70%;transform:translateY(-50%);max-width:40rem;z-index:2}
-        .visual-title{font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;font-size:clamp(2.6rem,5vw,4rem);font-weight:800;letter-spacing:-0.02em;color:#FFFFFF;margin:0 0 1.3rem;line-height:1; text-shadow:0 2px 18px rgba(0,0,0,0.45)}
-        .visual-desc{font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;font-size:1.22rem;line-height:1.9;color:rgba(255,255,255,0.92);margin:0;max-width:38rem}
-        .visual-nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 2rem;pointer-events:none}
-        .visual-nav a{pointer-events:auto;font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.14em;color:rgba(255,255,255,0.85);text-decoration:none;text-transform:uppercase;transition:color 150ms}
-        .visual-nav a:hover{color:#FFFFFF}
-        .visual-logo{font-family:var(--font-mono);font-size:1.1rem;letter-spacing:0.22em;color:rgba(255,255,255,0.9);text-decoration:none;pointer-events:auto}
+        .visual-title{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:clamp(2.6rem,5vw,4rem);font-weight:800;letter-spacing:-0.02em;color:#FFFFFF;margin:0 0 1.3rem;line-height:1;text-shadow:0 2px 18px rgba(0,0,0,0.45)}
+        .visual-desc{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:1.22rem;line-height:1.9;color:rgba(255,255,255,0.92);margin:0;max-width:38rem}
+
+        /* Top bar, minimal, two links only */
+        .visual-topbar{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;gap:1.6rem;padding:1.5rem 2rem;pointer-events:none}
+        .visual-topbar a{pointer-events:auto;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,0.7);transition:color 200ms ease;position:relative}
+        .visual-topbar a::after{content:'';position:absolute;left:0;right:0;bottom:-3px;height:1px;background:#fff;transform:scaleX(0);transform-origin:right;transition:transform 300ms cubic-bezier(0.16,1,0.3,1)}
+        .visual-topbar a:hover{color:#fff}
+        .visual-topbar a:hover::after{transform:scaleX(1);transform-origin:left}
+
         @media(max-width:640px){
             .visual-content{left:5%;right:5%;max-width:none;top:72%}
-            .visual-title{font-size:clamp(2rem, 10vw, 2.8rem)}
+            .visual-title{font-size:clamp(2rem,10vw,2.8rem)}
             .visual-desc{font-size:1.08rem}
-            .visual-nav{padding:1rem 1rem}
+            .visual-topbar{padding:1rem 1rem}
         }
     </style>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="JUI SSURI">
+    <meta property="og:title" content="JUI SSURI, 3D Environment Artist">
+    <meta property="og:description" content="Daria Lytvin, 3D environments, materials and lighting portfolio.">
+    <meta property="og:image" content="https://juissuri.github.io/assets/images/jui-ssuri-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1733">
+    <meta property="og:image:height" content="907">
+    <meta property="og:image:alt" content="JUI SSURI in white letters on a black background">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JUI SSURI, 3D Environment Artist">
+    <meta name="twitter:description" content="Daria Lytvin, 3D environments, materials and lighting portfolio.">
+    <meta name="twitter:image" content="https://juissuri.github.io/assets/images/jui-ssuri-social.png">
+    <meta name="twitter:image:alt" content="JUI SSURI in white letters on a black background">
 </head>
 <body>
 
@@ -35,72 +53,34 @@
             <img id="visual-img" src="assets/images/PROJECT1.jpeg" alt="Project visual">
         </div>
         <div class="visual-overlay"></div>
+        <div class="visual-topbar">
+            <a href="index.html">HOME</a>
+            <a href="index.html#projects">← GO BACK</a>
+        </div>
         <div class="visual-content">
             <h1 class="visual-title" id="visual-title">GIBSON RIDGE</h1>
             <p class="visual-desc" id="visual-desc">A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze.</p>
         </div>
     </section>
 
-    <!-- Bottom Glass Pill Bar — same as main page -->
-    <nav class="navbar">
-        <div class="navbar-inner">
-            <div class="navbar-left">
-                <a href="index.html" class="logo logo--text-only" aria-label="JUI">
-                    <span class="logo-text">JUI</span>
-                </a>
-            </div>
-            <div class="navbar-right">
-                <div class="nav-links">
-                    <a href="index.html#projects" class="nav-link">PROJECTS</a>
-                    <span class="nav-pipe">|</span>
-                    <a href="index.html#experience" class="nav-link">EXPERIENCE</a>
-                    <span class="nav-pipe">|</span>
-                    <a href="index.html#contact" class="nav-link">CONTACT</a>
-                </div>
-            </div>
-            <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-        <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
-            <a href="index.html#projects" class="nav-drawer-link">PROJECTS</a>
-            <a href="index.html#experience" class="nav-drawer-link">EXPERIENCE</a>
-            <a href="index.html#contact" class="nav-drawer-link">CONTACT</a>
-        </div>
-    </nav>
     <script>
-        const VISUALS = {
-            '01': {
-                title: 'GIBSON RIDGE',
-                desc: 'A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze. Procedural Gaea terrain + hand-authored vegetation.',
-                img: 'assets/images/PROJECT1.jpeg',
-                pending: false
-            },
-            '02': {
-                title: "SIMON'S GARAGE",
-                desc: 'Awaiting publication — full breakdown soon.',
-                img: 'assets/images/simons-garage.webp',
-                pending: true
-            },
-            '03': {
-                title: 'MOUNTAINS',
-                desc: 'Awaiting publication — full breakdown soon.',
-                img: 'assets/images/hero-waves.jpg',
-                pending: true
-            }
-        };
         (function(){
-            const params = new URLSearchParams(window.location.search);
-            const raw = params.get('id') || params.get('project') || '01';
-            const key = VISUALS[raw] ? raw : '01';
-            const d = VISUALS[key];
+            var VISUALS = {
+                '01': { title: 'GIBSON RIDGE', desc: 'A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze.', img: 'assets/images/gibson-ridge-1920.webp', pending: false },
+                '02': { title: "SIMON'S GARAGE", desc: 'A detailed urban interior study focusing on worn metal surfaces, volumetric lighting, and the quiet tension of an abandoned mechanic\'s workshop.', img: 'assets/images/simons-garage-1200.webp', pending: true },
+                '03': { title: 'MOUNTAINS', desc: 'An alpine landscape study exploring atmospheric perspective, layered rock formations, and the interplay of light across rugged terrain.', img: 'assets/images/mountains.jpg', pending: false }
+            };
+            var params = new URLSearchParams(window.location.search);
+            var raw = params.get('id') || params.get('project') || '01';
+            var key = Object.prototype.hasOwnProperty.call(VISUALS, raw) ? raw : '01';
+            var d = VISUALS[key];
             document.getElementById('visual-title').textContent = d.title;
-            const descEl = document.getElementById('visual-desc');
-            const img = document.getElementById('visual-img');
-            const overlay = document.querySelector('.visual-overlay');
-            const bg = document.querySelector('.visual-bg');
+            var descEl = document.getElementById('visual-desc');
+            var img = document.getElementById('visual-img');
+            var overlay = document.querySelector('.visual-overlay');
+            var bg = document.querySelector('.visual-bg');
             if(d.pending){
-                descEl.innerHTML = '<span style="display:inline-block;border:1px solid rgba(255,255,255,0.24);padding:0.45rem 1rem;border-radius:999px;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.78);background:rgba(255,255,255,0.06);backdrop-filter:blur(6px)">AWAITING PUBLICATION</span><span style="display:block;margin-top:1.2rem;font-family:Inter,sans-serif;font-size:1rem;color:rgba(255,255,255,0.62)">Full breakdown soon.</span>';
+                descEl.innerHTML = '<span style="display:inline-block;border:1px solid rgba(255,255,255,0.24);padding:0.45rem 1rem;border-radius:999px;font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.78);background:rgba(255,255,255,0.06)">AWAITING PUBLICATION</span><span style="display:block;margin-top:1.2rem;font-family:Inter,sans-serif;font-size:1rem;color:rgba(255,255,255,0.62)">' + d.desc.replace(/</g,'&lt;') + '</span>';
                 img.style.display = 'none';
                 img.removeAttribute('src');
                 if(bg) bg.style.background = '#0A0A0A';
@@ -109,31 +89,11 @@
                 descEl.textContent = d.desc;
                 img.style.display = 'block';
                 img.src = d.img;
-                img.onerror = function(){ if(d.img !== 'assets/images/PROJECT1.jpeg'){ img.src='assets/images/PROJECT1.jpeg'; } };
+                img.onerror = function(){ img.onerror = null; img.src='assets/images/PROJECT1.jpeg'; };
                 if(bg) bg.style.background = '#000';
                 if(overlay) overlay.style.background = 'linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.12) 45%, transparent 72%)';
             }
-            document.title = d.title + ' // VISUAL';
-        })();
-    </script>
-    <script>
-        // Burger for glass pill on visual page
-        (function(){
-            const burger = document.getElementById('nav-burger');
-            const drawer = document.getElementById('nav-drawer');
-            if(!burger || !drawer) return;
-            burger.addEventListener('click', function(){
-                const open = drawer.classList.toggle('is-open');
-                burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-                drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-            });
-            document.addEventListener('click', function(e){
-                if(!drawer.classList.contains('is-open')) return;
-                if(drawer.contains(e.target) || burger.contains(e.target)) return;
-                drawer.classList.remove('is-open');
-                burger.setAttribute('aria-expanded', 'false');
-                drawer.setAttribute('aria-hidden', 'true');
-            });
+            document.title = d.title + ', VISUAL';
         })();
     </script>
 </body>

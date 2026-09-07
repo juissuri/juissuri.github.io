@@ -9,11 +9,14 @@
     let imgEl = null;
     let captionEl = null;
     let isOpen = false;
+    let returnFocus = null;
+    let previousOverflow = '';
 
     function build() {
         overlay = document.createElement('div');
         overlay.className = 'lightbox';
         overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
         overlay.setAttribute('aria-label', 'Image viewer');
         overlay.innerHTML = `
             <button class="lightbox-close" type="button" aria-label="Close">
@@ -34,11 +37,18 @@
         });
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isOpen) close();
+            if (e.key === 'Tab' && isOpen) {
+                e.preventDefault();
+                overlay.querySelector('.lightbox-close').focus();
+            }
         });
     }
 
     function open(src, alt, originImg) {
         if (!overlay) build();
+        if(isOpen) return;
+        returnFocus = originImg || document.activeElement;
+        previousOverflow = document.body.style.overflow;
         if (window.__lenis) window.__lenis.stop();
         document.body.style.overflow = 'hidden';
 
@@ -51,31 +61,44 @@
         const canMorph = document.startViewTransition && originImg && !REDUCED_MOTION;
         if (canMorph) {
             originImg.style.viewTransitionName = 'project-media';
-            imgEl.style.viewTransitionName = 'project-media';
 
             const transition = document.startViewTransition(() => {
+                originImg.style.viewTransitionName = '';
+                imgEl.style.viewTransitionName = 'project-media';
                 overlay.classList.add('open');
+                overlay.querySelector('.lightbox-close').focus({preventScroll:true});
             });
-            transition.finished.finally(() => {
+            const cleanup = () => {
                 originImg.style.viewTransitionName = '';
                 imgEl.style.viewTransitionName = '';
-            });
+                if(isOpen) overlay.querySelector('.lightbox-close').focus({preventScroll:true});
+            };
+            transition.finished.then(cleanup, cleanup);
         } else {
             overlay.classList.add('open');
         }
 
         isOpen = true;
+        overlay.querySelector('.lightbox-close').focus({preventScroll:true});
     }
 
     function close() {
         overlay.classList.remove('open');
         isOpen = false;
-        document.body.style.overflow = '';
+        document.body.style.overflow = previousOverflow;
+        returnFocus?.focus({preventScroll:true});
         if (window.__lenis) window.__lenis.start();
     }
 
     function init() {
         document.querySelectorAll('img[data-lightbox]').forEach(img => {
+            img.tabIndex = 0;
+            img.setAttribute('role', 'button');
+            img.addEventListener('keydown', e => {
+                if(e.key === 'Enter' || e.key === ' '){
+                    e.preventDefault(); open(img.currentSrc || img.src, img.alt, img);
+                }
+            });
             img.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();

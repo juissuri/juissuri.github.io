@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Gibson Ridge - Procedural Desert Terrain & Environment Study Breakdown by Daria Lytvin.">
-    <title>GIBSON RIDGE // PROCESS</title>
+    <title>GIBSON RIDGE, PROCESS</title>
 
     <!-- Laptop Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23020204'/%3E%3Ctext x='32' y='41' font-family='Courier New, monospace' font-size='24' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'%3EJUI%3C/text%3E%3C/svg%3E">
@@ -15,15 +15,14 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <style>
-        body{background-color:#1A1A1C}
+        body{background-color:#1A1A1C;padding-bottom:6rem}
         .bg-noise{display:none}
 
         .breakdown-nav-bar {
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 50;
-            background: rgba(20, 20, 22, 0.9);
-            backdrop-filter: blur(14px);
+            background: rgba(20, 20, 22, 0.96);
             border-bottom: 1px solid rgba(255,255,255,0.06);
             height: 4.5rem;
             display: flex;
@@ -53,7 +52,7 @@
         .back-link:hover { opacity: 0.7; }
 
         .process-hero {
-            padding: 10rem 2rem 3rem;
+            padding: 5.5rem 2rem 3rem;
             text-align: center;
         }
         .process-kicker {
@@ -145,6 +144,8 @@
             filter:brightness(1.04);
             border-color:rgba(255,255,255,0.12);
         }
+        /* Empty stages (no image yet), don't show shimmer placeholders */
+        .process-media:empty{display:none}
 
         @media (max-width: 720px) {
             .process-text { max-width: none; }
@@ -154,22 +155,27 @@
             .process-media { animation: none; }
         }
     </style>
+    <!-- Social sharing preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="JUI SSURI">
+    <meta property="og:title" content="JUI SSURI, 3D Environment Artist">
+    <meta property="og:description" content="Daria Lytvin, 3D environments, materials and lighting portfolio.">
+    <meta property="og:image" content="https://juissuri.github.io/assets/images/jui-ssuri-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1733">
+    <meta property="og:image:height" content="907">
+    <meta property="og:image:alt" content="JUI SSURI in white letters on a black background">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JUI SSURI, 3D Environment Artist">
+    <meta name="twitter:description" content="Daria Lytvin, 3D environments, materials and lighting portfolio.">
+    <meta name="twitter:image" content="https://juissuri.github.io/assets/images/jui-ssuri-social.png">
+    <meta name="twitter:image:alt" content="JUI SSURI in white letters on a black background">
+    <script src="js/surface-light.js" defer></script>
 </head>
 <body>
-    <nav class="breakdown-nav-bar">
-        <div class="breakdown-nav-inner">
-            <a href="index.html#projects" class="back-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                <span>Back to projects</span>
-            </a>
-            <div class="logo logo--text-only" aria-label="JUI">
-                <span class="logo-text">JUI</span>
-            </div>
-        </div>
-    </nav>
 
     <header class="process-hero">
-        <div class="process-kicker">PROCESS</div>
+        <div class="process-kicker" data-i18n="bd_kicker">PROCESS</div>
         <h1 class="process-title" id="process-title">GIBSON RIDGE</h1>
     </header>
 
@@ -177,22 +183,22 @@
 
         <article class="process-block">
             <div class="process-head">
-                <h2 class="process-name">Reference.</h2>
+                <h2 class="process-name" data-i18n="bd_t1">Reference.</h2>
                 <div>
-                    <p class="process-text">The project starts with gathering references — real-world desert outposts, terrain silhouettes, material samples and lighting moods. Boards are organized by Main Focus, Landscape, Render / Light / Atmosphere, Assets Detail, Texture and Organic elements to define the visual direction before modeling begins.</p>
+                    <p class="process-text" data-i18n="bd_d1">The project starts with gathering references, real-world desert outposts, terrain silhouettes, material samples and lighting moods. Boards are organized by Main Focus, Landscape, Render, Light, Atmosphere, Assets Detail, Texture and Organic elements to define the visual direction before modeling begins.</p>
                 </div>
             </div>
             <div class="process-media process-media--reference">
-                <img src="assets/images/reference-gibson.jpg" alt="Gibson Ridge — Reference board: Main Focus, Assets Detail, Texture, Organic" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <div class="process-media-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem;">Add reference image to<br>assets/images/reference-gibson.jpg</div>
+                <img src="assets/images/reference-gibson.jpg" alt="Gibson Ridge, Reference board: Main Focus, Assets Detail, Texture, Organic" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="process-media-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem;">WIP, image coming soon</div>
             </div>
         </article>
 
         <article class="process-block">
             <div class="process-head">
-                <h2 class="process-name">UV Unwrapping.</h2>
+                <h2 class="process-name" data-i18n="bd_t2">UV Unwrapping.</h2>
                 <div>
-                    <p class="process-text">Once the model is finalized, it is unwrapped into clean, distortion-free UVs. A proper UV layout is what allows textures to sit perfectly on every surface later in the pipeline.</p>
+                    <p class="process-text" data-i18n="bd_d2">Once the model is finalized, it is unwrapped into clean, distortion-free UVs. A proper UV layout is what allows textures to sit perfectly on every surface later in the pipeline.</p>
                 </div>
             </div>
             <div class="process-media"></div>
@@ -200,9 +206,9 @@
 
         <article class="process-block">
             <div class="process-head">
-                <h2 class="process-name">Texturing.</h2>
+                <h2 class="process-name" data-i18n="bd_t3">Texturing.</h2>
                 <div>
-                    <p class="process-text">Materials are authored layer by layer — color, roughness and surface detail are built up gradually until every asset reads naturally under the scene lighting.</p>
+                    <p class="process-text" data-i18n="bd_d3">Materials are authored layer by layer, color, roughness and surface detail are built up gradually until every asset reads naturally under the scene lighting.</p>
                 </div>
             </div>
             <div class="process-media"></div>
@@ -210,22 +216,22 @@
 
         <article class="process-block">
             <div class="process-head">
-                <h2 class="process-name">Scene Setup.</h2>
+                <h2 class="process-name" data-i18n="bd_t4">Scene Setup.</h2>
                 <div>
-                    <p class="process-text">All assets are imported into Unreal Engine, where the scene comes together — placement, lighting setup, post-process volumes and camera work define the mood of the environment.</p>
+                    <p class="process-text" data-i18n="bd_d4">All assets are imported into Unreal Engine, where the scene comes together, placement, lighting setup, post-process volumes and camera work define the mood of the environment.</p>
                 </div>
             </div>
             <div class="process-media process-media--reference">
-                <img src="assets/images/scene-setup.jpg" alt="Scene Setup — Unreal Engine viewport with desert outpost, point lights and PostProcessVolume" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <div class="process-media-fallback" style="display:none; width:100%; height:100%; min-height:220px; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem; border:1px dashed rgba(255,255,255,0.08); border-radius:18px; background:rgba(255,255,255,0.02)">Add scene image to<br>assets/images/scene-setup.jpg</div>
+                <img src="assets/images/scene-setup.jpg" alt="Scene Setup, Unreal Engine viewport with desert outpost, point lights and PostProcessVolume" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="process-media-fallback" style="display:none; width:100%; height:100%; min-height:220px; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem; border:1px dashed rgba(255,255,255,0.08); border-radius:18px; background:rgba(255,255,255,0.02)">WIP, image coming soon</div>
             </div>
         </article>
 
         <article class="process-block">
             <div class="process-head">
-                <h2 class="process-name">Engine Work.</h2>
+                <h2 class="process-name" data-i18n="bd_t5">Engine Work.</h2>
                 <div>
-                    <p class="process-text">Further refinement inside Unreal Engine: shaders, foliage, particles and lighting are iterated step by step until the atmosphere matches the original vision.</p>
+                    <p class="process-text" data-i18n="bd_d5">Further refinement inside Unreal Engine: shaders, foliage, particles and lighting are iterated step by step until the atmosphere matches the original vision.</p>
                 </div>
             </div>
             <div class="process-media"></div>
@@ -233,19 +239,30 @@
 
         <article class="process-block">
             <div class="process-head">
-                <h2 class="process-name">Final Render.</h2>
+                <h2 class="process-name" data-i18n="bd_t6">Final Render.</h2>
                 <div>
-                    <p class="process-text">The final stage — camera settings, exposure and post-processing come together to produce the finished rendered image of the environment.</p>
+                    <p class="process-text" data-i18n="bd_d6">The final stage, camera settings, exposure and post-processing come together to produce the finished rendered image of the environment.</p>
                 </div>
             </div>
             <div class="process-media"></div>
         </article>
 
+        <article class="process-block" id="project-assets">
+            <div class="process-head"><h2 class="process-name" data-i18n="bd_assets">Assets.</h2></div>
+            <div class="asset-gallery" tabindex="0" role="region" aria-label="Assets">
+                <div class="asset-slides"></div>
+                <div class="asset-controls">
+                    <button type="button" data-step="-1" aria-label="Previous asset">←</button>
+                    <span class="asset-count" aria-live="polite"></span>
+                    <button type="button" data-step="1" aria-label="Next asset">→</button>
+                </div>
+            </div>
+        </article>
     </main>
 
     <footer class="footer">
         <div class="footer-inner">
-            <div class="footer-copyright">
+            <div class="footer-copyright" data-i18n="bd_footer">
                 Copyright &copy; 2026 Lytvin Daria. All rights reserved.
             </div>
         </div>
@@ -253,21 +270,83 @@
 
     <script>
         const PROJECT_META = {
-            '01': { title: 'GIBSON RIDGE',      metaTitle: 'GIBSON RIDGE // PROCESS',      description: 'Gibson Ridge - Process Breakdown by Daria Lytvin.' },
-            '02': { title: "SIMON'S GARAGE",    metaTitle: "SIMON'S GARAGE // PROCESS",    description: "Simon's Garage - Process Breakdown by Daria Lytvin." },
-            '03': { title: 'MOUNTAINS',         metaTitle: 'MOUNTAINS // PROCESS',         description: 'Mountains - Process Breakdown by Daria Lytvin.' }
+            '01': { title: 'GIBSON RIDGE',      metaTitle: 'GIBSON RIDGE, PROCESS',      description: 'Gibson Ridge - Process Breakdown by Daria Lytvin.' },
+            '02': { title: "SIMON'S GARAGE",    metaTitle: "SIMON'S GARAGE, PROCESS",    description: "Simon's Garage - Process Breakdown by Daria Lytvin." },
+            '03': { title: 'MOUNTAINS',         metaTitle: 'MOUNTAINS, PROCESS',         description: 'Mountains - Process Breakdown by Daria Lytvin.' },
+            '04': { title: 'PROJECT 04', metaTitle: 'PROJECT 04, PROCESS', description: 'Project in production.' },
+            '05': { title: 'PROJECT 05', metaTitle: 'PROJECT 05, PROCESS', description: 'Project in production.' },
+            '06': { title: 'PROJECT 06', metaTitle: 'PROJECT 06, PROCESS', description: 'Project in production.' }
         };
 
         (function () {
             const params = new URLSearchParams(window.location.search);
-            const key = PROJECT_META[params.get('project')] ? params.get('project') : '01';
+            const key = Object.prototype.hasOwnProperty.call(PROJECT_META, params.get('project')) ? params.get('project') : '01';
             const data = PROJECT_META[key];
 
             document.title = data.metaTitle;
             document.querySelector('meta[name="description"]').setAttribute('content', data.description);
             document.getElementById('process-title').textContent = data.title;
+            if(key !== '01'){
+                document.querySelectorAll('.process-block').forEach(block => {block.hidden = true;});
+                const notice = document.createElement('p');
+                notice.className = 'process-text';
+                notice.dataset.i18n = 'bd_pending';
+                notice.textContent = 'Project breakdown coming soon.';
+                document.querySelector('main.process').prepend(notice);
+            }
         })();
     </script>
+    <script src="js/i18n.js"></script>
+    <script src="js/project-assets.js"></script>
     <script src="js/lightbox.js"></script>
+    <link rel="stylesheet" href="css/project-assets.css">
+
+    <!-- Bottom Glass Pill Bar, same as main page -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="navbar-left">
+                <a href="index.html" class="logo logo--text-only" aria-label="JUI">
+                    <span class="logo-text">JUI</span>
+                </a>
+            </div>
+            <div class="navbar-right">
+                <div class="nav-links">
+                    <a href="index.html#projects" class="nav-link" data-i18n="nav_projects">PROJECTS</a>
+                    <span class="nav-pipe">|</span>
+                    <a href="index.html#experience" class="nav-link" data-i18n="nav_experience">EXPERIENCE</a>
+                    <span class="nav-pipe">|</span>
+                    <a href="index.html#contact" class="nav-link" data-i18n="nav_contact">CONTACT</a>
+                </div>
+            </div>
+            <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+            <a href="index.html#projects" class="nav-drawer-link" data-i18n="nav_projects">PROJECTS</a>
+            <a href="index.html#experience" class="nav-drawer-link" data-i18n="nav_experience">EXPERIENCE</a>
+            <a href="index.html#contact" class="nav-drawer-link" data-i18n="nav_contact">CONTACT</a>
+        </div>
+    </nav>
+    <script>
+        // Burger for glass pill (same as visual page)
+        (function(){
+            const burger = document.getElementById('nav-burger');
+            const drawer = document.getElementById('nav-drawer');
+            if(!burger || !drawer) return;
+            burger.addEventListener('click', function(){
+                const open = drawer.classList.toggle('is-open');
+                burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+                drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+            });
+            document.addEventListener('click', function(e){
+                if(!drawer.classList.contains('is-open')) return;
+                if(drawer.contains(e.target) || burger.contains(e.target)) return;
+                drawer.classList.remove('is-open');
+                burger.setAttribute('aria-expanded', 'false');
+                drawer.setAttribute('aria-hidden', 'true');
+            });
+        })();
+    </script>
 </body>
 </html>

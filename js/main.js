@@ -11,11 +11,8 @@ const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 const FINE_POINTER = window.matchMedia('(pointer: fine)').matches;
 
 document.addEventListener("DOMContentLoaded", function() {
-    // STORY SCROLL — великолепный сторителлинг
+    // STORY SCROLL, великолепный сторителлинг
     setupStoryScroll();
-
-    // 1b. HERO SUBHEADER DECODE EFFECT
-    setupDecodeEffect();
 
     // 2b. CONTACT SPOTLIGHT (premium)
     setupContactSpotlight();
@@ -25,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 4. PROJECT SHELL CAROUSEL
     setupPShellCarousel();
-    setupProjectFilesTransition();
 
     // 5. SCI-FI ID CARD 'ABOUT ME' MODAL SYSTEM
     setupAboutMeModal();
@@ -38,13 +34,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 7. FILE DETAILS TOGGLE
     setupFileDetails();
+
+    // 8. PROJECTS PAGING (3 per page)
+    setupProjectsPaging();
 });
 
 
-/* TERMINAL PRELOADER — removed for minimalism (instant display) */
+/* TERMINAL PRELOADER, removed for minimalism (instant display) */
 
 /* ==========================================================================
-   STORY SCROLL — великолепный сторителлинг, рассказывает сайт
+   STORY SCROLL, великолепный сторителлинг, рассказывает сайт
    Глава 01 Intro → 02 Projects → 03 Skills → 04 Contact
    Плавный Lenis + прогресс с главами + параллакс героя +
    кинематографичные reveal для каждой секции
@@ -55,7 +54,62 @@ function setupStoryScroll(){
     const hero = document.querySelector('.hero');
     const heroInner = document.querySelector('.hero-inner');
     const heroTitle = document.querySelector('.hero-title');
-    const heroAbout = document.querySelector('.hero-about-wrap');
+    if(hero){
+        const video = hero.querySelector('video');
+        // Detect the first visible grid frame instead of timing from page load.
+        let revealTitle = () => {};
+        if(video && !REDUCED){
+            hero.classList.add('title-awaiting-video');
+            const canvas = document.createElement('canvas');
+            canvas.width = 96; canvas.height = 54;
+            const context = canvas.getContext('2d', {willReadFrequently:true});
+            let revealed = false;
+            let frameId = null;
+            const supportsFrames = typeof video.requestVideoFrameCallback === 'function';
+            const fallback = setTimeout(() => revealTitle(), 8000);
+            revealTitle = () => {
+                if(revealed) return;
+                revealed = true;
+                clearTimeout(fallback);
+                if(frameId !== null && supportsFrames) video.cancelVideoFrameCallback(frameId);
+                hero.classList.remove('title-awaiting-video');
+                video.removeEventListener('timeupdate', inspectFrame);
+            };
+            function inspectFrame(){
+                if(revealed) return;
+                if(video.readyState >= 2 && context){
+                    try{
+                        context.drawImage(video,0,0,96,54);
+                        const pixels = context.getImageData(0,0,96,54).data;
+                        let visiblePixels = 0;
+                        for(let i=0;i<pixels.length;i+=4){
+                            if(pixels[i]+pixels[i+1]+pixels[i+2] > 75) visiblePixels++;
+                        }
+                        if(visiblePixels > 15 || video.currentTime >= 5) {revealTitle(); return;}
+                    }catch{revealTitle(); return;}
+                }
+                if(supportsFrames) frameId = video.requestVideoFrameCallback(inspectFrame);
+            }
+            if(supportsFrames) frameId = video.requestVideoFrameCallback(inspectFrame);
+            else video.addEventListener('timeupdate', inspectFrame);
+            video.addEventListener('error', revealTitle, {once:true});
+        }
+        let visible = false;
+        const syncVideo = () => {
+            if(!video) return;
+            if(visible && !document.hidden && !REDUCED) video.play().catch(revealTitle);
+            else video.pause();
+        };
+        const heroVisibility = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                visible = entry.isIntersecting;
+                hero.classList.toggle('is-offscreen', !visible);
+                syncVideo();
+            });
+        });
+        document.addEventListener('visibilitychange', syncVideo);
+        heroVisibility.observe(hero);
+    }
     const marquee = document.querySelector('.marquee-bar');
     const sections = [
         {el: document.querySelector('.hero'), label: '01 INTRO'},
@@ -65,7 +119,7 @@ function setupStoryScroll(){
         {el: document.querySelector('#contact'), label: '04 CONTACT'}
     ].filter(s=>s.el);
 
-    // — Build chapter indicator
+    //, Build chapter indicator
     let chapterEl = document.getElementById('story-chapter');
     if(!chapterEl && progressBar){
         chapterEl = document.createElement('div');
@@ -75,41 +129,60 @@ function setupStoryScroll(){
         progressBar.insertAdjacentElement('afterend', chapterEl);
     }
 
-    // — LENIS
+    //, LENIS (perf: single rAF, no lerp/duration conflict)
     let lenis = null;
     if(window.Lenis && !REDUCED){
-        lenis = new Lenis({ duration: 1.0, smoothWheel:true, smoothTouch:false, gestureOrientation:'vertical', touchMultiplier:1.6, lerp:0.08 });
+        lenis = new Lenis({ lerp: 0.14, smoothWheel: true, syncTouch: false });
         window.__lenis = lenis;
-        const raf = (t)=>{ lenis.raf(t); requestAnimationFrame(raf); };
-        requestAnimationFrame(raf);
         document.querySelectorAll('a[href^="#"]').forEach(link=>{
             link.addEventListener('click', (e)=>{
+                if(e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
                 const href=link.getAttribute('href');
                 if(!href || href==='#') return;
-                const target=document.querySelector(href);
+                let id;
+                try { id = decodeURIComponent(href.slice(1)); } catch { return; }
+                const target=document.getElementById(id);
                 if(!target) return;
                 e.preventDefault();
-                // bottom navbar — no top offset needed
-                const offset = 0;
-                lenis.scrollTo(target, {offset, duration:1.15});
+                // bottom navbar, no top offset needed
+                const distance = Math.abs(target.getBoundingClientRect().top);
+                lenis.scrollTo(target, {
+                    offset: id === 'main-contact-btn' ? -window.innerHeight * 0.55 : 0,
+                    lerp: 0,
+                    duration: Math.min(1.05, 0.45 + distance / 3200),
+                    easing: t => 1 - Math.pow(1 - t, 3)
+                });
             });
         });
     }
 
-    // — REVEAL observer (staggered, but now with story delay)
+    //, REVEAL observer (staggered, but now with story delay)
     const revealObserver = new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
             if(entry.isIntersecting){
                 entry.target.classList.add('active');
-                const children = entry.target.querySelectorAll('.skill-item');
-                children.forEach((c,i)=>c.style.setProperty('--delay', i));
-                animatePercentCounters(entry.target);
             }
         });
     }, {threshold:0.14, rootMargin:'0px 0px -8% 0px'});
     document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
 
-    // — Title reveal
+    // Fill each row when it actually enters the viewport, once per visit.
+    if(!REDUCED){
+        const skillObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(!entry.isIntersecting) return;
+                entry.target.classList.add('skill-filled');
+                skillObserver.unobserve(entry.target);
+            });
+        }, {threshold:0.6, rootMargin:'0px 0px -8% 0px'});
+        document.querySelectorAll('#skills .skill-item').forEach((row, index) => {
+            row.classList.add('skill-pending');
+            row.style.setProperty('--fill-delay', `${index * 70}ms`);
+            skillObserver.observe(row);
+        });
+    }
+
+    //, Title reveal
     const titleObserver = new IntersectionObserver((entries)=>{
         entries.forEach(e=>{
             if(e.isIntersecting){ e.target.classList.add('in-view'); titleObserver.unobserve(e.target); }
@@ -119,11 +192,11 @@ function setupStoryScroll(){
         if(REDUCED) t.classList.add('in-view'); else titleObserver.observe(t);
     });
 
-    // — Nav highlight (bottom bar)
+    //, Nav highlight (bottom bar)
     const navMap = [
         {section: document.querySelector('#projects'), link: document.querySelector('.nav-link[href="#projects"]')},
         {section: document.querySelector('#experience'), link: document.querySelector('.nav-link[href="#experience"]')},
-        {section: document.querySelector('#contact'), link: document.querySelector('.nav-link[href="#contact"]')}
+        {section: document.querySelector('#contact'), link: document.querySelector('.nav-link[href="#main-contact-btn"], .nav-link[href="#contact"]')}
     ].filter(x=>x.section && x.link);
     if(navMap.length){
         const navObs = new IntersectionObserver((entries)=>{
@@ -136,18 +209,16 @@ function setupStoryScroll(){
         navMap.forEach(m=>navObs.observe(m.section));
     }
 
-    // — Story scroll loop (rAF, not scroll event)
-    let ticking = false;
+    //, Story scroll loop (single rAF, compositor-only, no blur per-frame)
     let lastChapter = '';
     function onStoryFrame(){
-        ticking = false;
         const scrollY = window.scrollY || document.documentElement.scrollTop;
         const docH = document.documentElement.scrollHeight - window.innerHeight;
         const progress = docH>0 ? Math.min(1, Math.max(0, scrollY/docH)) : 0;
 
-        // progress bar width (transform for perf)
+        // progress bar via transform (no layout thrash)
         if(progressBar){
-            progressBar.style.width = (progress*100)+'%';
+            progressBar.style.transform = `scaleX(${progress})`;
         }
         if(chapterEl){
             chapterEl.style.setProperty('--chapter-progress', progress);
@@ -155,7 +226,6 @@ function setupStoryScroll(){
 
         // chapter detection
         let currentLabel = sections[0]?.label || '01 INTRO';
-        let currentNum = '01';
         for(let i=sections.length-1;i>=0;i--){
             const rect = sections[i].el.getBoundingClientRect();
             if(rect.top <= window.innerHeight*0.45){
@@ -163,7 +233,7 @@ function setupStoryScroll(){
                 break;
             }
         }
-        currentNum = currentLabel.slice(0,2);
+        const currentNum = currentLabel.slice(0,2);
         const labelOnly = currentLabel.slice(3);
         if(chapterEl && currentLabel!==lastChapter){
             lastChapter = currentLabel;
@@ -174,61 +244,66 @@ function setupStoryScroll(){
             chapterEl.setAttribute('data-chapter', currentLabel);
         }
 
-        // HERO parallax — рассказывает как вступление
+        // HERO parallax, only while hero is on screen, transform+opacity only
         if(hero && !REDUCED){
             const rect = hero.getBoundingClientRect();
-            // hero fades and scales as it leaves viewport
-            const heroProgress = Math.min(1, Math.max(0, -rect.top / (rect.height*0.7)));
-            if(heroInner){
-                heroInner.style.transform = `translateY(${heroProgress* -22}px) scale(${1 - heroProgress*0.04})`;
-                heroInner.style.opacity = String(1 - heroProgress*0.55);
-            }
-            if(heroTitle){
-                heroTitle.style.transform = `translateY(${heroProgress* -12}px)`;
-                heroTitle.style.filter = `blur(${heroProgress*1.2}px)`;
-            }
-            if(heroAbout){
-                heroAbout.style.transform = `translateY(${heroProgress* 10}px)`;
-                heroAbout.style.opacity = String(1 - heroProgress*0.9);
-            }
-            if(marquee){
-                marquee.style.transform = `translateY(${heroProgress* 18}px)`;
-                marquee.style.opacity = String(1 - heroProgress*0.7);
+            const heroVisible = rect.bottom > 0;
+            if(heroVisible){
+                const heroProgress = Math.min(1, Math.max(0, -rect.top / (rect.height*0.7)));
+                if(heroInner){
+                    heroInner.style.transform = `translate3d(0,${(heroProgress* -22).toFixed(1)}px,0) scale(${(1 - heroProgress*0.04).toFixed(3)})`;
+                    heroInner.style.opacity = String(1 - heroProgress*0.55);
+                }
+                if(heroTitle){
+                    heroTitle.style.transform = `translate3d(0,${(heroProgress* -12).toFixed(1)}px,0)`;
+                }
+                if(marquee){
+                    marquee.style.transform = `translate3d(0,${(heroProgress* 18).toFixed(1)}px,0)`;
+                    marquee.style.opacity = String(1 - heroProgress*0.7);
+                }
             }
         }
 
-        // PROJECTS — вьюпорт убран по запросу (без параллакса)
+        // PROJECTS, вьюпорт убран по запросу (без параллакса)
     }
 
-    function requestTick(){
-        if(!ticking){
-            ticking = true;
-            requestAnimationFrame(onStoryFrame);
+    let storyDirty = true;
+    const invalidateStory = () => { storyDirty = true; };
+    window.addEventListener('scroll', invalidateStory, {passive:true});
+    window.addEventListener('resize', invalidateStory, {passive:true});
+    // Images and expanded project descriptions can change the page height.
+    if(window.ResizeObserver){
+        const layoutObserver = new ResizeObserver(() => {
+            invalidateStory();
+            if(REDUCED) onStoryFrame();
+        });
+        layoutObserver.observe(document.body);
+    }
+    function loop(t){
+        if(lenis) lenis.raf(t);
+        if(storyDirty){
+            storyDirty = false;
+            onStoryFrame();
         }
+        requestAnimationFrame(loop);
     }
 
     if(REDUCED){
-        // no parallax, just progress
-        window.addEventListener('scroll', ()=>{
-            const docH = document.documentElement.scrollHeight - window.innerHeight;
-            const p = docH>0 ? window.scrollY/docH : 0;
-            if(progressBar) progressBar.style.width = (p*100)+'%';
-        }, {passive:true});
+        // Keep chapter and progress state current without animated effects.
+        onStoryFrame();
+        window.addEventListener('scroll', onStoryFrame, {passive:true});
+        window.addEventListener('resize', onStoryFrame, {passive:true});
     } else {
-        window.addEventListener('scroll', requestTick, {passive:true});
-        // initial
-        requestTick();
-        // also on lenis scroll
-        if(lenis) lenis.on('scroll', requestTick);
+        requestAnimationFrame(loop);
     }
 }
 
 
 /* ==========================================================================
-   CUSTOM HUD CURSOR — ASCII crosshair
+   CUSTOM HUD CURSOR, ASCII crosshair
    ========================================================================== */
 /* ==========================================================================
-   TEXT SCRAMBLE — used by project names
+   TEXT SCRAMBLE, used by project names
    ========================================================================== */
 const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%@$&';
 
@@ -263,7 +338,7 @@ function scrambleText(el, duration = 650) {
 
 
 /* ==========================================================================
-   PROJECT SHELL — SMOOTH HORIZONTAL CAROUSEL (MOUSE WHEEL, DRAG & TOUCH)
+   PROJECT SHELL, SMOOTH HORIZONTAL CAROUSEL (MOUSE WHEEL, DRAG & TOUCH)
    ========================================================================== */
 function setupPShellCarousel() {
     const track = document.getElementById('pshell-track');
@@ -330,7 +405,7 @@ function setupPShellCarousel() {
     // The carousel is navigated exclusively via the arrow buttons.
     track.addEventListener('wheel', (e) => {
         // Only prevent default if the horizontal scroll is dominant (native trackpad swipe)
-        // Do NOT intercept vertical wheel — let the page scroll normally
+        // Do NOT intercept vertical wheel, let the page scroll normally
         if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
             e.preventDefault();
         }
@@ -410,22 +485,6 @@ function setupPShellCarousel() {
     setActive(0);
 }
 
-/* Project Files — transition to new page */
-function setupProjectFilesTransition(){
-    document.querySelectorAll('a[href="projects.html"], a[href^="project-breakdown.html"], .pshell-title-link').forEach(link=>{
-        link.addEventListener('click', (e)=>{
-            const href = link.getAttribute('href') || link.closest('a')?.getAttribute('href');
-            if(!href) return;
-            if(document.startViewTransition){
-                e.preventDefault();
-                document.startViewTransition(()=>{
-                    window.location.href = href;
-                });
-            }
-        });
-    });
-}
-
 /* ==========================================================================
    SCI-FI ID CARD 'ABOUT ME' MODAL SYSTEM
    ========================================================================== */
@@ -436,35 +495,45 @@ function setupAboutMeModal() {
     const aboutCloseBtn = document.getElementById('about-modal-close');
 
     if (!aboutModal) return;
+    let returnFocus = null;
+    let previousOverflow = '';
+    let backgroundState = [];
 
     function openAboutModal() {
+        if (aboutModal.classList.contains('active')) return;
+        returnFocus = document.activeElement;
+        if (!returnFocus || returnFocus === document.body || !returnFocus.getClientRects().length) {
+            returnFocus = aboutBtn?.getClientRects().length ? aboutBtn : document.getElementById('nav-burger');
+        }
+        previousOverflow = document.body.style.overflow;
         const updateDOM = () => {
             aboutModal.classList.add('active');
             aboutModal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
             if (window.__lenis) window.__lenis.stop();
+            aboutCloseBtn.focus({preventScroll: true});
+            backgroundState = Array.from(document.body.children)
+                .filter(el => el !== aboutModal && !['SCRIPT', 'STYLE'].includes(el.tagName))
+                .map(el => ({el, inert: el.inert}));
+            backgroundState.forEach(({el}) => { el.inert = true; });
         };
 
-        if (document.startViewTransition) {
-            document.startViewTransition(updateDOM);
-        } else {
-            updateDOM();
-        }
+        updateDOM();
     }
 
     function closeAboutModal() {
+        if (!aboutModal.classList.contains('active')) return;
         const updateDOM = () => {
+            backgroundState.forEach(({el, inert}) => { el.inert = inert; });
+            backgroundState = [];
+            if (returnFocus?.isConnected) returnFocus.focus({preventScroll: true});
             aboutModal.classList.remove('active');
             aboutModal.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
+            document.body.style.overflow = previousOverflow;
             if (window.__lenis) window.__lenis.start();
         };
 
-        if (document.startViewTransition) {
-            document.startViewTransition(updateDOM);
-        } else {
-            updateDOM();
-        }
+        updateDOM();
     }
 
     if (aboutBtn) aboutBtn.addEventListener('click', openAboutModal);
@@ -472,8 +541,23 @@ function setupAboutMeModal() {
     if (aboutBackdrop) aboutBackdrop.addEventListener('click', closeAboutModal);
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && aboutModal.classList.contains('active')) {
+        if (!aboutModal.classList.contains('active')) return;
+        if (e.key === 'Escape') {
+            e.preventDefault();
             closeAboutModal();
+        } else if (e.key === 'Tab') {
+            const focusable = Array.from(aboutModal.querySelectorAll(
+                'a[href], button, input, select, textarea, [tabindex]'
+            )).filter(el => !el.disabled && el.tabIndex >= 0 && el.getClientRects().length);
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (!first) { e.preventDefault(); return; }
+            if (!aboutModal.contains(document.activeElement) ||
+                (e.shiftKey && document.activeElement === first) ||
+                (!e.shiftKey && document.activeElement === last)) {
+                e.preventDefault();
+                (e.shiftKey ? last : first).focus();
+            }
         }
     });
 }
@@ -484,33 +568,40 @@ function setupAboutMeModal() {
    ========================================================================== */
 function setupMagneticButtons() {
     if (REDUCED_MOTION) return; // Skip magnetic physics if user prefers reduced motion
+    if (!FINE_POINTER) return; // no magnetic on touch, saves battery + jank
 
     const magneticElements = document.querySelectorAll('.magnetic-btn');
 
     magneticElements.forEach(btn => {
+        let rafId = null;
+        let tx = 0, ty = 0;
+        const render = () => {
+            rafId = null;
+            btn.style.transform = `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0)`;
+        };
         btn.addEventListener('mousemove', (e) => {
             const rect = btn.getBoundingClientRect();
             const btnCenterX = rect.left + rect.width / 2;
             const btnCenterY = rect.top + rect.height / 2;
 
-            const distanceX = e.clientX - btnCenterX;
-            const distanceY = e.clientY - btnCenterY;
-
             const pullFactor = 0.32;
-            const translateX = distanceX * pullFactor;
-            const translateY = distanceY * pullFactor;
+            tx = (e.clientX - btnCenterX) * pullFactor;
+            ty = (e.clientY - btnCenterY) * pullFactor;
 
-            btn.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
+            if(!rafId) rafId = requestAnimationFrame(render);
         });
 
         btn.addEventListener('mouseleave', () => {
+            if(rafId) cancelAnimationFrame(rafId);
+            rafId = null;
+            tx = 0; ty = 0;
             btn.style.transform = `translate3d(0, 0, 0)`;
         });
     });
 }
 
 
-/* CONTACT premium spotlight — follows cursor */
+/* CONTACT premium spotlight, follows cursor */
 function setupContactSpotlight(){
     const btn=document.getElementById('main-contact-btn');
     if(!btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -540,7 +631,7 @@ function setupTypingEffect() {
         PHRASES[0] = window.JUI_I18N.DICT[window.JUI_I18N.current].nav_about || PHRASES[0];
         typingText.textContent = PHRASES[0];
     }
-    // i18n hook — update first phrase when language changes
+    // i18n hook, update first phrase when language changes
     window.__updateTypingText = (newText) => {
         PHRASES[0] = newText;
     };
@@ -586,7 +677,7 @@ function setupTypingEffect() {
 
     setTimeout(tick, HOLD_MS);
 
-    // Variant A — hover scramble for About Me (desktop only, during hold phase)
+    // Variant A, hover scramble for About Me (desktop only, during hold phase)
     const aboutBtnHover = document.getElementById('about-me-btn');
     if (aboutBtnHover && FINE_POINTER && !REDUCED_MOTION) {
         aboutBtnHover.addEventListener('mouseenter', () => {
@@ -597,73 +688,6 @@ function setupTypingEffect() {
             }
         });
     }
-}
-
-
-/* ==========================================================================
-   SKILL PERCENT COUNTERS — count up when revealed
-   ========================================================================== */
-function animatePercentCounters(scope) {
-    if (REDUCED_MOTION) return;
-
-    scope.querySelectorAll('.skill-percent').forEach(el => {
-        if (el.dataset.counted) return;
-        el.dataset.counted = '1';
-
-        const target = parseInt(el.textContent, 10);
-        if (isNaN(target)) return;
-
-        const item = el.closest('.skill-item');
-        const delay = (parseInt(item && item.style.getPropertyValue('--delay'), 10) || 0) * 140 + 1300;
-
-        setTimeout(() => {
-            const duration = 1100;
-            const start = performance.now();
-
-            function frame(now) {
-                const progress = Math.min(1, (now - start) / duration);
-                const eased = 1 - Math.pow(1 - progress, 3);
-                el.textContent = `${Math.round(eased * target)}%`;
-                if (progress < 1) requestAnimationFrame(frame);
-            }
-
-            requestAnimationFrame(frame);
-        }, delay);
-    });
-}
-
-
-/* ==========================================================================
-   HERO SUBHEADER DECODE EFFECT — text resolves from random characters
-   ========================================================================== */
-function setupDecodeEffect() {
-    const subheader = document.querySelector('.hero-subheader-text');
-    if (!subheader || REDUCED_MOTION) return;
-
-    const textNode = subheader.firstChild;
-    if (!textNode || textNode.nodeType !== 3) return;
-
-    const original = textNode.textContent;
-    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%#$@';
-    const duration = 1600;
-    const start = performance.now();
-
-    function frame(now) {
-        const progress = Math.min(1, (now - start) / duration);
-        const resolved = Math.floor(progress * original.length);
-
-        let output = original.slice(0, resolved);
-        for (let i = resolved; i < original.length; i++) {
-            output += original[i] === ' ' ? ' ' : CHARS[Math.floor(Math.random() * CHARS.length)];
-        }
-
-        textNode.textContent = output;
-        if (progress < 1) requestAnimationFrame(frame);
-        else textNode.textContent = original;
-    }
-
-    textNode.textContent = ' '.repeat(original.length);
-    setTimeout(() => requestAnimationFrame(frame), 500);
 }
 
 
@@ -714,56 +738,6 @@ function setupMobileNav(){
     });
 }
 
-/* ==========================================================================
-   ACTIVE SECTION NAV HIGHLIGHT
-   ========================================================================== */
-function setupNavHighlight() {
-    const map = [
-        { section: document.querySelector('#projects'), link: document.querySelector('.nav-link[href="#projects"]') },
-        { section: document.querySelector('#experience'), link: document.querySelector('.nav-link[href="#experience"]') },
-        { section: document.querySelector('#contact'), link: document.querySelector('.nav-link[href="#contact"]') }
-    ].filter(item => item.section && item.link);
-
-    if (!map.length) return;
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                map.forEach(item => {
-                    item.link.classList.toggle('nav-active', item.section === entry.target);
-                });
-            }
-        });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-
-    map.forEach(item => observer.observe(item.section));
-}
-
-
-/* ==========================================================================
-   SECTION TITLE REVEAL — smooth entrance for big headings
-   ========================================================================== */
-function setupTitleReveal() {
-    const titles = document.querySelectorAll('.title-reveal');
-    if (!titles.length) return;
-
-    if (REDUCED_MOTION) {
-        titles.forEach(t => t.classList.add('in-view'));
-        return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-
-    titles.forEach(t => observer.observe(t));
-}
-
 function setupFileDetails(){
     const btns = document.querySelectorAll('.file-details-btn');
     if(!btns.length) return;
@@ -779,10 +753,93 @@ function setupFileDetails(){
             if(!isOpen){
                 panel.removeAttribute('hidden');
                 btn.setAttribute('aria-expanded','true');
-                panel.scrollIntoView({behavior: REDUCED_MOTION ? 'auto' : 'smooth', block:'nearest'});
+                // Use the same scroll controller and leave room for the floating bar.
+                const rect = panel.getBoundingClientRect();
+                const navbar = document.querySelector('.navbar:not(.hero-navigation) .navbar-inner');
+                const viewportBottom = navbar ? navbar.getBoundingClientRect().top - 16 : window.innerHeight - 16;
+                let delta = 0;
+                if(rect.height > viewportBottom - 16 || rect.top < 16) delta = rect.top - 16;
+                else if(rect.bottom > viewportBottom) delta = rect.bottom - viewportBottom;
+                if(Math.abs(delta) > 1){
+                    const top = window.scrollY + delta;
+                    if(window.__lenis && !REDUCED_MOTION){
+                        window.__lenis.resize();
+                        window.__lenis.scrollTo(top, {lerp:0, duration:0.55, easing:t => 1 - Math.pow(1 - t, 3)});
+                    } else {
+                        window.scrollTo({top, behavior:REDUCED_MOTION ? 'auto' : 'smooth'});
+                    }
+                }
             }
         });
     });
 }
 
 /* 3D TILT removed for minimalism */
+
+/* ==========================================================================
+   PROJECTS PAGING, 3 cards per page, pager built only if needed
+   ========================================================================== */
+function setupProjectsPaging(){
+    const grid = document.querySelector('.projects-grid');
+    if(!grid) return;
+    const cards = Array.from(grid.querySelectorAll('.proj-card'));
+    const PER_PAGE = 3;
+    const total = Math.ceil(cards.length / PER_PAGE);
+    if(total < 2) return;
+
+    let page = 0;
+    const pager = document.createElement('div');
+    pager.className = 'projects-pager';
+    pager.innerHTML = '<button type="button" class="pager-btn" data-dir="-1" aria-label="Previous projects">←</button>'
+        + '<div class="pager-dots"></div>'
+        + '<span class="pager-count"><span class="pager-cur">1</span> · ' + total + '</span>'
+        + '<button type="button" class="pager-btn" data-dir="1" aria-label="Next projects">→</button>';
+    grid.after(pager);
+
+    const dotsBox = pager.querySelector('.pager-dots');
+    for(let i = 0; i < total; i++){
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'pager-dot';
+        dot.textContent = String(i + 1).padStart(2, '0');
+        dot.setAttribute('aria-label', 'Page ' + (i + 1));
+        dot.addEventListener('click', ()=>go(i));
+        dotsBox.appendChild(dot);
+    }
+    const dots = Array.from(dotsBox.children);
+    const prevBtn = pager.querySelector('[data-dir="-1"]');
+    const nextBtn = pager.querySelector('[data-dir="1"]');
+    const curEl = pager.querySelector('.pager-cur');
+
+    function render(){
+        cards.forEach((card, i)=>{
+            const visible = Math.floor(i / PER_PAGE) === page;
+            card.hidden = !visible;
+            if(visible){
+                card.classList.remove('pg-in');
+                void card.offsetWidth;
+                card.classList.add('pg-in');
+            }
+        });
+        // close any open details on page switch
+        grid.querySelectorAll('.file-details').forEach(p=>p.setAttribute('hidden',''));
+        grid.querySelectorAll('.file-details-btn').forEach(b=>b.setAttribute('aria-expanded','false'));
+        dots.forEach((d, i)=>{
+            d.classList.toggle('is-active', i === page);
+            if(i === page) d.setAttribute('aria-current','true');
+            else d.removeAttribute('aria-current');
+        });
+        curEl.textContent = String(page + 1);
+        prevBtn.disabled = (page === 0);
+        nextBtn.disabled = (page === total - 1);
+    }
+    function go(i){
+        const next = Math.max(0, Math.min(total - 1, i));
+        if(next === page) return;
+        page = next;
+        render();
+    }
+    prevBtn.addEventListener('click', ()=>go(page - 1));
+    nextBtn.addEventListener('click', ()=>go(page + 1));
+    render();
+}

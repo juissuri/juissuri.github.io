@@ -1,352 +1,293 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gibson Ridge - Procedural Desert Terrain & Environment Study Breakdown by Daria Lytvin.">
-    <title>GIBSON RIDGE, PROCESS</title>
+/**
+ * JUI PORTFOLIO, I18N
+ * EN (default), DE, RU, UK
+ * Switcher on glass pill bar
+ */
+(function(){
+  const DICT = {
+    en: {
+      nav_projects: "PROJECTS",
+      nav_experience: "EXPERIENCE",
+      nav_contact: "CONTACT",
+      nav_about: "About me",
+      hero_subheader: "COMPUTER GENERATED IMAGERY",
+      about_title: "ABOUT ME",
+      about_bio: "3D Environment Artist with a passion for cinematic aesthetics and large-scale world-building. Specializing in asset creation, UV mapping, PBR texturing, lighting, and scene composition. Always open to new horizons and a wide range of projects.",
+      about_age_label: "AGE",
+      about_location_label: "LOCATION",
+      about_location_value: "Germany",
+      about_languages_label: "LANGUAGES",
+      projects_title: "PROJECT FILES",
+      file_meta_02: "Interior, 2026",
+      file_meta_03: "Environment, 2026",
+      details_btn: "DETAILS",
+      details_engine_label: "ENGINE",
+      details_tools_label: "TOOLS",
+      details_year_label: "YEAR",
+      details_desc_01: "A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze. Procedural Gaea terrain + hand-authored vegetation.",
+      details_desc_02: "Awaiting publication, full breakdown soon. Interior study focused on material fidelity and grounded storytelling through props.",
+      details_desc_03: "Awaiting publication, full breakdown soon. Large-scale mountain environment exploring scale, atmosphere, and distant haze.",
+      open_visual: "OPEN VISUAL →",
+      all_details: "View project details",
+      bd_pending: "Project breakdown coming soon.",
+      proj_name_wip: "COMING SOON",
+      file_meta_wip: "In Production, 2026",
+      details_desc_wip: "New environment in production, full reveal soon.",
+      skills_title: "SKILLS",
+      skills_header: "SKILLS UTILISATION",
+      exp_title: "EXPERIENCE",
+      exp_role: "INDEPENDENT 3D ENVIRONMENT ARTIST",
+      exp_desc: "Full-cycle production of personal real-time environments. Managed all stages of development from initial blockout and hard-surface asset creation to PBR texturing, lighting, and final scene composition in Unreal Engine 5.",
+      contact_quote_text: "“My goal isn't just to show beautiful visuals, but to build a world players can truly believe in, where they can find a piece of themselves”",
+      contact_cta: "Let's Contact",
+      footer_copyright: "© 2026 Lytvin Daria. All rights reserved. Designed and developed by the creator.",
+      bd_kicker: "PROCESS",
+      bd_assets: "Assets.",
+      bd_t1: "Reference.",
+      bd_d1: "The project starts with gathering references, real-world desert outposts, terrain silhouettes, material samples and lighting moods. Boards are organized by Main Focus, Landscape, Render, Light, Atmosphere, Assets Detail, Texture and Organic elements to define the visual direction before modeling begins.",
+      bd_t2: "UV Unwrapping.",
+      bd_d2: "Once the model is finalized, it is unwrapped into clean, distortion-free UVs. A proper UV layout is what allows textures to sit perfectly on every surface later in the pipeline.",
+      bd_t3: "Texturing.",
+      bd_d3: "Materials are authored layer by layer, color, roughness and surface detail are built up gradually until every asset reads naturally under the scene lighting.",
+      bd_t4: "Scene Setup.",
+      bd_d4: "All assets are imported into Unreal Engine, where the scene comes together, placement, lighting setup, post-process volumes and camera work define the mood of the environment.",
+      bd_t5: "Engine Work.",
+      bd_d5: "Further refinement inside Unreal Engine: shaders, foliage, particles and lighting are iterated step by step until the atmosphere matches the original vision.",
+      bd_t6: "Final Render.",
+      bd_d6: "The final stage, camera settings, exposure and post-processing come together to produce the finished rendered image of the environment.",
+      bd_footer: "Copyright © 2026 Lytvin Daria. All rights reserved.",
+      modal_name_label: "NAME:",
+      modal_age_label: "AGE:",
+      modal_location_label: "LOCATION:",
+      modal_location_value: "Germany",
+      modal_languages_label: "Languages:",
+      modal_languages_text: "Russian (native), Ukrainian (native), English (intermediate), German (A1–B2)",
+      modal_bio_label: "Biography:",
+      modal_bio_text: "I create 3D worlds. Cinematic aesthetics are my passion, but I can also easily adapt to a variety of artistic styles and settings. I’m always open to new horizons and a wide range of projects."
+    },
+    de: {
+      nav_projects: "PROJEKTE",
+      nav_experience: "ERFAHRUNG",
+      nav_contact: "KONTAKT",
+      nav_about: "Über mich",
+      hero_subheader: "COMPUTERGENERIERTE BILDER",
+      about_title: "ÜBER MICH",
+      about_bio: "3D Environment Artist mit Leidenschaft für filmische Ästhetik und großflächiges Worldbuilding. Spezialisiert auf Asset-Erstellung, UV-Mapping, PBR-Texturing, Lighting und Szenenkomposition. Offen für neue Horizonte und vielfältige Projekte.",
+      about_age_label: "ALTER",
+      about_location_label: "STANDORT",
+      about_location_value: "Deutschland",
+      about_languages_label: "SPRACHEN",
+      projects_title: "PROJEKTDATEIEN",
+      file_meta_02: "Innenraum, 2026",
+      file_meta_03: "Umgebung, 2026",
+      details_btn: "DETAILS",
+      details_engine_label: "ENGINE",
+      details_tools_label: "TOOLS",
+      details_year_label: "JAHR",
+      details_desc_01: "Eine sonnenverbrannte Wüstenumgebung mit großflächigen Terrain-Silhouetten, geschichteten Dünenformationen und filmischem Spiel aus Hitze, Schatten und fernem Dunst. Prozedurales Gaea-Terrain + handgefertigte Vegetation.",
+      details_desc_02: "Veröffentlichung ausstehend, vollständiges Breakdown folgt in Kürze. Innenraum-Studie mit Fokus auf Materialtreue und erzählerischen Props.",
+      details_desc_03: "Veröffentlichung ausstehend, vollständiges Breakdown folgt in Kürze. Großflächige Bergumgebung, die Maßstab, Atmosphäre und fernen Dunst erforscht.",
+      open_visual: "VISUAL ÖFFNEN →",
+      all_details: "Projektdetails ansehen",
+      bd_pending: "Die Projektdokumentation folgt in Kürze.",
+      proj_name_wip: "DEMNÄCHST",
+      file_meta_wip: "In Produktion, 2026",
+      details_desc_wip: "Neue Umgebung in Produktion, Enthüllung folgt in Kürze.",
+      skills_title: "FÄHIGKEITEN",
+      skills_header: "FÄHIGKEITEN",
+      exp_title: "ERFAHRUNG",
+      exp_role: "UNABHÄNGIGE 3D ENVIRONMENT ARTIST",
+      exp_desc: "Eigenständige Produktion von Echtzeit-Umgebungen. Alle Phasen von Blockout und Hard-Surface-Assets bis hin zu PBR-Texturing, Lighting und finaler Szenenkomposition in Unreal Engine 5.",
+      contact_quote_text: "„Mein Ziel ist es nicht nur, schöne Bilder zu zeigen, sondern eine Welt zu erschaffen, an die Spieler wirklich glauben können und in der sie ein Stück von sich selbst finden“",
+      contact_cta: "Kontakt aufnehmen",
+      footer_copyright: "© 2026 Lytvin Daria. Alle Rechte vorbehalten. Design und Entwicklung von der Autorin.",
+      bd_kicker: "PROZESS",
+      bd_assets: "Assets.",
+      bd_t1: "Referenz.",
+      bd_d1: "Jedes Projekt beginnt mit Referenzen, reale Wüstenaußenposten, Terrain-Silhouetten, Materialproben und Lichtstimmungen. Boards sind nach Main Focus, Landschaft, Render, Licht, Atmosphäre, Asset-Details, Texturen und organischen Elementen organisiert und legen die visuelle Richtung vor dem Modeling fest.",
+      bd_t2: "UV-Unwrapping.",
+      bd_d2: "Nach dem Modeling wird jedes Asset sauber und verzerrungsfrei unwrapped. Ein gutes UV-Layout sorgt dafür, dass Texturen später perfekt auf jeder Oberfläche sitzen.",
+      bd_t3: "Texturierung.",
+      bd_d3: "Materialien entstehen Schicht für Schicht, Farbe, Roughness und Oberflächendetails werden aufgebaut, bis jedes Asset im Szenenlicht natürlich wirkt.",
+      bd_t4: "Szenenaufbau.",
+      bd_d4: "Alle Assets werden in die Unreal Engine importiert, wo die Szene entsteht, Placement, Licht-Setup, Post-Process-Volumes und Kameraarbeit bestimmen die Stimmung der Umgebung.",
+      bd_t5: "Engine-Arbeit.",
+      bd_d5: "Weitere Verfeinerung in der Unreal Engine: Shader, Vegetation, Partikel und Licht werden Schritt für Schritt iteriert, bis die Atmosphäre der ursprünglichen Vision entspricht.",
+      bd_t6: "Finales Rendering.",
+      bd_d6: "Die letzte Stufe, Kameraeinstellungen, Belichtung und Post-Processing fügen sich zum fertigen gerenderten Bild der Umgebung zusammen.",
+      bd_footer: "Copyright © 2026 Lytvin Daria. Alle Rechte vorbehalten.",
+      modal_name_label: "NAME:",
+      modal_age_label: "ALTER:",
+      modal_location_label: "STANDORT:",
+      modal_location_value: "Deutschland",
+      modal_languages_label: "Sprachen:",
+      modal_languages_text: "Russisch (Muttersprache), Ukrainisch (Muttersprache), Englisch (fortgeschritten), Deutsch (A1–B2)",
+      modal_bio_label: "Biografie:",
+      modal_bio_text: "Ich erschaffe 3D-Welten. Filmische Ästhetik ist meine Leidenschaft, aber ich passe mich leicht an verschiedene Stile und Settings an. Offen für neue Horizonte und vielfältige Projekte."
+    },
+    ru: {
+      nav_projects: "ПРОЕКТЫ",
+      nav_experience: "ОПЫТ",
+      nav_contact: "КОНТАКТЫ",
+      nav_about: "Обо мне",
+      hero_subheader: "КОМПЬЮТЕРНАЯ ГРАФИКА",
+      about_title: "ОБО МНЕ",
+      about_bio: "3D-художник по окружению с любовью к кинематографичной эстетике и масштабным мирам. Специализируюсь на создании ассетов, UV-развёртке, PBR-текстурировании, освещении и композиции сцен. Открыта к новым горизонтам и разноплановым проектам.",
+      about_age_label: "ВОЗРАСТ",
+      about_location_label: "ЛОКАЦИЯ",
+      about_location_value: "Германия",
+      about_languages_label: "ЯЗЫКИ",
+      projects_title: "ФАЙЛЫ ПРОЕКТОВ",
+      file_meta_02: "Интерьер, 2026",
+      file_meta_03: "Окружение, 2026",
+      details_btn: "ДЕТАЛИ",
+      details_engine_label: "ДВИЖОК",
+      details_tools_label: "ИНСТРУМЕНТЫ",
+      details_year_label: "ГОД",
+      details_desc_01: "Выжженная солнцем пустынная сцена с масштабными силуэтами рельефа, слоистыми дюнами и кинематографичной игрой жары, тени и дымки. Процедурный рельеф Gaea + ручная растительность.",
+      details_desc_02: "Скоро публикация, полный разбор скоро. Интерьерное исследование с фокусом на материалы и сторителлинг через пропсы.",
+      details_desc_03: "Скоро публикация, полный разбор скоро. Горная среда с акцентом на масштаб, атмосферу и дальнюю дымку.",
+      open_visual: "ОТКРЫТЬ ВИЗУАЛ →",
+      all_details: "Посмотреть детали проекта",
+      bd_pending: "Подробный разбор проекта скоро появится.",
+      proj_name_wip: "СКОРО",
+      file_meta_wip: "В производстве, 2026",
+      details_desc_wip: "Новое окружение в производстве, скоро покажу.",
+      skills_title: "НАВЫКИ",
+      skills_header: "ВЛАДЕНИЕ НАВЫКАМИ",
+      exp_title: "ОПЫТ",
+      exp_role: "НЕЗАВИСИМЫЙ 3D-ХУДОЖНИК ПО ОКРУЖЕНИЮ",
+      exp_desc: "Полный цикл создания окружений реального времени. Все этапы, от блок-аута и ассетов до PBR-текстурирования, освещения и финальной композиции сцены в Unreal Engine 5.",
+      contact_quote_text: "«Моя цель: не просто показать красивые визуалы, а построить мир, в который игроки смогут по-настоящему поверить и найти в нём частичку себя»",
+      contact_cta: "Связаться",
+      footer_copyright: "© 2026 Лытвин Дарья. Все права защищены. Дизайн и разработка: автор.",
+      bd_kicker: "ПРОЦЕСС",
+      bd_assets: "Ассеты.",
+      bd_t1: "Референсы.",
+      bd_d1: "Проект начинается со сбора референсов, реальные пустынные аванпосты, силуэты рельефа, образцы материалов и световые настроения. Борды организованы по блокам: главный фокус, ландшафт, рендер, свет, атмосфера, детали ассетов, текстуры и органика, так задаётся визуальное направление до начала моделирования.",
+      bd_t2: "UV-развёртка.",
+      bd_d2: "После моделирования каждый ассет разворачивается в чистые UV без искажений. Грамотная развёртка позволяет добиться того, благодаря чему текстуры позже идеально ложатся на каждую поверхность.",
+      bd_t3: "Текстурирование.",
+      bd_d3: "Материалы создаются послойно, цвет, шероховатость и детали поверхности наращиваются постепенно, пока каждый ассет не станет естественно читаться в свете сцены.",
+      bd_t4: "Сборка сцены.",
+      bd_d4: "Все ассеты импортируются в Unreal Engine, где сцена собирается воедино, расстановка, настройка света, post-process volumes и работа камеры задают настроение окружения.",
+      bd_t5: "Работа в движке.",
+      bd_d5: "Дальнейшая доводка в Unreal Engine: шейдеры, растительность, частицы и свет итерируются шаг за шагом, пока атмосфера не совпадёт с изначальным видением.",
+      bd_t6: "Финальный рендер.",
+      bd_d6: "Финал, настройки камеры, экспозиция и постобработка соединяются в готовое отрендеренное изображение окружения.",
+      bd_footer: "© 2026 Лытвин Дарья. Все права защищены.",
+      modal_name_label: "ИМЯ:",
+      modal_age_label: "ВОЗРАСТ:",
+      modal_location_label: "ЛОКАЦИЯ:",
+      modal_location_value: "Германия",
+      modal_languages_label: "Языки:",
+      modal_languages_text: "Русский (родной), Украинский (родной), Английский (средний), Немецкий (A1–B2)",
+      modal_bio_label: "Биография:",
+      modal_bio_text: "Я создаю 3D-миры. Кинематографичная эстетика, моя страсть, но я легко адаптируюсь к разным стилям и сеттингам. Открыта к новым горизонтам и разноплановым проектам."
+    },
+    uk: {
+      nav_projects: "ПРОЄКТИ",
+      nav_experience: "ДОСВІД",
+      nav_contact: "КОНТАКТИ",
+      nav_about: "Про мене",
+      hero_subheader: "КОМП'ЮТЕРНА ГРАФІКА",
+      about_title: "ПРО МЕНЕ",
+      about_bio: "3D-художниця з оточення з любов'ю до кінематографічної естетики та масштабних світів. Спеціалізуюся на створенні асетів, UV-розгортці, PBR-текстуруванні, освітленні та композиції сцен. Відкрита до нових горизонтів і різнопланових проєктів.",
+      about_age_label: "ВІК",
+      about_location_label: "ЛОКАЦІЯ",
+      about_location_value: "Німеччина",
+      about_languages_label: "МОВИ",
+      projects_title: "ФАЙЛИ ПРОЄКТІВ",
+      file_meta_02: "Інтер'єр, 2026",
+      file_meta_03: "Оточення, 2026",
+      details_btn: "ДЕТАЛІ",
+      details_engine_label: "РУШІЙ",
+      details_tools_label: "ІНСТРУМЕНТИ",
+      details_year_label: "РІК",
+      details_desc_01: "Виснажена сонцем пустельна сцена з масштабними силуетами рельєфу, шаруватими дюнами та кінематографічною грою спеки, тіні та серпанку. Процедурний рельєф Gaea + ручна рослинність.",
+      details_desc_02: "Скоро публікація, повний розбір незабаром. Інтер'єрне дослідження з фокусом на матеріали та сторітелінг через пропси.",
+      details_desc_03: "Скоро публікація, повний розбір незабаром. Гірське середовище з акцентом на масштаб, атмосферу та далекий серпанок.",
+      open_visual: "ВІДКРИТИ ВІЗУАЛ →",
+      all_details: "Переглянути деталі проєкту",
+      bd_pending: "Детальний розбір проєкту незабаром з’явиться.",
+      proj_name_wip: "СКОРО",
+      file_meta_wip: "У виробництві, 2026",
+      details_desc_wip: "Нове оточення у виробництві, скоро покажу.",
+      skills_title: "НАВИЧКИ",
+      skills_header: "ВОЛОДІННЯ НАВИЧКАМИ",
+      exp_title: "ДОСВІД",
+      exp_role: "НЕЗАЛЕЖНА 3D-ХУДОЖНИЦЯ З ОТОЧЕННЯ",
+      exp_desc: "Повний цикл створення оточень реального часу. Всі етапи, від блок-ауту та асетів до PBR-текстурування, освітлення та фінальної композиції сцени в Unreal Engine 5.",
+      contact_quote_text: "«Моя мета: не просто показати красиві візуали, а побудувати світ, у який гравці зможуть по-справжньому повірити та знайти в ньому частинку себе»",
+      contact_cta: "Зв'язатися",
+      footer_copyright: "© 2026 Литвин Дар'я. Всі права захищені. Дизайн і розробка, авторка.",
+      bd_kicker: "ПРОЦЕС",
+      bd_assets: "Асети.",
+      bd_t1: "Референси.",
+      bd_d1: "Проєкт починається зі збору референсів, реальні пустельні аванпости, силуети рельєфу, зразки матеріалів і світлові настрої. Борди організовано за блоками: головний фокус, ландшафт, рендер, світло, атмосфера, деталі асетів, текстури й органіка, так задається візуальний напрям до початку моделювання.",
+      bd_t2: "UV-розгортка.",
+      bd_d2: "Після моделювання кожен асет розгортається в чисті UV без спотворень. Грамотна розгортка, те, завдяки чому текстури згодом ідеально лягають на кожну поверхню.",
+      bd_t3: "Текстурування.",
+      bd_d3: "Матеріали створюються пошарово, колір, шорсткість і деталі поверхні нарощуються поступово, доки кожен асет не стане природно читатися у світлі сцени.",
+      bd_t4: "Збірка сцени.",
+      bd_d4: "Усі асети імпортуються в Unreal Engine, де сцена збирається докупи, розстановка, налаштування світла, post-process volumes і робота камери задають настрій оточення.",
+      bd_t5: "Робота в рушії.",
+      bd_d5: "Подальше доведення в Unreal Engine: шейдери, рослинність, частинки та світло ітеруються крок за кроком, доки атмосфера не збіжиться з початковим баченням.",
+      bd_t6: "Фінальний рендер.",
+      bd_d6: "Фінал, налаштування камери, експозиція та постобробка з'єднуються в готове відрендерене зображення оточення.",
+      bd_footer: "© 2026 Литвин Дар'я. Всі права захищені.",
+      modal_name_label: "ІМ'Я:",
+      modal_age_label: "ВІК:",
+      modal_location_label: "ЛОКАЦІЯ:",
+      modal_location_value: "Німеччина",
+      modal_languages_label: "Мови:",
+      modal_languages_text: "Російська (рідна), Українська (рідна), Англійська (середня), Німецька (A1–B2)",
+      modal_bio_label: "Біографія:",
+      modal_bio_text: "Я створюю 3D-світи. Кінематографічна естетика, моя пристрасть, але я легко адаптуюся до різних стилів і сетингів. Відкрита до нових горизонтів і різнопланових проєктів."
+    }
+  };
 
-    <!-- Laptop Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23020204'/%3E%3Ctext x='32' y='41' font-family='Courier New, monospace' font-size='24' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'%3EJUI%3C/text%3E%3C/svg%3E">
+  const STORAGE_KEY = 'jui_lang';
+  let current = 'en';
+  try { current = localStorage.getItem(STORAGE_KEY) || 'en'; } catch {}
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="css/fonts.css">
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
+  function apply(lang){
+    if(!Object.prototype.hasOwnProperty.call(DICT, lang)) lang = 'en';
+    const dict = DICT[lang] || DICT.en;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.dataset.i18n;
+      if(dict[k] != null){
+        // preserve arrow etc if value contains →
+        el.textContent = dict[k];
+      }
+    });
+    // update typing effect source if exists
+    if(window.__updateTypingText){
+      window.__updateTypingText(dict.nav_about || DICT.en.nav_about);
+    }
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('is-active', b.dataset.lang === lang);
+      b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+    });
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch {}
+    current = lang;
+  }
 
-    <style>
-        body{background-color:#1A1A1C;padding-bottom:6rem}
-        .bg-noise{display:none}
+  function init(){
+    // set initial
+    if(!DICT[current]) current = 'en';
+    apply(current);
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => apply(btn.dataset.lang));
+    });
+  }
 
-        .breakdown-nav-bar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 50;
-            background: rgba(20, 20, 22, 0.96);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            height: 4.5rem;
-            display: flex;
-            align-items: center;
-        }
-        .breakdown-nav-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            color: #FFFFFF;
-            text-decoration: none;
-            transition: opacity 200ms ease;
-        }
-        .back-link:hover { opacity: 0.7; }
+  window.JUI_I18N = { apply, DICT, get current(){ return current; } };
 
-        .process-hero {
-            padding: 5.5rem 2rem 3rem;
-            text-align: center;
-        }
-        .process-kicker {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            color: #8A8A90;
-        }
-        .process-title {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: clamp(2.6rem, 5vw, 4.2rem);
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            color: #FFFFFF;
-            line-height: 1.1;
-            margin-top: 0.75rem;
-        }
-
-        /* ── GAEA-STYLE PROCESS BLOCKS ── */
-        .process { padding: 3rem 2rem 8rem; }
-
-        .process-block {
-            max-width: 1180px;
-            margin: 0 auto 8rem;
-        }
-        .process-block:last-child { margin-bottom: 0; }
-
-        .process-head {
-            max-width: 980px;
-            margin: 0 auto 2.8rem;
-            text-align: center;
-        }
-        .process-name {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: clamp(1.9rem, 2.8vw, 2.6rem);
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            color: #FFFFFF;
-            line-height: 1.25;
-            margin-bottom: 1.2rem;
-        }
-        .process-text {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 1.08rem;
-            line-height: 1.75;
-            color: #B0B0B5;
-            max-width: 760px;
-            margin: 0 auto;
-        }
-        .process-text + .process-text { margin-top: 0.75rem; }
-
-        .process-media {
-            max-width: 1080px;
-            margin: 0 auto;
-            aspect-ratio: 16 / 7.5;
-            background: linear-gradient(110deg, #212124 0%, #26262a 50%, #212124 100%);
-            background-size: 200% 100%;
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 18px;
-            animation: mediaWait 1.6s ease-in-out infinite alternate;
-        }
-        @keyframes mediaWait {
-            from { background-position: 0% 50%; }
-            to   { background-position: 100% 50%; }
-        }
-        .process-media--reference{
-            max-width:1120px;
-            aspect-ratio:auto;
-            background:none;
-            border:none;
-            animation:none;
-            height:auto;
-            overflow:hidden;
-            border-radius:18px;
-        }
-        .process-media--reference img{
-            display:block;
-            width:100%;
-            height:auto;
-            border-radius:18px;
-            border:1px solid rgba(255,255,255,0.06);
-            background:#1E1E20;
-            cursor:zoom-in;
-            transition:transform 200ms ease, filter 200ms ease, border-color 200ms ease;
-        }
-        .process-media--reference img:hover{
-            transform:scale(1.005);
-            filter:brightness(1.04);
-            border-color:rgba(255,255,255,0.12);
-        }
-        /* Empty stages (no image yet), don't show shimmer placeholders */
-        .process-media:empty{display:none}
-
-        @media (max-width: 720px) {
-            .process-text { max-width: none; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .process-media { animation: none; }
-        }
-    </style>
-    <!-- Social sharing preview -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="JUI SSURI">
-    <meta property="og:title" content="JUI SSURI, 3D Environment Artist">
-    <meta property="og:description" content="Daria Lytvin, 3D environments, materials and lighting portfolio.">
-    <meta property="og:image" content="https://juissuri.github.io/assets/images/jui-ssuri-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1733">
-    <meta property="og:image:height" content="907">
-    <meta property="og:image:alt" content="JUI SSURI in white letters on a black background">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="JUI SSURI, 3D Environment Artist">
-    <meta name="twitter:description" content="Daria Lytvin, 3D environments, materials and lighting portfolio.">
-    <meta name="twitter:image" content="https://juissuri.github.io/assets/images/jui-ssuri-social.png">
-    <meta name="twitter:image:alt" content="JUI SSURI in white letters on a black background">
-    <script src="js/surface-light.js" defer></script>
-</head>
-<body>
-
-    <header class="process-hero">
-        <div class="process-kicker" data-i18n="bd_kicker">PROCESS</div>
-        <h1 class="process-title" id="process-title">GIBSON RIDGE</h1>
-    </header>
-
-    <main class="process">
-
-        <article class="process-block">
-            <div class="process-head">
-                <h2 class="process-name" data-i18n="bd_t1">Reference.</h2>
-                <div>
-                    <p class="process-text" data-i18n="bd_d1">The project starts with gathering references, real-world desert outposts, terrain silhouettes, material samples and lighting moods. Boards are organized by Main Focus, Landscape, Render, Light, Atmosphere, Assets Detail, Texture and Organic elements to define the visual direction before modeling begins.</p>
-                </div>
-            </div>
-            <div class="process-media process-media--reference">
-                <img src="assets/images/reference-gibson.jpg" alt="Gibson Ridge, Reference board: Main Focus, Assets Detail, Texture, Organic" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <div class="process-media-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem;">WIP, image coming soon</div>
-            </div>
-        </article>
-
-        <article class="process-block">
-            <div class="process-head">
-                <h2 class="process-name" data-i18n="bd_t2">UV Unwrapping.</h2>
-                <div>
-                    <p class="process-text" data-i18n="bd_d2">Once the model is finalized, it is unwrapped into clean, distortion-free UVs. A proper UV layout is what allows textures to sit perfectly on every surface later in the pipeline.</p>
-                </div>
-            </div>
-            <div class="process-media"></div>
-        </article>
-
-        <article class="process-block">
-            <div class="process-head">
-                <h2 class="process-name" data-i18n="bd_t3">Texturing.</h2>
-                <div>
-                    <p class="process-text" data-i18n="bd_d3">Materials are authored layer by layer, color, roughness and surface detail are built up gradually until every asset reads naturally under the scene lighting.</p>
-                </div>
-            </div>
-            <div class="process-media"></div>
-        </article>
-
-        <article class="process-block">
-            <div class="process-head">
-                <h2 class="process-name" data-i18n="bd_t4">Scene Setup.</h2>
-                <div>
-                    <p class="process-text" data-i18n="bd_d4">All assets are imported into Unreal Engine, where the scene comes together, placement, lighting setup, post-process volumes and camera work define the mood of the environment.</p>
-                </div>
-            </div>
-            <div class="process-media process-media--reference">
-                <img src="assets/images/scene-setup.jpg" alt="Scene Setup, Unreal Engine viewport with desert outpost, point lights and PostProcessVolume" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <div class="process-media-fallback" style="display:none; width:100%; height:100%; min-height:220px; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem; border:1px dashed rgba(255,255,255,0.08); border-radius:18px; background:rgba(255,255,255,0.02)">WIP, image coming soon</div>
-            </div>
-        </article>
-
-        <article class="process-block">
-            <div class="process-head">
-                <h2 class="process-name" data-i18n="bd_t5">Engine Work.</h2>
-                <div>
-                    <p class="process-text" data-i18n="bd_d5">Further refinement inside Unreal Engine: shaders, foliage, particles and lighting are iterated step by step until the atmosphere matches the original vision.</p>
-                </div>
-            </div>
-            <div class="process-media"></div>
-        </article>
-
-        <article class="process-block">
-            <div class="process-head">
-                <h2 class="process-name" data-i18n="bd_t6">Final Render.</h2>
-                <div>
-                    <p class="process-text" data-i18n="bd_d6">The final stage, camera settings, exposure and post-processing come together to produce the finished rendered image of the environment.</p>
-                </div>
-            </div>
-            <div class="process-media"></div>
-        </article>
-
-        <article class="process-block" id="project-assets">
-            <div class="process-head"><h2 class="process-name" data-i18n="bd_assets">Assets.</h2></div>
-            <div class="asset-gallery" tabindex="0" role="region" aria-label="Assets">
-                <div class="asset-slides"></div>
-                <div class="asset-controls">
-                    <button type="button" data-step="-1" aria-label="Previous asset">←</button>
-                    <span class="asset-count" aria-live="polite"></span>
-                    <button type="button" data-step="1" aria-label="Next asset">→</button>
-                </div>
-            </div>
-        </article>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-copyright" data-i18n="bd_footer">
-                Copyright &copy; 2026 Lytvin Daria. All rights reserved.
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const PROJECT_META = {
-            '01': { title: 'GIBSON RIDGE',      metaTitle: 'GIBSON RIDGE, PROCESS',      description: 'Gibson Ridge - Process Breakdown by Daria Lytvin.' },
-            '02': { title: "SIMON'S GARAGE",    metaTitle: "SIMON'S GARAGE, PROCESS",    description: "Simon's Garage - Process Breakdown by Daria Lytvin." },
-            '03': { title: 'MOUNTAINS',         metaTitle: 'MOUNTAINS, PROCESS',         description: 'Mountains - Process Breakdown by Daria Lytvin.' },
-            '04': { title: 'PROJECT 04', metaTitle: 'PROJECT 04, PROCESS', description: 'Project in production.' },
-            '05': { title: 'PROJECT 05', metaTitle: 'PROJECT 05, PROCESS', description: 'Project in production.' },
-            '06': { title: 'PROJECT 06', metaTitle: 'PROJECT 06, PROCESS', description: 'Project in production.' }
-        };
-
-        (function () {
-            const params = new URLSearchParams(window.location.search);
-            const key = Object.prototype.hasOwnProperty.call(PROJECT_META, params.get('project')) ? params.get('project') : '01';
-            const data = PROJECT_META[key];
-
-            document.title = data.metaTitle;
-            document.querySelector('meta[name="description"]').setAttribute('content', data.description);
-            document.getElementById('process-title').textContent = data.title;
-            if(key !== '01'){
-                document.querySelectorAll('.process-block').forEach(block => {block.hidden = true;});
-                const notice = document.createElement('p');
-                notice.className = 'process-text';
-                notice.dataset.i18n = 'bd_pending';
-                notice.textContent = 'Project breakdown coming soon.';
-                document.querySelector('main.process').prepend(notice);
-            }
-        })();
-    </script>
-    <script src="js/i18n.js"></script>
-    <script src="js/project-assets.js"></script>
-    <script src="js/lightbox.js"></script>
-    <link rel="stylesheet" href="css/project-assets.css">
-
-    <!-- Bottom Glass Pill Bar, same as main page -->
-    <nav class="navbar">
-        <div class="navbar-inner">
-            <div class="navbar-left">
-                <a href="index.html" class="logo logo--text-only" aria-label="JUI">
-                    <span class="logo-text">JUI</span>
-                </a>
-            </div>
-            <div class="navbar-right">
-                <div class="nav-links">
-                    <a href="index.html#projects" class="nav-link" data-i18n="nav_projects">PROJECTS</a>
-                    <span class="nav-pipe">|</span>
-                    <a href="index.html#experience" class="nav-link" data-i18n="nav_experience">EXPERIENCE</a>
-                    <span class="nav-pipe">|</span>
-                    <a href="index.html#contact" class="nav-link" data-i18n="nav_contact">CONTACT</a>
-                </div>
-            </div>
-            <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-        <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
-            <a href="index.html#projects" class="nav-drawer-link" data-i18n="nav_projects">PROJECTS</a>
-            <a href="index.html#experience" class="nav-drawer-link" data-i18n="nav_experience">EXPERIENCE</a>
-            <a href="index.html#contact" class="nav-drawer-link" data-i18n="nav_contact">CONTACT</a>
-        </div>
-    </nav>
-    <script>
-        // Burger for glass pill (same as visual page)
-        (function(){
-            const burger = document.getElementById('nav-burger');
-            const drawer = document.getElementById('nav-drawer');
-            if(!burger || !drawer) return;
-            burger.addEventListener('click', function(){
-                const open = drawer.classList.toggle('is-open');
-                burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-                drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-            });
-            document.addEventListener('click', function(e){
-                if(!drawer.classList.contains('is-open')) return;
-                if(drawer.contains(e.target) || burger.contains(e.target)) return;
-                drawer.classList.remove('is-open');
-                burger.setAttribute('aria-expanded', 'false');
-                drawer.setAttribute('aria-hidden', 'true');
-            });
-        })();
-    </script>
-</body>
-</html>
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

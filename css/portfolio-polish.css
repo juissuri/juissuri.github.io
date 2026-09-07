@@ -60,11 +60,11 @@
 .folder-card .proj-actions{margin-top:auto}
 
 /* Larger archive covers and readable software credits. */
-.files-directory{max-width:96rem}
+.files-directory{max-width:90rem}
 .projects-grid{column-gap:clamp(1.5rem,2.4vw,2.75rem)}
-.folder-card .proj-media{aspect-ratio:16/10}
-.folder-card .proj-body{padding:1.5rem;gap:.8rem}
-.folder-card .proj-name{font-size:clamp(1.7rem,2.1vw,2rem)}
+.folder-card .proj-media{aspect-ratio:16/9}
+.folder-card .proj-body{padding:1.2rem 1.3rem;gap:.65rem}
+.folder-card .proj-name{font-size:clamp(1.55rem,1.8vw,1.8rem)}
 .folder-card .proj-meta{font-size:.8rem}
 .folder-card .proj-tags{gap:.7rem 1rem;margin:.25rem 0 1rem}
 .folder-card .proj-tags span{
@@ -207,3 +207,4 @@
 }
 .hero-navigation .lang-btn:hover:not(.is-active){color:#E4EAF3;background:#FFFFFF0B}
 @media(prefers-reduced-motion:reduce){.hero-navigation .lang-btn{transition:none}}
+.hero-video-play{position:absolute;right:1.5rem;bottom:1.5rem;z-index:20;width:44px;height:44px;border-radius:50%;border:1px solid #ffffff40;background:#151515cc;color:#ddd;cursor:pointer}.hero-video-play[hidden]{display:none}.hero-video-play:focus-visible{outline:2px solid #ddd;outline-offset:4px}

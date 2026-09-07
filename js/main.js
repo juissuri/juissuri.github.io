@@ -56,6 +56,22 @@ function setupStoryScroll(){
     const heroTitle = document.querySelector('.hero-title');
     if(hero){
         const video = hero.querySelector('video');
+        let manualPlayback = false;
+        let playBackground;
+        if(video){
+            video.muted = true;
+            playBackground = document.createElement('button');
+            playBackground.type = 'button';
+            playBackground.className = 'hero-video-play';
+            playBackground.textContent = '▶';
+            playBackground.setAttribute('aria-label','Play background video');
+            playBackground.hidden = true;
+            hero.append(playBackground);
+            playBackground.addEventListener('click',() => {
+                manualPlayback = true;
+                video.play().then(() => {playBackground.hidden = true;}).catch(() => {playBackground.hidden = false;});
+            });
+        }
         // Detect the first visible grid frame instead of timing from page load.
         let revealTitle = () => {};
         if(video && !REDUCED){
@@ -97,8 +113,15 @@ function setupStoryScroll(){
         let visible = false;
         const syncVideo = () => {
             if(!video) return;
-            if(visible && !document.hidden && !REDUCED) video.play().catch(revealTitle);
-            else video.pause();
+            if(visible && !document.hidden && (!REDUCED || manualPlayback)){
+                video.play().then(() => {playBackground.hidden = true;}).catch(error => {
+                    revealTitle();
+                    if(error.name !== 'AbortError') playBackground.hidden = false;
+                });
+            }else{
+                video.pause();
+                if(visible && REDUCED && !manualPlayback) playBackground.hidden = false;
+            }
         };
         const heroVisibility = new IntersectionObserver(entries => {
             entries.forEach(entry => {

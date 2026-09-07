@@ -45,10 +45,17 @@
         event.preventDefault(); show(current + (event.key === 'ArrowRight' ? 1 : -1));
     });
     let start = null;
-    gallery.addEventListener('touchstart',event => {start = event.touches[0].clientX;}, {passive:true});
+    gallery.addEventListener('touchstart',event => {
+        start = event.touches.length === 1 ? {x:event.touches[0].clientX,y:event.touches[0].clientY} : null;
+    }, {passive:true});
     gallery.addEventListener('touchend',event => {
-        if(start !== null){const delta = start - event.changedTouches[0].clientX; if(Math.abs(delta)>50) show(current + Math.sign(delta));}
+        if(start !== null && event.changedTouches.length){
+            const delta = start.x - event.changedTouches[0].clientX;
+            const vertical = start.y - event.changedTouches[0].clientY;
+            if(Math.abs(delta)>50 && Math.abs(delta)>Math.abs(vertical)*1.3) show(current + Math.sign(delta));
+        }
         start = null;
     }, {passive:true});
+    gallery.addEventListener('touchcancel',() => {start = null;}, {passive:true});
     show(0);
 })();

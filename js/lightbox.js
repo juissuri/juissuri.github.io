@@ -11,6 +11,7 @@
     let isOpen = false;
     let returnFocus = null;
     let previousOverflow = '';
+    let openVersion = 0;
 
     function build() {
         overlay = document.createElement('div');
@@ -47,6 +48,8 @@
     function open(src, alt, originImg) {
         if (!overlay) build();
         if(isOpen) return;
+        isOpen = true;
+        const version = ++openVersion;
         returnFocus = originImg || document.activeElement;
         previousOverflow = document.body.style.overflow;
         if (window.__lenis) window.__lenis.stop();
@@ -64,6 +67,7 @@
 
             const transition = document.startViewTransition(() => {
                 originImg.style.viewTransitionName = '';
+                if(!isOpen || version !== openVersion) return;
                 imgEl.style.viewTransitionName = 'project-media';
                 overlay.classList.add('open');
                 overlay.querySelector('.lightbox-close').focus({preventScroll:true});
@@ -71,18 +75,19 @@
             const cleanup = () => {
                 originImg.style.viewTransitionName = '';
                 imgEl.style.viewTransitionName = '';
-                if(isOpen) overlay.querySelector('.lightbox-close').focus({preventScroll:true});
+                if(isOpen && version === openVersion) overlay.querySelector('.lightbox-close').focus({preventScroll:true});
             };
             transition.finished.then(cleanup, cleanup);
         } else {
             overlay.classList.add('open');
         }
 
-        isOpen = true;
         overlay.querySelector('.lightbox-close').focus({preventScroll:true});
     }
 
     function close() {
+        if(!isOpen) return;
+        openVersion++;
         overlay.classList.remove('open');
         isOpen = false;
         document.body.style.overflow = previousOverflow;

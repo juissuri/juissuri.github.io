@@ -1,0 +1,240 @@
+/* PROJECTS — cinematic horizontal gallery inspired by the HITMAN location rail. */
+#projects.pshell-section--files {
+    padding: clamp(4rem, 7.5vw, 6rem) 0 clamp(6rem, 9vw, 10rem);
+    overflow: hidden;
+    background: #0d0f12 !important;
+}
+
+#projects .files-directory {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+#projects .files-directory-header {
+    width: min(84vw, 82rem);
+    max-width: none;
+    margin: 0 auto clamp(3rem, 5vw, 7rem);
+    padding: 0;
+    border: 0;
+    display: block;
+}
+
+#projects .files-directory-header .pshell-title {
+    margin: 0;
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(4.5rem, 9vw, 8.5rem) !important;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    background: var(--gradient-orange-strong) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+#projects .pshell-subtitle {
+    max-width: 44rem;
+    margin-top: clamp(2.2rem, 3.2vw, 5rem);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(.92rem, .65vw, 1.3rem);
+    line-height: 1.55;
+    color: rgba(244, 244, 242, .58);
+}
+
+#projects .projects-grid {
+    box-sizing: border-box;
+    width: 100vw;
+    max-width: none;
+    margin: 0;
+    padding: 10px max(8vw, calc((100vw - 82rem) / 2));
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(8vw, calc((100vw - 82rem) / 2));
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+}
+
+#projects .projects-grid::-webkit-scrollbar { display: none; }
+#projects .projects-grid.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+
+#projects .projects-grid .proj-card,
+#projects .projects-grid .proj-card.parallax-ready,
+#projects .projects-grid .proj-card.parallax-ready.is-parallax-active {
+    --zoom-x: 50%;
+    --zoom-y: 50%;
+    flex: 0 0 min(84vw, 82rem);
+    width: min(84vw, 82rem);
+    aspect-ratio: 16 / 9;
+    min-width: 0;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 0;
+    background: #111316 !important;
+    box-shadow: none !important;
+    isolation: isolate;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    transform: none !important;
+    transition: none !important;
+}
+
+#projects .folder-card::before,
+#projects .folder-card::after { display: none !important; }
+
+#projects .folder-card .proj-media,
+#projects .folder-card.parallax-ready .proj-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0 !important;
+    border-radius: 0;
+    background: #111316 !important;
+    box-shadow: none;
+    transform: none !important;
+    overflow: hidden;
+}
+
+#projects .folder-card .proj-media img,
+#projects .folder-card .proj-preview-frame {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: saturate(.88) contrast(1.04) brightness(.86);
+    transform: scale(1.001);
+    transform-origin: var(--zoom-x) var(--zoom-y);
+    transition: transform 850ms cubic-bezier(.16, 1, .3, 1), filter 650ms ease;
+    will-change: transform;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+#projects .folder-card:hover .proj-media img,
+#projects .folder-card:focus-within .proj-media img,
+#projects .folder-card:hover .proj-preview-frame,
+#projects .folder-card:focus-within .proj-preview-frame {
+    transform: scale(1.06);
+    filter: saturate(.96) contrast(1.03) brightness(.94);
+}
+
+#projects .proj-media::after {
+    z-index: 2;
+    background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.28) 36%, transparent 64%);
+}
+
+#projects .folder-card .proj-body,
+#projects .folder-card.parallax-ready .proj-body {
+    position: absolute;
+    z-index: 3;
+    left: 52%;
+    right: auto;
+    bottom: clamp(1.35rem, 3vw, 6rem);
+    width: 40%;
+    padding: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(.8rem, 1vw, 1.4rem);
+    background: none;
+    transform: none;
+    pointer-events: none;
+    text-align: left;
+}
+
+#projects .folder-card .proj-name {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(1.25rem, 1.15vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.035em;
+    color: #fff;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    text-shadow: 0 2px 18px rgba(0,0,0,.85);
+}
+
+#projects .proj-overlay-desc {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(.8rem, .62vw, 1.2rem);
+    line-height: 1.5;
+    color: rgba(255,255,255,.72);
+    text-shadow: 0 2px 12px rgba(0,0,0,.9);
+}
+
+#projects .proj-meta,
+#projects .proj-tags,
+#projects .proj-actions,
+#projects .file-details { display: none !important; }
+
+#projects .proj-media-empty {
+    z-index: 1;
+    padding: 0;
+    background:
+        radial-gradient(circle at 50% 45%, rgba(255,255,255,.055), transparent 34%),
+        linear-gradient(135deg, #17191c 0%, #090a0c 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: clamp(1.6rem, 2.1vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -.035em;
+    color: rgba(255,255,255,.26);
+    -webkit-text-stroke: 0;
+}
+
+@media (max-width: 700px) {
+    #projects.pshell-section--files { padding: 5rem 0 5.5rem; }
+    #projects .files-directory-header { width: 88vw; margin-bottom: 2.5rem; }
+    #projects .files-directory-header .pshell-title { font-size: clamp(2.4rem, 10vw, 3.2rem) !important; }
+    #projects .pshell-subtitle { margin-top: 1.8rem; font-size: .88rem; }
+    #projects .projects-grid {
+        padding-inline: 4vw;
+        scroll-padding-inline: 4vw;
+        gap: 8px;
+    }
+    #projects .projects-grid .proj-card,
+    #projects .projects-grid .proj-card.parallax-ready,
+    #projects .projects-grid .proj-card.parallax-ready.is-parallax-active {
+        flex-basis: 92vw;
+        width: 92vw;
+        aspect-ratio: .748 / 1;
+    }
+    #projects .folder-card .proj-body,
+    #projects .folder-card.parallax-ready .proj-body {
+        left: 1.25rem;
+        bottom: 1.25rem;
+        width: 68%;
+        gap: .7rem;
+    }
+    #projects .folder-card .proj-name { font-size: 1.25rem; }
+    #projects .proj-overlay-desc {
+        font-size: .78rem;
+        line-height: 1.45;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #projects .folder-card .proj-media img,
+    #projects .folder-card .proj-preview-frame { transition: none; transform: none; }
+}

@@ -18,6 +18,7 @@
         frame.append(process); scene.parentElement.before(frame);
     }
     const section = document.querySelector('#project-assets');
+    if(!section) return;
     const images = assets[key];
     if(!images.length){section.hidden = true; return;}
     const gallery = section.querySelector('.asset-gallery');
@@ -28,7 +29,13 @@
         const image = document.createElement('img');
         image.src = item.src; image.alt = item.alt; image.loading = 'lazy';
         image.setAttribute('data-lightbox','');
-        figure.append(image); slides.append(figure);
+        const stage = document.createElement('div');
+        stage.className = 'asset-stage';
+        stage.append(image);
+        const caption = document.createElement('figcaption');
+        caption.className = 'asset-caption';
+        caption.innerHTML = '<small>ASSET 01</small><h3 data-i18n="asset_ac">Air conditioner</h3><dl><div><dt data-i18n="asset_project">PROJECT</dt><dd>Gibson Ridge</dd></div><div><dt data-i18n="details_engine_label">ENGINE</dt><dd>Unreal Engine 5</dd></div><div><dt data-i18n="asset_material">MATERIAL</dt><dd>M_Conditioner</dd></div><div><dt>UV</dt><dd>1</dd></div></dl>';
+        figure.append(stage,caption); slides.append(figure);
     });
     let current = 0;
     const buttons = [...gallery.querySelectorAll('button')];

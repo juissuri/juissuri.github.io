@@ -10,6 +10,9 @@
       nav_experience: "EXPERIENCE",
       nav_contact: "CONTACT",
       nav_about: "About me",
+      project_back: "← BACK",
+      project_next: "NEXT PROJECT →",
+      project_home: "HOME",
       hero_subheader: "COMPUTER GENERATED IMAGERY",
       about_title: "ABOUT ME",
       about_bio: "3D Environment Artist with a passion for cinematic aesthetics and large-scale world-building. Specializing in asset creation, UV mapping, PBR texturing, lighting, and scene composition. Always open to new horizons and a wide range of projects.",
@@ -17,18 +20,23 @@
       about_location_label: "LOCATION",
       about_location_value: "Germany",
       about_languages_label: "LANGUAGES",
-      projects_title: "PROJECT FILES",
+      projects_title: "PROJECT",
+      projects_subtitle: "Environments built in Unreal Engine 5, from desert outposts to mountain ranges.",
       file_meta_02: "Interior, 2026",
       file_meta_03: "Environment, 2026",
-      details_btn: "DETAILS",
+      details_btn: "PROJECT DETAILS",
+      breakdown_tab: "PROJECT DETAILS", breakdown_overview: "PRODUCTION OVERVIEW",
       details_engine_label: "ENGINE",
       details_tools_label: "TOOLS",
       details_year_label: "YEAR",
+      stats_role_label: "ROLE", stats_target_label: "TARGET", stats_scope_label: "FOCUS", stats_status_label: "STATUS",
+      stats_role_solo: "SOLO PROJECT", stats_target_realtime: "REAL-TIME", stats_status_live: "PUBLISHED", stats_status_wip: "IN PRODUCTION",
+      stats_scope_01: "ENVIRONMENT · LIGHTING", stats_scope_02: "INTERIOR · PROPS", stats_scope_03: "TERRAIN · ATMOSPHERE", stats_scope_wip: "NOT DISCLOSED",
       details_desc_01: "A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze. Procedural Gaea terrain + hand-authored vegetation.",
       details_desc_02: "Awaiting publication, full breakdown soon. Interior study focused on material fidelity and grounded storytelling through props.",
       details_desc_03: "Awaiting publication, full breakdown soon. Large-scale mountain environment exploring scale, atmosphere, and distant haze.",
-      open_visual: "OPEN VISUAL →",
-      all_details: "View project details",
+      open_visual: "GALLERY",
+      all_details: "OPEN PROJECT DETAILS",
       bd_pending: "Project breakdown coming soon.",
       proj_name_wip: "COMING SOON",
       file_meta_wip: "In Production, 2026",
@@ -40,8 +48,12 @@
       exp_desc: "Full-cycle production of personal real-time environments. Managed all stages of development from initial blockout and hard-surface asset creation to PBR texturing, lighting, and final scene composition in Unreal Engine 5.",
       contact_quote_text: "“My goal isn't just to show beautiful visuals, but to build a world players can truly believe in, where they can find a piece of themselves”",
       contact_cta: "Let's Contact",
+      music_label: "MUSIC",
+      music_state_on: "ON",
+      music_state_off: "OFF",
       footer_copyright: "© 2026 Lytvin Daria. All rights reserved. Designed and developed by the creator.",
       bd_kicker: "PROCESS",
+      asset_ac: "Air conditioner", asset_project: "PROJECT", asset_material: "MATERIAL",
       bd_assets: "Assets.",
       bd_t1: "Reference.",
       bd_d1: "The project starts with gathering references, real-world desert outposts, terrain silhouettes, material samples and lighting moods. Boards are organized by Main Focus, Landscape, Render, Light, Atmosphere, Assets Detail, Texture and Organic elements to define the visual direction before modeling begins.",
@@ -49,8 +61,6 @@
       bd_d2: "Once the model is finalized, it is unwrapped into clean, distortion-free UVs. A proper UV layout is what allows textures to sit perfectly on every surface later in the pipeline.",
       bd_t3: "Texturing.",
       bd_d3: "Materials are authored layer by layer, color, roughness and surface detail are built up gradually until every asset reads naturally under the scene lighting.",
-      bd_t4: "Scene Setup.",
-      bd_d4: "All assets are imported into Unreal Engine, where the scene comes together, placement, lighting setup, post-process volumes and camera work define the mood of the environment.",
       bd_t5: "Engine Work.",
       bd_d5: "Further refinement inside Unreal Engine: shaders, foliage, particles and lighting are iterated step by step until the atmosphere matches the original vision.",
       bd_t6: "Final Render.",
@@ -70,6 +80,9 @@
       nav_experience: "ERFAHRUNG",
       nav_contact: "KONTAKT",
       nav_about: "Über mich",
+      project_back: "← ZURÜCK",
+      project_next: "NÄCHSTES PROJEKT →",
+      project_home: "STARTSEITE",
       hero_subheader: "COMPUTERGENERIERTE BILDER",
       about_title: "ÜBER MICH",
       about_bio: "3D Environment Artist mit Leidenschaft für filmische Ästhetik und großflächiges Worldbuilding. Spezialisiert auf Asset-Erstellung, UV-Mapping, PBR-Texturing, Lighting und Szenenkomposition. Offen für neue Horizonte und vielfältige Projekte.",
@@ -77,18 +90,23 @@
       about_location_label: "STANDORT",
       about_location_value: "Deutschland",
       about_languages_label: "SPRACHEN",
-      projects_title: "PROJEKTDATEIEN",
+      projects_title: "PROJEKT",
+      projects_subtitle: "Umgebungen aus Unreal Engine 5, von Wüstenaußenposten bis zu Bergwelten.",
       file_meta_02: "Innenraum, 2026",
       file_meta_03: "Umgebung, 2026",
-      details_btn: "DETAILS",
+      details_btn: "PROJECT DETAILS",
+      breakdown_tab: "PROJECT DETAILS", breakdown_overview: "PRODUKTIONSÜBERSICHT",
       details_engine_label: "ENGINE",
       details_tools_label: "TOOLS",
       details_year_label: "JAHR",
+      stats_role_label: "ROLLE", stats_target_label: "ZIEL", stats_scope_label: "FOKUS", stats_status_label: "STATUS",
+      stats_role_solo: "SOLOPROJEKT", stats_target_realtime: "ECHTZEIT", stats_status_live: "VERÖFFENTLICHT", stats_status_wip: "IN PRODUKTION",
+      stats_scope_01: "UMGEBUNG · LICHT", stats_scope_02: "INTERIEUR · PROPS", stats_scope_03: "TERRAIN · ATMOSPHÄRE", stats_scope_wip: "NICHT VERÖFFENTLICHT",
       details_desc_01: "Eine sonnenverbrannte Wüstenumgebung mit großflächigen Terrain-Silhouetten, geschichteten Dünenformationen und filmischem Spiel aus Hitze, Schatten und fernem Dunst. Prozedurales Gaea-Terrain + handgefertigte Vegetation.",
       details_desc_02: "Veröffentlichung ausstehend, vollständiges Breakdown folgt in Kürze. Innenraum-Studie mit Fokus auf Materialtreue und erzählerischen Props.",
       details_desc_03: "Veröffentlichung ausstehend, vollständiges Breakdown folgt in Kürze. Großflächige Bergumgebung, die Maßstab, Atmosphäre und fernen Dunst erforscht.",
-      open_visual: "VISUAL ÖFFNEN →",
-      all_details: "Projektdetails ansehen",
+      open_visual: "GALLERY",
+      all_details: "PROJECT DETAILS ÖFFNEN",
       bd_pending: "Die Projektdokumentation folgt in Kürze.",
       proj_name_wip: "DEMNÄCHST",
       file_meta_wip: "In Produktion, 2026",
@@ -100,8 +118,12 @@
       exp_desc: "Eigenständige Produktion von Echtzeit-Umgebungen. Alle Phasen von Blockout und Hard-Surface-Assets bis hin zu PBR-Texturing, Lighting und finaler Szenenkomposition in Unreal Engine 5.",
       contact_quote_text: "„Mein Ziel ist es nicht nur, schöne Bilder zu zeigen, sondern eine Welt zu erschaffen, an die Spieler wirklich glauben können und in der sie ein Stück von sich selbst finden“",
       contact_cta: "Kontakt aufnehmen",
+      music_label: "MUSIK",
+      music_state_on: "AN",
+      music_state_off: "AUS",
       footer_copyright: "© 2026 Lytvin Daria. Alle Rechte vorbehalten. Design und Entwicklung von der Autorin.",
       bd_kicker: "PROZESS",
+      asset_ac: "Klimagerät", asset_project: "PROJEKT", asset_material: "MATERIAL",
       bd_assets: "Assets.",
       bd_t1: "Referenz.",
       bd_d1: "Jedes Projekt beginnt mit Referenzen, reale Wüstenaußenposten, Terrain-Silhouetten, Materialproben und Lichtstimmungen. Boards sind nach Main Focus, Landschaft, Render, Licht, Atmosphäre, Asset-Details, Texturen und organischen Elementen organisiert und legen die visuelle Richtung vor dem Modeling fest.",
@@ -109,8 +131,6 @@
       bd_d2: "Nach dem Modeling wird jedes Asset sauber und verzerrungsfrei unwrapped. Ein gutes UV-Layout sorgt dafür, dass Texturen später perfekt auf jeder Oberfläche sitzen.",
       bd_t3: "Texturierung.",
       bd_d3: "Materialien entstehen Schicht für Schicht, Farbe, Roughness und Oberflächendetails werden aufgebaut, bis jedes Asset im Szenenlicht natürlich wirkt.",
-      bd_t4: "Szenenaufbau.",
-      bd_d4: "Alle Assets werden in die Unreal Engine importiert, wo die Szene entsteht, Placement, Licht-Setup, Post-Process-Volumes und Kameraarbeit bestimmen die Stimmung der Umgebung.",
       bd_t5: "Engine-Arbeit.",
       bd_d5: "Weitere Verfeinerung in der Unreal Engine: Shader, Vegetation, Partikel und Licht werden Schritt für Schritt iteriert, bis die Atmosphäre der ursprünglichen Vision entspricht.",
       bd_t6: "Finales Rendering.",
@@ -130,6 +150,9 @@
       nav_experience: "ОПЫТ",
       nav_contact: "КОНТАКТЫ",
       nav_about: "Обо мне",
+      project_back: "← ВЕРНУТЬСЯ",
+      project_next: "ДРУГОЙ ПРОЕКТ →",
+      project_home: "ГЛАВНАЯ",
       hero_subheader: "КОМПЬЮТЕРНАЯ ГРАФИКА",
       about_title: "ОБО МНЕ",
       about_bio: "3D-художник по окружению с любовью к кинематографичной эстетике и масштабным мирам. Специализируюсь на создании ассетов, UV-развёртке, PBR-текстурировании, освещении и композиции сцен. Открыта к новым горизонтам и разноплановым проектам.",
@@ -137,18 +160,23 @@
       about_location_label: "ЛОКАЦИЯ",
       about_location_value: "Германия",
       about_languages_label: "ЯЗЫКИ",
-      projects_title: "ФАЙЛЫ ПРОЕКТОВ",
+      projects_title: "ПРОЕКТ",
+      projects_subtitle: "Окружения на Unreal Engine 5, от пустынных аванпостов до горных хребтов.",
       file_meta_02: "Интерьер, 2026",
       file_meta_03: "Окружение, 2026",
-      details_btn: "ДЕТАЛИ",
+      details_btn: "PROJECT DETAILS",
+      breakdown_tab: "PROJECT DETAILS", breakdown_overview: "ОБЗОР ПРОИЗВОДСТВА",
       details_engine_label: "ДВИЖОК",
       details_tools_label: "ИНСТРУМЕНТЫ",
       details_year_label: "ГОД",
+      stats_role_label: "РОЛЬ", stats_target_label: "ФОРМАТ", stats_scope_label: "ФОКУС", stats_status_label: "СТАТУС",
+      stats_role_solo: "ЛИЧНЫЙ ПРОЕКТ", stats_target_realtime: "REAL-TIME", stats_status_live: "ОПУБЛИКОВАН", stats_status_wip: "В РАБОТЕ",
+      stats_scope_01: "ОКРУЖЕНИЕ · СВЕТ", stats_scope_02: "ИНТЕРЬЕР · ПРОПСЫ", stats_scope_03: "ЛАНДШАФТ · АТМОСФЕРА", stats_scope_wip: "НЕ РАСКРЫТО",
       details_desc_01: "Выжженная солнцем пустынная сцена с масштабными силуэтами рельефа, слоистыми дюнами и кинематографичной игрой жары, тени и дымки. Процедурный рельеф Gaea + ручная растительность.",
       details_desc_02: "Скоро публикация, полный разбор скоро. Интерьерное исследование с фокусом на материалы и сторителлинг через пропсы.",
       details_desc_03: "Скоро публикация, полный разбор скоро. Горная среда с акцентом на масштаб, атмосферу и дальнюю дымку.",
-      open_visual: "ОТКРЫТЬ ВИЗУАЛ →",
-      all_details: "Посмотреть детали проекта",
+      open_visual: "GALLERY",
+      all_details: "ОТКРЫТЬ PROJECT DETAILS",
       bd_pending: "Подробный разбор проекта скоро появится.",
       proj_name_wip: "СКОРО",
       file_meta_wip: "В производстве, 2026",
@@ -160,8 +188,12 @@
       exp_desc: "Полный цикл создания окружений реального времени. Все этапы, от блок-аута и ассетов до PBR-текстурирования, освещения и финальной композиции сцены в Unreal Engine 5.",
       contact_quote_text: "«Моя цель: не просто показать красивые визуалы, а построить мир, в который игроки смогут по-настоящему поверить и найти в нём частичку себя»",
       contact_cta: "Связаться",
+      music_label: "МУЗЫКА",
+      music_state_on: "ВКЛ",
+      music_state_off: "ВЫКЛ",
       footer_copyright: "© 2026 Лытвин Дарья. Все права защищены. Дизайн и разработка: автор.",
       bd_kicker: "ПРОЦЕСС",
+      asset_ac: "Кондиционер", asset_project: "ПРОЕКТ", asset_material: "МАТЕРИАЛ",
       bd_assets: "Ассеты.",
       bd_t1: "Референсы.",
       bd_d1: "Проект начинается со сбора референсов, реальные пустынные аванпосты, силуэты рельефа, образцы материалов и световые настроения. Борды организованы по блокам: главный фокус, ландшафт, рендер, свет, атмосфера, детали ассетов, текстуры и органика, так задаётся визуальное направление до начала моделирования.",
@@ -169,8 +201,6 @@
       bd_d2: "После моделирования каждый ассет разворачивается в чистые UV без искажений. Грамотная развёртка позволяет добиться того, благодаря чему текстуры позже идеально ложатся на каждую поверхность.",
       bd_t3: "Текстурирование.",
       bd_d3: "Материалы создаются послойно, цвет, шероховатость и детали поверхности наращиваются постепенно, пока каждый ассет не станет естественно читаться в свете сцены.",
-      bd_t4: "Сборка сцены.",
-      bd_d4: "Все ассеты импортируются в Unreal Engine, где сцена собирается воедино, расстановка, настройка света, post-process volumes и работа камеры задают настроение окружения.",
       bd_t5: "Работа в движке.",
       bd_d5: "Дальнейшая доводка в Unreal Engine: шейдеры, растительность, частицы и свет итерируются шаг за шагом, пока атмосфера не совпадёт с изначальным видением.",
       bd_t6: "Финальный рендер.",
@@ -190,6 +220,9 @@
       nav_experience: "ДОСВІД",
       nav_contact: "КОНТАКТИ",
       nav_about: "Про мене",
+      project_back: "← ПОВЕРНУТИСЯ",
+      project_next: "ІНШИЙ ПРОЄКТ →",
+      project_home: "ГОЛОВНА",
       hero_subheader: "КОМП'ЮТЕРНА ГРАФІКА",
       about_title: "ПРО МЕНЕ",
       about_bio: "3D-художниця з оточення з любов'ю до кінематографічної естетики та масштабних світів. Спеціалізуюся на створенні асетів, UV-розгортці, PBR-текстуруванні, освітленні та композиції сцен. Відкрита до нових горизонтів і різнопланових проєктів.",
@@ -197,18 +230,23 @@
       about_location_label: "ЛОКАЦІЯ",
       about_location_value: "Німеччина",
       about_languages_label: "МОВИ",
-      projects_title: "ФАЙЛИ ПРОЄКТІВ",
+      projects_title: "ПРОЄКТ",
+      projects_subtitle: "Оточення на Unreal Engine 5, від пустельних аванпостів до гірських хребтів.",
       file_meta_02: "Інтер'єр, 2026",
       file_meta_03: "Оточення, 2026",
-      details_btn: "ДЕТАЛІ",
+      details_btn: "PROJECT DETAILS",
+      breakdown_tab: "PROJECT DETAILS", breakdown_overview: "ОГЛЯД ВИРОБНИЦТВА",
       details_engine_label: "РУШІЙ",
       details_tools_label: "ІНСТРУМЕНТИ",
       details_year_label: "РІК",
+      stats_role_label: "РОЛЬ", stats_target_label: "ФОРМАТ", stats_scope_label: "ФОКУС", stats_status_label: "СТАТУС",
+      stats_role_solo: "ОСОБИСТИЙ ПРОЄКТ", stats_target_realtime: "REAL-TIME", stats_status_live: "ОПУБЛІКОВАНО", stats_status_wip: "У РОБОТІ",
+      stats_scope_01: "ОТОЧЕННЯ · СВІТЛО", stats_scope_02: "ІНТЕР’ЄР · ПРОПСИ", stats_scope_03: "ЛАНДШАФТ · АТМОСФЕРА", stats_scope_wip: "НЕ РОЗКРИТО",
       details_desc_01: "Виснажена сонцем пустельна сцена з масштабними силуетами рельєфу, шаруватими дюнами та кінематографічною грою спеки, тіні та серпанку. Процедурний рельєф Gaea + ручна рослинність.",
       details_desc_02: "Скоро публікація, повний розбір незабаром. Інтер'єрне дослідження з фокусом на матеріали та сторітелінг через пропси.",
       details_desc_03: "Скоро публікація, повний розбір незабаром. Гірське середовище з акцентом на масштаб, атмосферу та далекий серпанок.",
-      open_visual: "ВІДКРИТИ ВІЗУАЛ →",
-      all_details: "Переглянути деталі проєкту",
+      open_visual: "GALLERY",
+      all_details: "ВІДКРИТИ PROJECT DETAILS",
       bd_pending: "Детальний розбір проєкту незабаром з’явиться.",
       proj_name_wip: "СКОРО",
       file_meta_wip: "У виробництві, 2026",
@@ -220,8 +258,12 @@
       exp_desc: "Повний цикл створення оточень реального часу. Всі етапи, від блок-ауту та асетів до PBR-текстурування, освітлення та фінальної композиції сцени в Unreal Engine 5.",
       contact_quote_text: "«Моя мета: не просто показати красиві візуали, а побудувати світ, у який гравці зможуть по-справжньому повірити та знайти в ньому частинку себе»",
       contact_cta: "Зв'язатися",
+      music_label: "МУЗИКА",
+      music_state_on: "УВІМК",
+      music_state_off: "ВИМК",
       footer_copyright: "© 2026 Литвин Дар'я. Всі права захищені. Дизайн і розробка, авторка.",
       bd_kicker: "ПРОЦЕС",
+      asset_ac: "Кондиціонер", asset_project: "ПРОЄКТ", asset_material: "МАТЕРІАЛ",
       bd_assets: "Асети.",
       bd_t1: "Референси.",
       bd_d1: "Проєкт починається зі збору референсів, реальні пустельні аванпости, силуети рельєфу, зразки матеріалів і світлові настрої. Борди організовано за блоками: головний фокус, ландшафт, рендер, світло, атмосфера, деталі асетів, текстури й органіка, так задається візуальний напрям до початку моделювання.",
@@ -229,8 +271,6 @@
       bd_d2: "Після моделювання кожен асет розгортається в чисті UV без спотворень. Грамотна розгортка, те, завдяки чому текстури згодом ідеально лягають на кожну поверхню.",
       bd_t3: "Текстурування.",
       bd_d3: "Матеріали створюються пошарово, колір, шорсткість і деталі поверхні нарощуються поступово, доки кожен асет не стане природно читатися у світлі сцени.",
-      bd_t4: "Збірка сцени.",
-      bd_d4: "Усі асети імпортуються в Unreal Engine, де сцена збирається докупи, розстановка, налаштування світла, post-process volumes і робота камери задають настрій оточення.",
       bd_t5: "Робота в рушії.",
       bd_d5: "Подальше доведення в Unreal Engine: шейдери, рослинність, частинки та світло ітеруються крок за кроком, доки атмосфера не збіжиться з початковим баченням.",
       bd_t6: "Фінальний рендер.",
@@ -247,11 +287,67 @@
     }
   };
 
+  // Project-specific copy shares the same language switcher as the rest of the site.
+  const mountainCopy = {
+    en: [
+      'Large-scale mountain environment exploring scale, atmosphere, and distant haze.',
+      'Gaea.', 'Gaea Node System.', 'UE5 View.', 'Material Settings.', 'Render.',
+      'The primary terrain is shaped and evaluated in Gaea. Erosion, thermal breakup and color adjustments define the mountain mass before export to Unreal Engine 5.',
+      'The node graph combines Mountain, Erosion, Thermal, AO and color-processing nodes to generate the terrain.',
+      'The terrain is reviewed in Unreal Engine 5 with attention to camera composition, atmosphere and depth.',
+      'Landscape material settings control color variation, surface detail and transitions between rock and sediment.',
+      'Terrain, materials, lighting, atmosphere and camera treatment come together in the mountain environment.',
+      'UE5 VIEW · IN PROGRESS', 'MATERIAL SETTINGS · IN PROGRESS'
+    ],
+    de: [
+      'Großflächige Berglandschaft mit Fokus auf Maßstab, Atmosphäre und fernen Dunst.',
+      'Gaea.', 'Gaea-Node-System.', 'UE5-Ansicht.', 'Materialeinstellungen.', 'Rendering.',
+      'Das Gelände wird in Gaea geformt und geprüft. Erosion, thermische Verwitterung und Farbanpassungen bestimmen das Bergmassiv vor dem Export in Unreal Engine 5.',
+      'Der Node-Graph verbindet Mountain, Erosion, Thermal, AO und Farbverarbeitung zur Erzeugung des Geländes.',
+      'Das Gelände wird in Unreal Engine 5 mit Fokus auf Bildkomposition, Atmosphäre und Tiefe geprüft.',
+      'Die Landschaftsmaterialien steuern Farbvariation, Oberflächendetails und Übergänge zwischen Fels und Sediment.',
+      'Gelände, Materialien, Licht, Atmosphäre und Kamera ergeben gemeinsam die Berglandschaft.',
+      'UE5-ANSICHT · IN ARBEIT', 'MATERIALEINSTELLUNGEN · IN ARBEIT'
+    ],
+    ru: [
+      'Масштабное горное окружение с акцентом на атмосферу, глубину и дальнюю дымку.',
+      'Gaea.', 'Система нод Gaea.', 'Вид в UE5.', 'Настройки материала.', 'Рендер.',
+      'Основной рельеф создаётся и оценивается в Gaea. Эрозия, термическое разрушение и настройка цвета формируют горный массив перед экспортом в Unreal Engine 5.',
+      'Граф объединяет ноды Mountain, Erosion, Thermal, AO и обработки цвета для процедурного создания рельефа.',
+      'Рельеф оценивается в Unreal Engine 5 с акцентом на композицию кадра, атмосферу и глубину.',
+      'Настройки материала ландшафта управляют вариациями цвета, деталями поверхности и переходами между скалой и осадочными породами.',
+      'Рельеф, материалы, освещение, атмосфера и настройки камеры объединяются в горное окружение.',
+      'ВИД В UE5 · В РАБОТЕ', 'НАСТРОЙКИ МАТЕРИАЛА · В РАБОТЕ'
+    ],
+    uk: [
+      'Масштабне гірське оточення з акцентом на атмосферу, глибину та далекий серпанок.',
+      'Gaea.', 'Система нод Gaea.', 'Вигляд в UE5.', 'Налаштування матеріалу.', 'Рендер.',
+      'Основний рельєф створюється й оцінюється в Gaea. Ерозія, термічне руйнування та налаштування кольору формують гірський масив перед експортом в Unreal Engine 5.',
+      'Граф поєднує ноди Mountain, Erosion, Thermal, AO та обробки кольору для процедурного створення рельєфу.',
+      'Рельєф оцінюється в Unreal Engine 5 з акцентом на композицію кадру, атмосферу та глибину.',
+      'Налаштування матеріалу ландшафту керують варіаціями кольору, деталями поверхні та переходами між скелею й осадовими породами.',
+      'Рельєф, матеріали, освітлення, атмосфера та налаштування камери поєднуються в гірське оточення.',
+      'ВИГЛЯД В UE5 · У РОБОТІ', 'НАЛАШТУВАННЯ МАТЕРІАЛУ · У РОБОТІ'
+    ]
+  };
+  Object.entries(mountainCopy).forEach(([lang,copy]) => {
+    DICT[lang].details_desc_03 = copy[0];
+    for(let i = 1; i <= 5; i++) {
+      DICT[lang]['mountain_title_' + i] = copy[i];
+      DICT[lang]['mountain_desc_' + i] = copy[i + 5];
+    }
+    DICT[lang].mountain_pending_ue5 = copy[11];
+    DICT[lang].mountain_pending_material = copy[12];
+  });
+
   const STORAGE_KEY = 'jui_lang';
   let current = 'en';
+  let transitionTimer = 0;
+  let transitionVersion = 0;
+  const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
   try { current = localStorage.getItem(STORAGE_KEY) || 'en'; } catch {}
 
-  function apply(lang){
+  function render(lang){
     if(!Object.prototype.hasOwnProperty.call(DICT, lang)) lang = 'en';
     const dict = DICT[lang] || DICT.en;
     document.documentElement.lang = lang;
@@ -274,12 +370,31 @@
     current = lang;
   }
 
+  function apply(lang, animate = false){
+    if(!Object.prototype.hasOwnProperty.call(DICT, lang)) lang = 'en';
+    clearTimeout(transitionTimer);
+    const version = ++transitionVersion;
+    if(!animate || REDUCED_MOTION){
+      document.documentElement.classList.remove('i18n-changing');
+      render(lang);
+      return;
+    }
+    document.documentElement.classList.add('i18n-changing');
+    transitionTimer = window.setTimeout(() => {
+      if(version !== transitionVersion) return;
+      render(lang);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if(version === transitionVersion) document.documentElement.classList.remove('i18n-changing');
+      }));
+    }, 150);
+  }
+
   function init(){
     // set initial
     if(!DICT[current]) current = 'en';
     apply(current);
     document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', () => apply(btn.dataset.lang));
+      btn.addEventListener('click', () => apply(btn.dataset.lang, true));
     });
   }
 

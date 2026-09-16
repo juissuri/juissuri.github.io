@@ -1,0 +1,201 @@
+/* Cold technical monochrome theme shared by the portfolio and project pages. */
+:root{
+    --tech-black:#050607;
+    --tech-950:#090A0C;
+    --tech-900:#0E1013;
+    --tech-850:#14171B;
+    --tech-800:#1B1E23;
+    --tech-700:#30343A;
+    --tech-600:#565C65;
+    --tech-500:#777E88;
+    --tech-300:#B1B6BD;
+    --tech-200:#D7DBE0;
+    --tech-100:#F1F3F5;
+    --tech-line:rgba(174,181,190,.22);
+    --tech-surface:linear-gradient(145deg,#1B1E23 0%,#101215 48%,#090A0C 100%);
+    --tech-metal:linear-gradient(105deg,#626973 0%,#E8EBEE 42%,#AAB0B8 70%,#555B64 100%);
+    --c-black:var(--tech-black);
+    --c-dark-1:var(--tech-950);
+    --c-dark-2:var(--tech-900);
+    --c-dark-3:var(--tech-850);
+    --c-border:#343941;
+    --c-border-mid:#5B626C;
+    --c-border-light:#7B828C;
+    --c-gray-dim:#747B85;
+    --c-gray-mid:#A4AAB2;
+    --c-gray-light:#D7DBE0;
+    --c-off-white:#ECEFF2;
+    --c-white:#F8F9FA;
+    --gradient-orange:var(--tech-metal);
+    --gradient-orange-strong:var(--tech-metal);
+}
+
+html,body{background:var(--tech-black);color:var(--tech-100)}
+body{background-image:linear-gradient(180deg,#050607 0%,#0D0F12 45%,#050607 100%);background-attachment:fixed}
+::selection{background:#D9DDE2;color:#090A0C}
+::-webkit-scrollbar-track{background:#08090B;border-color:#25292F}
+::-webkit-scrollbar-thumb{background:linear-gradient(#737A84,#30343A)}
+
+.navbar-inner{
+    background:linear-gradient(155deg,rgba(187,194,203,.14),rgba(30,33,38,.3) 45%,rgba(8,9,11,.78)),rgba(13,15,18,.82);
+    border-color:rgba(186,193,202,.3);
+    box-shadow:0 10px 34px #0008,inset 0 1px 0 #FFFFFF2B,inset 0 -1px 0 #000;
+}
+.lang-switch{background:linear-gradient(145deg,#2A2E34AA,#101215CC);border-color:#7D848E38}
+.lang-btn.is-active{background:linear-gradient(120deg,#F1F3F5,#AEB4BC);color:#090A0C}
+
+.hero{background:#050607;border-color:var(--tech-line)}
+.hero-background-image{filter:none}
+.hero-title-3d,.hero-title-env,
+.pshell-title,.skills-title,.tools-title,.tool-name,.logo-text{
+    background-image:var(--tech-metal)!important;
+    -webkit-background-clip:text!important;background-clip:text!important;
+}
+.hero-about{background-image:linear-gradient(110deg,#747B85,#D8DCE1 45%,#F4F5F6 56%,#777E88)!important}
+.hero-title-3d,.hero-title-env{
+    background-image:linear-gradient(115deg,#626262 0%,#A3A3A3 18%,#ECECEC 36%,#FFFFFF 45%,#BDBDBD 59%,#777777 76%,#D9D9D9 100%)!important;
+    background-size:100% 100%!important;background-position:center!important;
+    -webkit-text-fill-color:transparent;color:transparent;
+}
+.hero-subheader-text{background-image:linear-gradient(90deg,#737A84,#D8DCE1,#747B85)!important}
+.marquee-bar{background:linear-gradient(100deg,#565D67 0%,#E4E7EA 42%,#9EA4AC 70%,#4A5058 100%)!important;border-color:#EEF1F355!important}
+
+.about-me-section,.pshell-section,.skills-section,.exp-section,.tools-section{
+    background:linear-gradient(145deg,#050607 0%,#111317 48%,#070809 100%)!important;
+    border-color:var(--tech-line)!important;
+}
+.about-me-title,.contact-title{background:var(--tech-metal);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.about-me-photo{border-color:#AAB1BB30;box-shadow:0 24px 72px #000D,inset 0 1px 0 #FFFFFF18}
+.skills-group,.exp-item{
+    background:var(--tech-surface)!important;
+    border-color:var(--tech-line)!important;
+    box-shadow:inset 0 1px 0 #FFFFFF0C;
+}
+.skills-group:hover{background:linear-gradient(145deg,#25292F,#14171B 55%,#0A0B0D)!important;border-color:#9DA4AE66!important}
+.skills-tags li,.proj-tags span{background:linear-gradient(145deg,#292D33AA,#101215CC)!important;border-color:#777E8844!important;color:#DDE1E5!important}
+
+.folder-card{
+    --folder-surface:#111317!important;
+    background:linear-gradient(145deg,#1C2025 0%,#101215 52%,#08090B 100%)!important;
+    border-color:#62697366!important;
+    box-shadow:0 20px 55px #0008,inset 0 1px 0 #FFFFFF12!important;
+}
+.folder-card::before,.folder-tab{background:linear-gradient(115deg,#343941,#111317)!important;border-color:#6F768066!important;color:#C8CDD3!important}
+.folder-card:hover{border-color:#A8AFB966!important}
+.folder-card .proj-media{border-color:#747B8555!important;background:#090A0C!important}
+.folder-card .proj-name{background:var(--tech-metal);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.projects-pager .pager-dot::after{border-color:#777E88!important}
+.projects-pager .pager-dot.is-active::after{background:#DCE0E4!important;border-color:#F4F5F6!important}
+
+/* Layered project-card parallax. Pointer tracking is enabled only in JS on fine pointers. */
+.folder-card.parallax-ready{
+    --parallax-rx:0deg;--parallax-ry:0deg;
+    transform:perspective(1100px) rotateX(var(--parallax-rx)) rotateY(var(--parallax-ry));
+    transform-style:preserve-3d;
+    transform-origin:center;
+    transition:transform 520ms cubic-bezier(.16,1,.3,1),border-color 300ms ease,box-shadow 300ms ease!important;
+    will-change:transform;
+}
+.folder-card.parallax-ready.is-parallax-active{
+    transition:transform 80ms linear,border-color 220ms ease,box-shadow 220ms ease!important;
+    box-shadow:0 30px 75px #000B,inset 0 1px 0 #FFFFFF1C!important;
+}
+.folder-card.parallax-ready .folder-tab{transform:translateZ(18px)}
+.folder-card.parallax-ready .proj-media{transform:translateZ(26px)!important}
+.folder-card.parallax-ready .proj-body{position:relative;z-index:2;transform:translateZ(15px)}
+.folder-card.parallax-ready .folder-insert{transform:translateZ(8px)}
+.folder-card.parallax-ready:hover .folder-insert{transform:translateY(-50px) rotate(-3deg) translateZ(8px)}
+.folder-card.parallax-ready:focus-within .folder-insert{transform:translateY(-40px) rotate(-2deg) translateZ(8px)}
+.project-details-dialog{background:radial-gradient(circle at 88% 0%,#AEB4BD20 0%,transparent 48%),var(--tech-surface)!important;border-color:#777E88!important}
+.project-details-dialog .file-details-item{background:linear-gradient(135deg,#30343A66,#17191D88 48%,#0D0F12AA)!important;border-color:#71778038!important}
+
+/* Asymmetric production dossier dialog. */
+.project-details-dialog{
+    width:min(1040px,calc(100% - 2rem));padding:2.7rem 3rem 2.5rem!important;
+    border-radius:28px!important;
+}
+.project-dialog-close{border-radius:999px!important;background:#FFFFFF08!important;transition:background 200ms ease,transform 200ms ease,border-color 200ms ease!important}
+.project-dialog-close:hover{background:#FFFFFF12!important;border-color:#9299A3!important;transform:rotate(6deg)}
+.project-dialog-shell{display:grid;grid-template-columns:minmax(0,1fr);gap:0;align-items:stretch}
+.project-dialog-main{min-width:0}
+.project-details-dialog h2{font-size:clamp(2.2rem,5vw,4rem);margin-bottom:2rem!important;max-width:13ch}
+.project-details-dialog .file-details{padding-top:1.5rem!important}
+.project-details-dialog .file-details-grid{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:2.25rem!important;row-gap:0!important;margin-bottom:1.2rem!important;
+}
+.project-details-dialog .file-details-item,
+.project-details-dialog .file-details-item:nth-child(2){
+    grid-column:auto;min-height:74px;padding:.9rem 0!important;
+    border:0!important;border-bottom:1px solid #FFFFFF16!important;
+    background:transparent!important;box-shadow:none!important;justify-content:center!important;
+}
+.project-details-dialog .file-details-item:nth-child(2){grid-column:1/-1}
+.project-details-dialog .file-details-item:nth-child(7){display:none!important}
+.project-details-dialog .file-details-label{margin-bottom:.38rem}
+.project-details-dialog .file-details-desc{
+    border-top:0!important;padding:1.1rem 0 1.4rem!important;margin:0!important;
+    max-width:58ch!important;color:#D7D9DC!important;
+}
+.project-details-dialog .file-details-actions{border-top:0!important;padding-top:.4rem!important}
+.project-details-dialog .file-details-link{
+    position:relative;align-items:center;width:100%;min-height:58px;padding:1rem 4.5rem 1rem 1.25rem!important;
+    border:1px solid #6C737D!important;border-radius:999px!important;
+    background:linear-gradient(110deg,#0A0C0F,#191D22)!important;color:#F1F3F5!important;
+    box-shadow:inset 0 1px 0 #FFFFFF0F,0 12px 30px #0007!important;
+    transition:background 220ms ease,border-color 220ms ease,transform 220ms ease!important;
+}
+.project-details-dialog .file-details-link::before{
+    content:'';position:absolute;left:1.25rem;right:4.5rem;bottom:.65rem;height:1px;
+    background:linear-gradient(90deg,#E8EBEF,transparent);transform:scaleX(.18);transform-origin:left;
+    transition:transform 360ms cubic-bezier(.16,1,.3,1);opacity:.65;
+}
+.project-details-dialog .file-details-link::after{
+    content:'\2192';position:absolute;right:1.35rem;top:50%;transform:translateY(-50%);
+    font-size:1.2rem;font-weight:400;transition:transform 220ms ease;
+}
+.project-details-dialog .file-details-link:hover{
+    background:linear-gradient(110deg,#15191E,#242A31)!important;border-color:#B8BEC7!important;color:#FFF!important;
+    transform:translateY(-2px);
+}
+.project-details-dialog .file-details-link:hover::before{transform:scaleX(1)}
+.project-details-dialog .file-details-link:hover::after{transform:translate(5px,-50%)}
+@media(max-width:760px){
+    .project-details-dialog{padding:2rem 1.25rem 1.4rem!important}
+    .project-dialog-shell{grid-template-columns:1fr;gap:1.4rem}
+    .project-details-dialog .file-details-grid{grid-template-columns:1fr 1fr!important;column-gap:1rem!important}
+    .project-details-dialog h2{font-size:clamp(1.8rem,9vw,2.8rem);margin-bottom:1.2rem!important}
+}
+@media(max-width:480px){.project-details-dialog .file-details-grid{grid-template-columns:1fr!important}.project-details-dialog .file-details-item:nth-child(2){grid-column:auto}}
+
+.contact--handshake,.contact-handshake-bg,.contact-handshake-inner{
+    background:linear-gradient(145deg,#050607 0%,#171A1F 48%,#070809 100%)!important;
+}
+.contact-handshake-scrim{background:linear-gradient(to bottom,#08090B66,transparent 35%,#11141955 70%,#050607)!important}
+.contact-cta{background:linear-gradient(115deg,#16191D,#3B4047,#111317)!important;border-color:#8C939D66!important;color:#EEF0F2!important;box-shadow:inset 0 1px 0 #FFFFFF1F,0 10px 30px #0008}
+.contact-cta:hover{background:var(--tech-metal)!important;color:#08090A!important;border-color:#F3F5F6!important}
+.footer,#top>.footer{background:linear-gradient(145deg,#0D0F12,#050607)!important;border-color:var(--tech-line)!important}
+
+/* Visual and process pages */
+.visual-hero,.project-process-page{background:linear-gradient(145deg,#050607,#111317 55%,#060708)!important}
+.visual-overlay{background:linear-gradient(90deg,#050607CC 0%,#1B1E2355 48%,transparent 78%)!important}
+.visual-title,.process-title,.process-name{background:var(--tech-metal);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent!important}
+.visual-topbar,.project-page-nav{color:#D7DBE0}
+.process-media{background:linear-gradient(110deg,#111317,#343941,#15181C)!important;border-color:#777E8844!important}
+.process-media--mountains{height:auto!important;min-height:0!important;aspect-ratio:auto!important;background:#090A0C!important}
+.process-media--mountains img{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+.process-media--pending{display:grid;place-items:center;min-height:clamp(240px,42vw,560px);background:repeating-linear-gradient(135deg,#111419 0 1px,#0B0D10 1px 18px)!important}
+.process-media--pending span{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.18em;color:#747C87;border:1px solid #626A7440;border-radius:999px;padding:.75rem 1rem;background:#0A0C0FCC}
+.process-media--reference img{border-color:#777E8844!important;background:#0D0F12!important;box-shadow:0 18px 60px #0008}
+.asset-card,.asset-caption{background:var(--tech-surface)!important;border-color:var(--tech-line)!important}
+.lightbox-dialog{background:#050607!important}
+
+@media(max-width:640px){
+    body{background-attachment:scroll}
+    .navbar-inner{background:linear-gradient(145deg,#25292FEF,#0A0B0DEE)}
+}
+
+@media(prefers-reduced-motion:reduce){
+    body{background-attachment:scroll}
+    .folder-card.parallax-ready{transform:none!important;will-change:auto}
+}

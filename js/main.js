@@ -55,83 +55,21 @@ function setupStoryScroll(){
     const heroInner = document.querySelector('.hero-inner');
     const heroTitle = document.querySelector('.hero-title');
     if(hero){
-        const video = hero.querySelector('video');
-        let manualPlayback = false;
-        let playBackground;
-        if(video){
-            video.muted = true;
-            playBackground = document.createElement('button');
-            playBackground.type = 'button';
-            playBackground.className = 'hero-video-play';
-            playBackground.textContent = '▶';
-            playBackground.setAttribute('aria-label','Play background video');
-            playBackground.hidden = true;
-            hero.append(playBackground);
-            playBackground.addEventListener('click',() => {
-                manualPlayback = true;
-                video.play().then(() => {playBackground.hidden = true;}).catch(() => {playBackground.hidden = false;});
-            });
-        }
-        // Detect the first visible grid frame instead of timing from page load.
-        let revealTitle = () => {};
-        if(video && !REDUCED){
-            hero.classList.add('title-awaiting-video');
-            const canvas = document.createElement('canvas');
-            canvas.width = 96; canvas.height = 54;
-            const context = canvas.getContext('2d', {willReadFrequently:true});
-            let revealed = false;
-            let frameId = null;
-            const supportsFrames = typeof video.requestVideoFrameCallback === 'function';
-            const fallback = setTimeout(() => revealTitle(), 8000);
-            revealTitle = () => {
-                if(revealed) return;
-                revealed = true;
-                clearTimeout(fallback);
-                if(frameId !== null && supportsFrames) video.cancelVideoFrameCallback(frameId);
-                hero.classList.remove('title-awaiting-video');
-                video.removeEventListener('timeupdate', inspectFrame);
-            };
-            function inspectFrame(){
-                if(revealed) return;
-                if(video.readyState >= 2 && context){
-                    try{
-                        context.drawImage(video,0,0,96,54);
-                        const pixels = context.getImageData(0,0,96,54).data;
-                        let visiblePixels = 0;
-                        for(let i=0;i<pixels.length;i+=4){
-                            if(pixels[i]+pixels[i+1]+pixels[i+2] > 75) visiblePixels++;
-                        }
-                        if(visiblePixels > 15 || video.currentTime >= 5) {revealTitle(); return;}
-                    }catch{revealTitle(); return;}
-                }
-                if(supportsFrames) frameId = video.requestVideoFrameCallback(inspectFrame);
-            }
-            if(supportsFrames) frameId = video.requestVideoFrameCallback(inspectFrame);
-            else video.addEventListener('timeupdate', inspectFrame);
-            video.addEventListener('error', revealTitle, {once:true});
-        }
-        let visible = false;
-        const syncVideo = () => {
-            if(!video) return;
-            if(visible && !document.hidden && (!REDUCED || manualPlayback)){
-                video.play().then(() => {playBackground.hidden = true;}).catch(error => {
-                    revealTitle();
-                    if(error.name !== 'AbortError') playBackground.hidden = false;
-                });
-            }else{
-                video.pause();
-                if(visible && REDUCED && !manualPlayback) playBackground.hidden = false;
-            }
-        };
         const heroVisibility = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                visible = entry.isIntersecting;
-                hero.classList.toggle('is-offscreen', !visible);
-                syncVideo();
+                hero.classList.toggle('is-offscreen', !entry.isIntersecting);
             });
         });
-        document.addEventListener('visibilitychange', syncVideo);
         heroVisibility.observe(hero);
+    }
+    // Perf: pause infinite paint animations while their section is offscreen.
+    if(!REDUCED){
+        const animObs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('is-offscreen', !entry.isIntersecting);
+            });
+        });
+        document.querySelectorAll('.about-me-section,#projects,#skills,#experience,#contact').forEach(s => animObs.observe(s));
     }
     const marquee = document.querySelector('.marquee-bar');
     const sections = [
@@ -762,37 +700,73 @@ function setupMobileNav(){
 }
 
 function setupFileDetails(){
-    const btns = document.querySelectorAll('.file-details-btn');
-    if(!btns.length) return;
-    btns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const id = btn.getAttribute('data-target');
-            const panel = document.getElementById(id);
+    const buttons = document.querySelectorAll('.file-details-btn');
+    if(!buttons.length) return;
+    const dialog = document.createElement('dialog');
+    dialog.className = 'project-details-dialog';
+    dialog.setAttribute('aria-labelledby','project-dialog-title');
+    dialog.innerHTML = '<button type="button" class="project-dialog-close" aria-label="Close project details">×</button><div class="project-dialog-shell"><div class="project-dialog-main"><h2 id="project-dialog-title"></h2><div class="project-dialog-content"></div></div></div>';
+    document.body.append(dialog);
+    window.JUI_I18N?.apply(window.JUI_I18N.current);
+    let active = null;
+    let previousOverflow = '';
+    let typingTimer = 0;
+    let typingText = '';
+    const close = () => dialog.close();
+    dialog.querySelector('.project-dialog-close').addEventListener('click',close);
+    dialog.addEventListener('click',event => {
+        const rect = dialog.getBoundingClientRect();
+        if(event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) close();
+    });
+    dialog.addEventListener('close',() => {
+        if(!active) return;
+        clearInterval(typingTimer);
+        if(active.description) active.description.textContent = typingText;
+        active.panel.hidden = true;
+        active.marker.replaceWith(active.panel);
+        active.button.setAttribute('aria-expanded','false');
+        document.body.style.overflow = previousOverflow;
+        window.__lenis?.start();
+        active.button.focus({preventScroll:true});
+        active = null;
+    });
+    buttons.forEach(button => {
+        button.setAttribute('aria-haspopup','dialog');
+        button.addEventListener('click',() => {
+            if(dialog.open) return;
+            const panel = document.getElementById(button.dataset.target);
             if(!panel) return;
-            const isOpen = !panel.hasAttribute('hidden');
-            // close all
-            document.querySelectorAll('.file-details').forEach(p => p.setAttribute('hidden',''));
-            document.querySelectorAll('.file-details-btn').forEach(b => b.setAttribute('aria-expanded','false'));
-            if(!isOpen){
-                panel.removeAttribute('hidden');
-                btn.setAttribute('aria-expanded','true');
-                // Use the same scroll controller and leave room for the floating bar.
-                const rect = panel.getBoundingClientRect();
-                const navbar = document.querySelector('.navbar:not(.hero-navigation) .navbar-inner');
-                const viewportBottom = navbar ? navbar.getBoundingClientRect().top - 16 : window.innerHeight - 16;
-                let delta = 0;
-                if(rect.height > viewportBottom - 16 || rect.top < 16) delta = rect.top - 16;
-                else if(rect.bottom > viewportBottom) delta = rect.bottom - viewportBottom;
-                if(Math.abs(delta) > 1){
-                    const top = window.scrollY + delta;
-                    if(window.__lenis && !REDUCED_MOTION){
-                        window.__lenis.resize();
-                        window.__lenis.scrollTo(top, {lerp:0, duration:0.55, easing:t => 1 - Math.pow(1 - t, 3)});
-                    } else {
-                        window.scrollTo({top, behavior:REDUCED_MOTION ? 'auto' : 'smooth'});
-                    }
-                }
+            const marker = document.createComment('project details position');
+            panel.before(marker);
+            active = {panel,marker,button};
+            dialog.querySelector('h2').textContent = button.closest('.proj-card').querySelector('.proj-name').textContent;
+            dialog.querySelector('.project-dialog-content').append(panel);
+            panel.hidden = false;
+            const description = panel.querySelector('.file-details-desc');
+            typingText = description?.textContent || '';
+            if(description && !REDUCED_MOTION) description.textContent = '';
+            active.description = description;
+            button.setAttribute('aria-expanded','true');
+            previousOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            window.__lenis?.stop();
+            dialog.showModal();
+            dialog.classList.remove('properties-opening');
+            void dialog.offsetWidth;
+            dialog.classList.add('properties-opening');
+            if(description && !REDUCED_MOTION){
+                let index = 0;
+                const startTyping = () => {
+                    if(!dialog.open || !active || active.description !== description) return;
+                    typingTimer = window.setInterval(() => {
+                        index += 2;
+                        description.textContent = typingText.slice(0,index);
+                        if(index >= typingText.length) clearInterval(typingTimer);
+                    },18);
+                };
+                window.setTimeout(startTyping,360);
             }
+            dialog.querySelector('.project-dialog-close').focus();
         });
     });
 }
@@ -804,7 +778,7 @@ function setupFileDetails(){
    ========================================================================== */
 function setupProjectsPaging(){
     const grid = document.querySelector('.projects-grid');
-    if(!grid) return;
+    if(!grid || grid.hasAttribute('data-no-paging')) return;
     const cards = Array.from(grid.querySelectorAll('.proj-card'));
     const PER_PAGE = 3;
     const total = Math.ceil(cards.length / PER_PAGE);
@@ -853,11 +827,11 @@ function setupProjectsPaging(){
             else d.removeAttribute('aria-current');
         });
         curEl.textContent = String(page + 1);
-        prevBtn.disabled = (page === 0);
-        nextBtn.disabled = (page === total - 1);
+        prevBtn.disabled = false;
+        nextBtn.disabled = false;
     }
     function go(i){
-        const next = Math.max(0, Math.min(total - 1, i));
+        const next = ((i % total) + total) % total;
         if(next === page) return;
         page = next;
         render();

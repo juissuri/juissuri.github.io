@@ -8,3 +8,13 @@
 .asset-gallery:focus-visible,.asset-controls button:focus-visible{outline:1px solid #aab4c5;outline-offset:5px}
 @media(prefers-reduced-motion:no-preference){.asset-slide:not([hidden]){animation:assetReveal .4s ease both}}
 @keyframes assetReveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* Minimal directional controls with fine technical corner marks. */
+.asset-controls button{position:relative;width:48px;height:40px;min-height:40px;padding:0;color:#c7c7bc;font-size:1.25rem;line-height:1;background:none;border:0;transition:color .2s ease,transform .2s ease}
+.asset-controls button::before,.asset-controls button::after{content:'';position:absolute;width:6px;height:6px;border-color:#68685e;border-style:solid;pointer-events:none}
+.asset-controls button::before{left:4px;top:6px;border-width:1px 0 0 1px}
+.asset-controls button::after{right:4px;bottom:6px;border-width:0 1px 1px 0}
+.asset-controls button:hover:not(:disabled){color:#f0f0e5}
+.asset-controls button:disabled{opacity:.25}
+.asset-controls button:focus-visible{outline:1px solid #b0b0a4;outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){.asset-controls button[data-step="-1"]:hover:not(:disabled){transform:translateX(-2px)}.asset-controls button[data-step="1"]:hover:not(:disabled){transform:translateX(2px)}}
+@media(prefers-reduced-motion:reduce){.asset-controls button{transition:none}}

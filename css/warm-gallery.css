@@ -1,0 +1,97 @@
+:root{--c-dark-3:#141413;--c-border:#363632;--c-border-mid:#53534D;--c-gray-dim:#85857C;--c-gray-mid:#AAAAA0;--c-gray-light:#DADAD2;--c-off-white:#E6E6DE;--c-white:#ECECE5;--gradient-orange:linear-gradient(90deg,#96968C,#DADAD2,#ECECE5);--gradient-orange-strong:linear-gradient(90deg,#77776F,#ACACA2,#DADAD2)}
+::view-transition-group(project-cover){animation-duration:.72s;animation-timing-function:cubic-bezier(.16,1,.3,1)}
+::view-transition-old(project-cover),::view-transition-new(project-cover){height:100%;object-fit:cover;mix-blend-mode:normal}
+#visual-img{view-transition-name:project-cover}
+.proj-media .proj-preview-frame{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;transition:opacity .72s cubic-bezier(.22,1,.36,1),transform 2.6s ease!important;transform:scale(1.015)}
+.proj-media .proj-preview-frame.is-visible{opacity:1;transform:scale(1.045)}
+.proj-media::after{z-index:2}
+[data-i18n]{transition:opacity .18s ease,filter .18s ease}
+html.i18n-changing [data-i18n]{opacity:0!important;filter:blur(1.5px)}
+.lightbox{background:#000F;display:grid;grid-template-columns:5rem minmax(0,1fr) 5rem;grid-template-rows:4.5rem minmax(0,1fr) 3.5rem;padding:0 1.25rem;backdrop-filter:blur(12px)}
+.lightbox-topline{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 5.5rem 0 .5rem;border-bottom:1px solid #FFFFFF18;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.18em;color:#92928A}
+.lightbox-counter{color:#D7D7CF;letter-spacing:.22em}
+.lightbox-figure{grid-column:2;grid-row:2;align-self:center;justify-self:center;max-width:100%;max-height:calc(100vh - 9rem);gap:.8rem;overflow:visible}
+.lightbox-img{max-width:100%;max-height:calc(100vh - 11rem);border-color:#FFFFFF26;border-radius:3px;cursor:zoom-in;transition:opacity .35s ease,transform .5s cubic-bezier(.16,1,.3,1),filter .35s ease}
+.lightbox-img.from-left:not(.loaded){transform:translateX(-16px) scale(.985)}
+.lightbox-img.from-right:not(.loaded){transform:translateX(16px) scale(.985)}
+.lightbox-img.is-zoomed{transform:scale(1.55);cursor:zoom-out;z-index:2}
+.lightbox-caption{font-size:.62rem;letter-spacing:.17em;color:#A7A79F;min-height:1em}
+.lightbox-arrow{grid-row:2;align-self:center;justify-self:center;width:54px;height:54px;border:0;background:none;color:#C8C8C0;font-size:1.45rem;cursor:pointer;transition:color .2s ease,transform .2s ease}
+.lightbox-arrow--previous{grid-column:1}.lightbox-arrow--next{grid-column:3}
+.lightbox-arrow--previous:hover{color:#FFF;transform:translateX(-4px)}
+.lightbox-arrow--next:hover{color:#FFF;transform:translateX(4px)}
+.lightbox-arrow:focus-visible{outline:1px solid #8B8B84;outline-offset:3px}
+.lightbox-close{top:1rem;right:1.5rem;border:0;border-radius:50%}
+.lightbox-hint{grid-column:1/-1;grid-row:3;position:static;align-self:center;font-size:.54rem;color:#FFFFFF3D}
+@media(max-width:700px){.lightbox{grid-template-columns:2.6rem minmax(0,1fr) 2.6rem;padding:0 .35rem}.lightbox-topline{padding-right:4rem}.lightbox-label{display:none}.lightbox-img{max-height:calc(100vh - 12rem)}.lightbox-arrow{width:40px}.lightbox-caption{letter-spacing:.08em}.lightbox-img.is-zoomed{transform:scale(1.25)}}
+.hero-title-3d,.hero-title-env{background-image:linear-gradient(110deg,#77776F 0%,#A2A298 22%,#DADAD2 42%,#F0F0E9 50%,#C3C3B9 60%,#8A8A81 80%,#DADAD2 100%)}
+.folder-card{--folder-surface:#141413;border-color:#363632}
+.folder-tab{background:#1C1C19;border-color:#43433D;color:#DADAD2}
+.folder-card::before{background:#242420;border-color:#474740}
+.folder-card .proj-name,.folder-card .proj-tags span{color:#DADAD2}
+.folder-card .file-details-btn,.folder-card .file-details-link:not(.file-details-link--ghost){background:#242420;border-color:#45453E;color:#DADAD2;box-shadow:inset 0 1px 0 #ffffff08}
+.folder-card .file-details-btn:hover,.folder-card .file-details-link:not(.file-details-link--ghost):hover{background:#30302A;border-color:#68685E;color:#F0F0E8}
+.folder-card .folder-insert{position:absolute;left:8%;top:4px;width:84%;height:125px;object-fit:cover;object-position:center 60%;border:1px solid #626258;border-radius:7px;pointer-events:none;opacity:0;z-index:0;transform:translateY(0) rotate(0);transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .3s ease}
+.folder-card .proj-media,.folder-card .proj-body,.folder-card .folder-tab{position:relative;z-index:1}
+.folder-card .folder-tab{position:absolute}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .folder-card:has(.folder-insert):hover{z-index:3}
+ .folder-card:hover .folder-insert{opacity:1;transform:translateY(-50px) rotate(-3deg)}
+}
+.folder-card:focus-within .folder-insert{opacity:1;transform:translateY(-40px) rotate(-2deg)}
+.asset-slide:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) 230px;align-items:center;gap:2rem;padding:1.5rem;border:1px solid #363632;border-radius:18px;background:#141413}
+.asset-stage{overflow:hidden;border:1px solid #363632;border-radius:10px;background:#1C1C19}
+.asset-slide .asset-stage img{border:0;border-radius:0;max-height:65vh;object-fit:contain}
+.asset-caption{font-family:var(--font-mono);color:#DADAD2}
+.asset-caption small{display:block;color:#929289;letter-spacing:.16em;margin-bottom:1rem}
+.asset-caption h3{font-family:var(--font-display);font-size:2.2rem;line-height:1.1;margin:0 0 1.5rem}
+.asset-caption dl{margin:0;display:grid;gap:1rem}
+.asset-caption dt{font-size:.65rem;color:#929289;margin-bottom:.35rem}
+.asset-caption dd{font-size:.8rem;margin:0;line-height:1.6}
+@media(max-width:700px){.asset-slide:not([hidden]){grid-template-columns:1fr;padding:1rem;gap:1.25rem}.asset-caption dl{grid-template-columns:1fr 1fr}.asset-caption h3{margin-bottom:1rem}}
+@media(prefers-reduced-motion:no-preference){
+ @view-transition{navigation:auto}
+ ::view-transition-old(root){animation:pageFadeOut .2s ease both}
+ ::view-transition-new(root){animation:pageFadeIn .3s ease .1s both}
+}
+@keyframes pageFadeOut{to{opacity:0}}
+@keyframes pageFadeIn{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.folder-card .folder-insert{transition:none}}
+
+/* Project pages use the same open, horizontal navigation language as the home hero. */
+.project-page{padding-bottom:0}
+.project-page-nav{position:absolute;top:1.5rem;left:50%;z-index:80;transform:translateX(-50%);width:min(92rem,calc(100% - 3rem));display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.5rem;background:none;border:0;backdrop-filter:none}
+.project-page-nav a{font-family:var(--font-mono);font-size:.8rem;font-weight:600;letter-spacing:.14em;color:#C4C3BA;text-decoration:none;text-transform:uppercase;transition:color .2s ease,transform .2s ease;text-shadow:0 2px 3px #000,0 4px 12px #000,0 0 24px #000C}
+.project-page-nav a:nth-child(2){justify-self:center}
+.project-page-nav a:last-child{justify-self:end}
+.project-page-nav a:hover{color:#EEEDE5}
+.project-page-nav a:first-child:hover{transform:translateX(-2px)}
+.project-page-nav a:nth-child(2):hover{transform:translateX(2px)}
+.project-page-nav a:focus-visible{outline:1px solid #C2C1B7;outline-offset:6px}
+.project-process-page .process-hero{padding-top:7.5rem}
+
+/* Folder properties: the sheet unfolds from its top tab. */
+.project-details-dialog{overflow:visible;border-radius:0 20px 20px 20px;transform-origin:50% 0}
+.project-details-dialog::backdrop{background:#000C;backdrop-filter:blur(7px)}
+.project-dialog-content{max-height:calc(100dvh - 12rem);overflow:auto;overscroll-behavior:contain;padding-right:.25rem}
+.project-details-dialog h2{letter-spacing:.035em;color:#E5E4DB}
+.project-details-dialog .file-details{border-top-style:solid;border-color:#373732}
+.project-details-dialog .file-details-item{opacity:1;transform:none}
+.project-details-dialog .file-details-desc{min-height:3.6em;position:relative}
+.project-details-dialog .file-details-desc::after{content:'_';margin-left:.15em;color:#BAB9AF;animation:propertyCursor .75s steps(1,end) infinite}
+.project-details-dialog:not(.properties-opening) .file-details-desc::after{display:none}
+@media(prefers-reduced-motion:no-preference){
+ .project-details-dialog.properties-opening{animation:folderPropertiesOpen .5s cubic-bezier(.16,1,.3,1) both}
+ .project-details-dialog.properties-opening .file-details-item{animation:propertyRowIn .45s cubic-bezier(.22,1,.36,1) both}
+ .project-details-dialog.properties-opening .file-details-item:nth-child(2){animation-delay:.07s}
+ .project-details-dialog.properties-opening .file-details-item:nth-child(3){animation-delay:.14s}
+}
+@keyframes folderPropertiesOpen{from{opacity:0;transform:perspective(900px) rotateX(-12deg) translateY(-14px) scaleY(.82);clip-path:inset(0 0 92% 0)}to{opacity:1;transform:none;clip-path:inset(-40px -2px -2px -2px)}}
+@keyframes propertyRowIn{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+@keyframes propertyCursor{50%{opacity:0}}
+@media(max-width:700px){
+ .project-page-nav{top:1.15rem;width:calc(100% - 2rem);gap:.6rem}
+ .project-page-nav a{font-size:.65rem;letter-spacing:.08em}
+ .project-process-page .process-hero{padding-top:6.5rem}
+}
+@media(prefers-reduced-motion:reduce){[data-i18n],.project-page-nav a,.proj-media .proj-preview-frame{transition:none}.project-details-dialog .file-details-desc::after{display:none}}

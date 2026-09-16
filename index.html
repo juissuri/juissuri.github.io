@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="js/navigation-shell.js?v=1"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="JUI PORTFOLIO - Daria Lytvin 3D Environment Artist Portfolio. Specializing in creating large-scale environments, PBR texturing, lighting, and scene composition for real-time engines.">
@@ -35,15 +36,17 @@
     <link rel="stylesheet" href="css/fonts.css">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=breakdown-1">
     <link rel="stylesheet" href="css/project-folders.css">
-    <link rel="stylesheet" href="css/portfolio-polish.css">
+    <link rel="stylesheet" href="css/portfolio-polish.css?v=cinematic-nav-11">
 
     <script src="js/surface-light.js" defer></script>
+    <link rel="stylesheet" href="css/warm-gallery.css?v=tech-grey-1">
+    <link rel="stylesheet" href="css/tech-grey-theme.css?v=hero-image-1">
+    <link rel="stylesheet" href="css/atmosphere.css?v=2">
+    <link rel="stylesheet" href="css/projects-hitman.css?v=5">
 </head>
 <body id="top">
-    <!-- Top Scroll Progress Indicator -->
-    <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
     <svg class="svg-definitions" aria-hidden="true">
         <symbol id="logo-laptop" viewBox="0 0 100 100">
@@ -63,9 +66,18 @@
 
     <main>
         <section class="hero">
-            <video class="hero-background-video" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-                <source src="assets/video/hero-grid.mp4" type="video/mp4">
-            </video>
+            <img
+                class="hero-background-image"
+                src="assets/images/hero-computer-2880.jpg"
+                srcset="assets/images/hero-computer-1600.jpg 1600w, assets/images/hero-computer-2880.jpg 2880w, assets/images/hero-computer-5029.jpg 5029w"
+                sizes="100vw"
+                width="5029"
+                height="2880"
+                alt=""
+                aria-hidden="true"
+                decoding="async"
+                fetchpriority="high"
+            >
     <nav class="navbar hero-navigation" aria-label="Primary">
         <div class="navbar-inner">
 
@@ -99,6 +111,10 @@
                     <button type="button" class="lang-btn" data-lang="ru" aria-label="Русский">RU</button>
                     <button type="button" class="lang-btn" data-lang="uk" aria-label="Українська">UA</button>
                 </div>
+                <button type="button" class="wave-btn" data-music-wave aria-pressed="false" aria-label="Play background music">
+                    <span class="wave-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class="wave-caption"><span class="wave-title" data-i18n="music_label">MUSIC</span><span class="wave-state" data-music-state>OFF</span></span>
+                </button>
             </div>
 
             <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer">
@@ -117,6 +133,10 @@
                 <button type="button" class="lang-btn" data-lang="ru">RU</button>
                 <button type="button" class="lang-btn" data-lang="uk">UA</button>
             </div>
+            <button type="button" class="wave-btn wave-btn--drawer" data-music-wave aria-pressed="false" aria-label="Play background music">
+                <span class="wave-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="wave-caption"><span class="wave-title" data-i18n="music_label">MUSIC</span><span class="wave-state" data-music-state>OFF</span></span>
+            </button>
         </div>
     </nav>
 
@@ -126,26 +146,6 @@
                 <div class="hero-line hero-line-right"></div>
             </div>
 
-            <div class="hero-content">
-                <div class="hero-inner reveal">
-
-                    <!-- Main Title -->
-                    <h1 class="hero-title">
-                        <span class="hero-title-3d">3D</span>
-                        <span class="hero-title-env">ENVIRONMENT</span>
-                    </h1>
-
-                    <!-- Sub Header, moved below title -->
-                    <div class="hero-subheader">
-                        <span class="hero-line-deco"></span>
-                        <span class="hero-subheader-text" data-i18n="hero_subheader">COMPUTER GENERATED IMAGERY</span>
-                        <span class="hero-line-deco"></span>
-                    </div>
-
-
-
-                </div><!-- /hero-inner -->
-            </div><!-- /hero-content -->
         </section>
 
         
@@ -191,13 +191,13 @@
         <section id="projects" class="pshell-section pshell-section--files">
             <div class="files-directory reveal">
                 <div class="files-directory-header">
-                    <h2 class="pshell-title title-reveal" data-i18n="projects_title">PROJECT FILES</h2>
+                    <h2 class="pshell-title title-reveal" data-i18n="projects_title">PROJECT</h2>
                 </div>
-                <div class="projects-grid">
+                <div class="projects-grid" data-no-paging>
                     <!-- 01 GIBSON RIDGE -->
                     <article class="proj-card folder-card">
-                        <div class="folder-tab" aria-hidden="true"><span class="folder-tab-mark"></span><span>FILE 01</span></div>
-                        <a href="project-view.html?id=01" class="proj-media" aria-label="Open Gibson Ridge">
+
+                        <a href="project-view.html?id=01" class="proj-media" aria-label="Open Gibson Ridge" data-preview-images="assets/images/PROJECT1.jpeg">
                             <img src="assets/images/gibson-ridge-960.webp"
                                  srcset="assets/images/gibson-ridge-720.webp 720w, assets/images/gibson-ridge-960.webp 960w, assets/images/gibson-ridge-1200.webp 1200w, assets/images/gibson-ridge-1920.webp 1920w"
                                  sizes="(max-width: 700px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -206,9 +206,9 @@
                         <div class="proj-body">
                             <h3 class="proj-name">GIBSON RIDGE</h3>
                             <p class="proj-meta proj-meta--spacer" aria-hidden="true"></p>
+                            <p class="proj-overlay-desc" data-i18n="details_desc_01">A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze. Procedural Gaea terrain + hand-authored vegetation.</p>
                             <div class="proj-tags"><span><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span><span><img class="software-icon software-icon--image" src="assets/icons/gaea.png" width="24" height="24" alt="" aria-hidden="true" decoding="async">Gaea</span><span><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span><span><img class="software-icon software-icon--image" src="assets/icons/substance-painter.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Substance</span></div>
                             <div class="proj-actions">
-                                <a href="project-view.html?id=01" class="file-details-link" data-i18n="open_visual">OPEN VISUAL →</a>
                                 <button class="file-details-btn" type="button" data-target="details-01" aria-expanded="false" aria-controls="details-01" data-i18n="details_btn">DETAILS</button>
                             </div>
                         </div>
@@ -217,6 +217,10 @@
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value software-list"><span class="software-item"><img class="software-icon software-icon--image" src="assets/icons/gaea.png" width="24" height="24" alt="" aria-hidden="true" decoding="async">Gaea</span><span class="software-item"><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span><span class="software-item"><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span><span class="software-item"><img class="software-icon software-icon--image" src="assets/icons/substance-painter.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Substance</span></span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_role_label">ROLE</span><span class="file-details-value" data-i18n="stats_role_solo">SOLO PROJECT</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_target_label">TARGET</span><span class="file-details-value" data-i18n="stats_target_realtime">REAL-TIME</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_scope_label">FOCUS</span><span class="file-details-value" data-i18n="stats_scope_01">ENVIRONMENT · LIGHTING</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_status_label">STATUS</span><span class="file-details-value file-details-value--status" data-i18n="stats_status_live">PUBLISHED</span></div>
                             </div>
                             <p class="file-details-desc" data-i18n="details_desc_01">A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze. Procedural Gaea terrain + hand-authored vegetation.</p>
                             <div class="file-details-actions">
@@ -226,16 +230,19 @@
                     </article>
                     <!-- 02 SIMON'S GARAGE -->
                     <article class="proj-card folder-card">
-                        <div class="folder-tab" aria-hidden="true"><span class="folder-tab-mark"></span><span>FILE 02</span></div>
+
                         <a href="project-view.html?id=02" class="proj-media" aria-label="Open Simon's Garage">
-                            <span class="proj-media-empty" aria-hidden="true">WIP</span>
+                            <img src="assets/images/simons-garage-1200.webp"
+                                 srcset="assets/images/simons-garage-720.webp 720w, assets/images/simons-garage-960.webp 960w, assets/images/simons-garage-1200.webp 1200w, assets/images/simons-garage.webp 1920w"
+                                 sizes="(max-width: 700px) 92vw, min(88vw, 2880px)"
+                                 alt="Simon's Garage, cinematic interior environment" loading="lazy" decoding="async" width="1200" height="670">
                         </a>
                         <div class="proj-body">
                             <h3 class="proj-name">SIMON'S GARAGE</h3>
                             <p class="proj-meta" data-i18n="file_meta_02">Interior, 2026</p>
+                            <p class="proj-overlay-desc" data-i18n="details_desc_02">Awaiting publication, full breakdown soon. Interior study focused on material fidelity and grounded storytelling through props.</p>
                             <div class="proj-tags"><span><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span><span><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span><span><img class="software-icon software-icon--image" src="assets/icons/substance-painter.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Substance</span></div>
                             <div class="proj-actions">
-                                <a href="project-view.html?id=02" class="file-details-link" data-i18n="open_visual">OPEN VISUAL →</a>
                                 <button class="file-details-btn" type="button" data-target="details-02" aria-expanded="false" aria-controls="details-02" data-i18n="details_btn">DETAILS</button>
                             </div>
                         </div>
@@ -244,6 +251,10 @@
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value software-list"><span class="software-item"><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span><span class="software-item"><img class="software-icon software-icon--image" src="assets/icons/substance-painter.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Substance</span><span class="software-item"><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span></span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_role_label">ROLE</span><span class="file-details-value" data-i18n="stats_role_solo">SOLO PROJECT</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_target_label">TARGET</span><span class="file-details-value" data-i18n="stats_target_realtime">REAL-TIME</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_scope_label">FOCUS</span><span class="file-details-value" data-i18n="stats_scope_02">INTERIOR · PROPS</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_status_label">STATUS</span><span class="file-details-value file-details-value--status is-wip" data-i18n="stats_status_wip">IN PRODUCTION</span></div>
                             </div>
                             <p class="file-details-desc" data-i18n="details_desc_02">Awaiting publication, full breakdown soon. Interior study focused on material fidelity and grounded storytelling through props.</p>
                             <div class="file-details-actions">
@@ -253,16 +264,16 @@
                     </article>
                     <!-- 03 MOUNTAINS -->
                     <article class="proj-card folder-card">
-                        <div class="folder-tab" aria-hidden="true"><span class="folder-tab-mark"></span><span>FILE 03</span></div>
+
                         <a href="project-view.html?id=03" class="proj-media" aria-label="Open Mountains">
                             <img src="assets/images/mountains.jpg" alt="Mountains, topographic environment study" loading="lazy" decoding="async" width="960" height="540">
                         </a>
                         <div class="proj-body">
                             <h3 class="proj-name">MOUNTAINS</h3>
                             <p class="proj-meta" data-i18n="file_meta_03">Environment, 2026</p>
+                            <p class="proj-overlay-desc" data-i18n="details_desc_03">Large-scale mountain environment exploring scale, atmosphere, and distant haze.</p>
                             <div class="proj-tags"><span><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span><span><img class="software-icon software-icon--image" src="assets/icons/gaea.png" width="24" height="24" alt="" aria-hidden="true" decoding="async">Gaea</span><span><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span></div>
                             <div class="proj-actions">
-                                <a href="project-view.html?id=03" class="file-details-link" data-i18n="open_visual">OPEN VISUAL →</a>
                                 <button class="file-details-btn" type="button" data-target="details-03" aria-expanded="false" aria-controls="details-03" data-i18n="details_btn">DETAILS</button>
                             </div>
                         </div>
@@ -271,8 +282,12 @@
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value software-list"><span class="software-item"><img class="software-icon software-icon--image" src="assets/icons/gaea.png" width="24" height="24" alt="" aria-hidden="true" decoding="async">Gaea</span><span class="software-item"><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span><span class="software-item"><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span></span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_role_label">ROLE</span><span class="file-details-value" data-i18n="stats_role_solo">SOLO PROJECT</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_target_label">TARGET</span><span class="file-details-value" data-i18n="stats_target_realtime">REAL-TIME</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_scope_label">FOCUS</span><span class="file-details-value" data-i18n="stats_scope_03">TERRAIN · ATMOSPHERE</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_status_label">STATUS</span><span class="file-details-value file-details-value--status is-wip" data-i18n="stats_status_wip">IN PRODUCTION</span></div>
                             </div>
-                            <p class="file-details-desc" data-i18n="details_desc_03">Awaiting publication, full breakdown soon. Large-scale mountain environment exploring scale, atmosphere, and distant haze.</p>
+                            <p class="file-details-desc" data-i18n="details_desc_03">Large-scale mountain environment exploring scale, atmosphere, and distant haze.</p>
                             <div class="file-details-actions">
                                 <a href="project-breakdown.html?project=03" class="file-details-link file-details-link--ghost" data-i18n="all_details">View project details</a>
                             </div>
@@ -280,13 +295,14 @@
                     </article>
                     <!-- 04 WIP -->
                     <article class="proj-card folder-card">
-                        <div class="folder-tab" aria-hidden="true"><span class="folder-tab-mark"></span><span>FILE 04</span></div>
+
                         <div class="proj-media" aria-hidden="true">
                             <span class="proj-media-empty">WIP</span>
                         </div>
                         <div class="proj-body">
                             <h3 class="proj-name" data-i18n="proj_name_wip">COMING SOON</h3>
                             <p class="proj-meta" data-i18n="file_meta_wip">In Production, 2026</p>
+                            <p class="proj-overlay-desc" data-i18n="details_desc_wip">New environment in production, full reveal soon.</p>
                             <div class="proj-tags"><span><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span><span><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span></div>
                             <div class="proj-actions">
                                 <button class="file-details-btn" type="button" data-target="details-04" aria-expanded="false" aria-controls="details-04" data-i18n="details_btn">DETAILS</button>
@@ -297,6 +313,10 @@
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value software-list"><span class="software-item"><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span><span class="software-item"><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span></span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_role_label">ROLE</span><span class="file-details-value" data-i18n="stats_role_solo">SOLO PROJECT</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_target_label">TARGET</span><span class="file-details-value" data-i18n="stats_target_realtime">REAL-TIME</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_scope_label">FOCUS</span><span class="file-details-value" data-i18n="stats_scope_wip">NOT DISCLOSED</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_status_label">STATUS</span><span class="file-details-value file-details-value--status is-wip" data-i18n="stats_status_wip">IN PRODUCTION</span></div>
                             </div>
                             <p class="file-details-desc" data-i18n="details_desc_wip">New environment in production, full reveal soon.</p>
                             <div class="file-details-actions">
@@ -306,13 +326,14 @@
                     </article>
                     <!-- 05 WIP -->
                     <article class="proj-card folder-card">
-                        <div class="folder-tab" aria-hidden="true"><span class="folder-tab-mark"></span><span>FILE 05</span></div>
+
                         <div class="proj-media" aria-hidden="true">
                             <span class="proj-media-empty">WIP</span>
                         </div>
                         <div class="proj-body">
                             <h3 class="proj-name" data-i18n="proj_name_wip">COMING SOON</h3>
                             <p class="proj-meta" data-i18n="file_meta_wip">In Production, 2026</p>
+                            <p class="proj-overlay-desc" data-i18n="details_desc_wip">New environment in production, full reveal soon.</p>
                             <div class="proj-tags"><span><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span><span><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span></div>
                             <div class="proj-actions">
                                 <button class="file-details-btn" type="button" data-target="details-05" aria-expanded="false" aria-controls="details-05" data-i18n="details_btn">DETAILS</button>
@@ -323,6 +344,10 @@
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value software-list"><span class="software-item"><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span><span class="software-item"><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span></span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_role_label">ROLE</span><span class="file-details-value" data-i18n="stats_role_solo">SOLO PROJECT</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_target_label">TARGET</span><span class="file-details-value" data-i18n="stats_target_realtime">REAL-TIME</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_scope_label">FOCUS</span><span class="file-details-value" data-i18n="stats_scope_wip">NOT DISCLOSED</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_status_label">STATUS</span><span class="file-details-value file-details-value--status is-wip" data-i18n="stats_status_wip">IN PRODUCTION</span></div>
                             </div>
                             <p class="file-details-desc" data-i18n="details_desc_wip">New environment in production, full reveal soon.</p>
                             <div class="file-details-actions">
@@ -332,13 +357,14 @@
                     </article>
                     <!-- 06 WIP -->
                     <article class="proj-card folder-card">
-                        <div class="folder-tab" aria-hidden="true"><span class="folder-tab-mark"></span><span>FILE 06</span></div>
+
                         <div class="proj-media" aria-hidden="true">
                             <span class="proj-media-empty">WIP</span>
                         </div>
                         <div class="proj-body">
                             <h3 class="proj-name" data-i18n="proj_name_wip">COMING SOON</h3>
                             <p class="proj-meta" data-i18n="file_meta_wip">In Production, 2026</p>
+                            <p class="proj-overlay-desc" data-i18n="details_desc_wip">New environment in production, full reveal soon.</p>
                             <div class="proj-tags"><span><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span><span><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span></div>
                             <div class="proj-actions">
                                 <button class="file-details-btn" type="button" data-target="details-06" aria-expanded="false" aria-controls="details-06" data-i18n="details_btn">DETAILS</button>
@@ -349,6 +375,10 @@
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_engine_label">ENGINE</span><span class="file-details-value">Unreal Engine 5</span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_tools_label">TOOLS</span><span class="file-details-value software-list"><span class="software-item"><img class="software-icon" src="assets/icons/blender-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">Blender</span><span class="software-item"><img class="software-icon" src="assets/icons/unrealengine-gray.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">UE5</span></span></div>
                                 <div class="file-details-item"><span class="file-details-label" data-i18n="details_year_label">YEAR</span><span class="file-details-value">2026</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_role_label">ROLE</span><span class="file-details-value" data-i18n="stats_role_solo">SOLO PROJECT</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_target_label">TARGET</span><span class="file-details-value" data-i18n="stats_target_realtime">REAL-TIME</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_scope_label">FOCUS</span><span class="file-details-value" data-i18n="stats_scope_wip">NOT DISCLOSED</span></div>
+                                <div class="file-details-item"><span class="file-details-label" data-i18n="stats_status_label">STATUS</span><span class="file-details-value file-details-value--status is-wip" data-i18n="stats_status_wip">IN PRODUCTION</span></div>
                             </div>
                             <p class="file-details-desc" data-i18n="details_desc_wip">New environment in production, full reveal soon.</p>
                             <div class="file-details-actions">
@@ -575,8 +605,11 @@
 
     <!-- Lenis Smooth Scroll (local) -->
     <script src="js/lenis.min.js"></script>
-    <script src="js/lightbox.js"></script>
-    <script src="js/i18n.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/i18n.js?v=projects-subtitle-1"></script>
+    <script src="js/project-preview.js"></script>
+    <script src="js/main.js?v=perf-1"></script>
+    <script src="js/card-parallax.js?v=2"></script>
+    <script src="js/projects-carousel.js?v=7"></script>
+    <script src="js/atmosphere.js?v=4"></script>
 </body>
 </html>

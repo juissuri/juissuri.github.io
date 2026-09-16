@@ -1,120 +1,147 @@
 /**
- * JUI PORTFOLIO - LIGHTBOX
- * Fullscreen image viewer with shared-element morph (View Transitions API).
- * Attach to any <img> via data-lightbox attribute.
+ * Fullscreen project gallery with keyboard, swipe, counter and image zoom.
  */
-(function () {
-    const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let overlay = null;
-    let imgEl = null;
-    let captionEl = null;
-    let isOpen = false;
-    let returnFocus = null;
+(() => {
+    const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let overlay, image, caption, counter, previousButton, nextButton;
+    let items = [];
+    let current = 0;
+    let returnFocus;
     let previousOverflow = '';
-    let openVersion = 0;
+    let touchStart = null;
+    const pad = value => String(value).padStart(2, '0');
 
     function build() {
         overlay = document.createElement('div');
         overlay.className = 'lightbox';
         overlay.setAttribute('role', 'dialog');
         overlay.setAttribute('aria-modal', 'true');
-        overlay.setAttribute('aria-label', 'Image viewer');
+        overlay.setAttribute('aria-label', 'Project gallery');
         overlay.innerHTML = `
-            <button class="lightbox-close" type="button" aria-label="Close">
-                <span></span><span></span>
-            </button>
-            <figure class="lightbox-figure">
-                <img class="lightbox-img" src="" alt="">
-                <figcaption class="lightbox-caption"></figcaption>
-            </figure>
-            <div class="lightbox-hint">[ CLICK ANYWHERE TO CLOSE ]</div>
-        `;
-        document.body.appendChild(overlay);
-        imgEl = overlay.querySelector('.lightbox-img');
-        captionEl = overlay.querySelector('.lightbox-caption');
+            <div class="lightbox-topline"><span class="lightbox-label">PROJECT GALLERY</span><span class="lightbox-counter" aria-live="polite"></span></div>
+            <button class="lightbox-close" type="button" aria-label="Close"><span></span><span></span></button>
+            <button class="lightbox-arrow lightbox-arrow--previous" type="button" aria-label="Previous image">←</button>
+            <figure class="lightbox-figure"><img class="lightbox-img" src="" alt=""><figcaption class="lightbox-caption"></figcaption></figure>
+            <button class="lightbox-arrow lightbox-arrow--next" type="button" aria-label="Next image">→</button>
+            <div class="lightbox-hint">CLICK IMAGE TO ZOOM</div>`;
+        document.body.append(overlay);
+        image = overlay.querySelector('.lightbox-img');
+        caption = overlay.querySelector('.lightbox-caption');
+        counter = overlay.querySelector('.lightbox-counter');
+        previousButton = overlay.querySelector('.lightbox-arrow--previous');
+        nextButton = overlay.querySelector('.lightbox-arrow--next');
 
-        overlay.addEventListener('click', (e) => {
-            if (!e.target.closest('.lightbox-img')) close();
+        overlay.querySelector('.lightbox-close').addEventListener('click', close);
+        previousButton.addEventListener('click', event => { event.stopPropagation(); show(current - 1, -1); });
+        nextButton.addEventListener('click', event => { event.stopPropagation(); show(current + 1, 1); });
+        image.addEventListener('click', event => { event.stopPropagation(); image.classList.toggle('is-zoomed'); });
+        overlay.addEventListener('click', event => {
+            if (event.target === overlay || (!event.target.closest('.lightbox-figure') && !event.target.closest('button'))) close();
         });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && isOpen) close();
-            if (e.key === 'Tab' && isOpen) {
-                e.preventDefault();
-                overlay.querySelector('.lightbox-close').focus();
+        overlay.addEventListener('touchstart', event => {
+            if (event.touches.length === 1) touchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+        }, { passive: true });
+        overlay.addEventListener('touchend', event => {
+            if (!touchStart || !event.changedTouches.length) return;
+            const dx = touchStart.x - event.changedTouches[0].clientX;
+            const dy = touchStart.y - event.changedTouches[0].clientY;
+            touchStart = null;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.25) show(current + Math.sign(dx), Math.sign(dx));
+        }, { passive: true });
+
+        document.addEventListener('keydown', event => {
+            if (!overlay.classList.contains('open')) return;
+            if (event.key === 'Escape') close();
+            if (event.key === 'ArrowLeft') show(current - 1, -1);
+            if (event.key === 'ArrowRight') show(current + 1, 1);
+            if (event.key === 'Home') show(0, -1);
+            if (event.key === 'End') show(items.length - 1, 1);
+            if (event.key === 'Tab') {
+                const controls = [overlay.querySelector('.lightbox-close'), previousButton, nextButton].filter(control => !control.hidden);
+                const position = controls.indexOf(document.activeElement);
+                event.preventDefault();
+                controls[(position + (event.shiftKey ? -1 : 1) + controls.length) % controls.length].focus();
             }
         });
     }
 
-    function open(src, alt, originImg) {
-        if (!overlay) build();
-        if(isOpen) return;
-        isOpen = true;
-        const version = ++openVersion;
-        returnFocus = originImg || document.activeElement;
-        previousOverflow = document.body.style.overflow;
-        if (window.__lenis) window.__lenis.stop();
-        document.body.style.overflow = 'hidden';
-
-        imgEl.classList.remove('loaded');
-        imgEl.onload = () => imgEl.classList.add('loaded');
-        imgEl.src = src;
-        imgEl.alt = alt || '';
-        captionEl.textContent = (alt || '').toUpperCase();
-
-        const canMorph = document.startViewTransition && originImg && !REDUCED_MOTION;
-        if (canMorph) {
-            originImg.style.viewTransitionName = 'project-media';
-
-            const transition = document.startViewTransition(() => {
-                originImg.style.viewTransitionName = '';
-                if(!isOpen || version !== openVersion) return;
-                imgEl.style.viewTransitionName = 'project-media';
-                overlay.classList.add('open');
-                overlay.querySelector('.lightbox-close').focus({preventScroll:true});
-            });
-            const cleanup = () => {
-                originImg.style.viewTransitionName = '';
-                imgEl.style.viewTransitionName = '';
-                if(isOpen && version === openVersion) overlay.querySelector('.lightbox-close').focus({preventScroll:true});
-            };
-            transition.finished.then(cleanup, cleanup);
-        } else {
-            overlay.classList.add('open');
+    function collect(origin) {
+        if (origin.dataset.lightboxSources) {
+            try {
+                const parsed = JSON.parse(origin.dataset.lightboxSources);
+                if (Array.isArray(parsed) && parsed.length) return parsed;
+            } catch {}
         }
+        return [...document.querySelectorAll('img[data-lightbox]')]
+            .filter(node => node.offsetParent !== null)
+            .map(node => ({ src: node.currentSrc || node.src, alt: node.alt || '', origin: node }));
+    }
 
-        overlay.querySelector('.lightbox-close').focus({preventScroll:true});
+    function show(index, direction = 1) {
+        if (!items.length) return;
+        current = (index + items.length) % items.length;
+        const item = items[current];
+        image.classList.remove('loaded', 'is-zoomed', 'from-left', 'from-right');
+        image.classList.add(direction < 0 ? 'from-left' : 'from-right');
+        image.onload = () => image.classList.add('loaded');
+        image.src = item.src;
+        image.alt = item.alt || '';
+        caption.textContent = (item.alt || '').toUpperCase();
+        counter.textContent = `${pad(current + 1)} / ${pad(items.length)}`;
+        const multiple = items.length > 1;
+        previousButton.hidden = !multiple;
+        nextButton.hidden = !multiple;
+    }
+
+    function open(origin) {
+        if (!overlay) build();
+        items = collect(origin);
+        const source = origin.currentSrc || origin.src;
+        const found = items.findIndex(item => item.origin === origin || item.src === source);
+        current = found >= 0 ? found : 0;
+        returnFocus = origin;
+        previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        window.__lenis?.stop();
+        show(current);
+
+        if (document.startViewTransition && !REDUCED_MOTION) {
+            origin.style.viewTransitionName = 'project-media';
+            const transition = document.startViewTransition(() => {
+                origin.style.viewTransitionName = '';
+                image.style.viewTransitionName = 'project-media';
+                overlay.classList.add('open');
+            });
+            transition.finished.finally(() => {
+                origin.style.viewTransitionName = '';
+                image.style.viewTransitionName = '';
+            });
+        } else overlay.classList.add('open');
+        overlay.querySelector('.lightbox-close').focus({ preventScroll: true });
     }
 
     function close() {
-        if(!isOpen) return;
-        openVersion++;
+        if (!overlay?.classList.contains('open')) return;
         overlay.classList.remove('open');
-        isOpen = false;
+        image.classList.remove('is-zoomed');
         document.body.style.overflow = previousOverflow;
-        returnFocus?.focus({preventScroll:true});
-        if (window.__lenis) window.__lenis.start();
+        window.__lenis?.start();
+        returnFocus?.focus({ preventScroll: true });
     }
 
     function init() {
-        document.querySelectorAll('img[data-lightbox]').forEach(img => {
-            img.tabIndex = 0;
-            img.setAttribute('role', 'button');
-            img.addEventListener('keydown', e => {
-                if(e.key === 'Enter' || e.key === ' '){
-                    e.preventDefault(); open(img.currentSrc || img.src, img.alt, img);
-                }
-            });
-            img.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                open(img.currentSrc || img.src, img.alt, img);
+        document.querySelectorAll('img[data-lightbox]').forEach(node => {
+            node.tabIndex = 0;
+            node.setAttribute('role', 'button');
+            node.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); open(node); });
+            node.addEventListener('keydown', event => {
+                if (event.key !== 'Enter' && event.key !== ' ') return;
+                event.preventDefault();
+                open(node);
             });
         });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
 })();

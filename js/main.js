@@ -1,6 +1,6 @@
 /**
  * JUI PORTFOLIO - MAIN JAVASCRIPT
- * Vanilla JS implementation for Terminal Preloader, Custom HUD Cursor, Lenis Smooth Scroll,
+ * Vanilla JS implementation for Terminal Preloader, Custom HUD Cursor, Native Smooth Scroll,
  * Scroll Progress, Staggered Reveals, Smooth Viewport Carousel, Image Parallax,
  * Text Scramble, Magnetic HUD Brackets, Sci-Fi ID Card 'About Me' Modal,
  * Typing Effect & Magnetic Physics.
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
 /* ==========================================================================
    STORY SCROLL, великолепный сторителлинг, рассказывает сайт
    Глава 01 Intro → 02 Projects → 03 Skills → 04 Contact
-   Плавный Lenis + прогресс с главами + параллакс героя +
+   Нативный скролл + прогресс с главами + параллакс героя +
    кинематографичные reveal для каждой секции
    ========================================================================== */
 function setupStoryScroll(){
@@ -90,32 +90,23 @@ function setupStoryScroll(){
         progressBar.insertAdjacentElement('afterend', chapterEl);
     }
 
-    //, LENIS (perf: single rAF, no lerp/duration conflict)
-    let lenis = null;
-    if(window.Lenis && !REDUCED){
-        lenis = new Lenis({ lerp: 0.14, smoothWheel: true, syncTouch: false });
-        window.__lenis = lenis;
-        document.querySelectorAll('a[href^="#"]').forEach(link=>{
-            link.addEventListener('click', (e)=>{
-                if(e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
-                const href=link.getAttribute('href');
-                if(!href || href==='#') return;
-                let id;
-                try { id = decodeURIComponent(href.slice(1)); } catch { return; }
-                const target=document.getElementById(id);
-                if(!target) return;
-                e.preventDefault();
-                // bottom navbar, no top offset needed
-                const distance = Math.abs(target.getBoundingClientRect().top);
-                lenis.scrollTo(target, {
-                    offset: id === 'main-contact-btn' ? -window.innerHeight * 0.55 : 0,
-                    lerp: 0,
-                    duration: Math.min(1.05, 0.45 + distance / 3200),
-                    easing: t => 1 - Math.pow(1 - t, 3)
-                });
-            });
+    // Native scrolling avoids a permanent animation loop and preserves the
+    // browser's wheel/touch momentum. Smooth motion is used only for nav jumps.
+    document.querySelectorAll('a[href^="#"]').forEach(link=>{
+        link.addEventListener('click', (e)=>{
+            if(e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+            const href=link.getAttribute('href');
+            if(!href || href==='#') return;
+            let id;
+            try { id = decodeURIComponent(href.slice(1)); } catch { return; }
+            const target=document.getElementById(id);
+            if(!target) return;
+            e.preventDefault();
+            const offset = id === 'main-contact-btn' ? -window.innerHeight * 0.55 : 0;
+            const top = target.getBoundingClientRect().top + window.scrollY + offset;
+            window.scrollTo({top, behavior: REDUCED ? 'auto' : 'smooth'});
         });
-    }
+    });
 
     //, REVEAL observer (staggered, but now with story delay)
     const revealObserver = new IntersectionObserver((entries)=>{
@@ -228,35 +219,24 @@ function setupStoryScroll(){
         // PROJECTS, вьюпорт убран по запросу (без параллакса)
     }
 
-    let storyDirty = true;
-    const invalidateStory = () => { storyDirty = true; };
+    let storyFrame = 0;
+    const invalidateStory = () => {
+        if(storyFrame) return;
+        storyFrame = requestAnimationFrame(() => {
+            storyFrame = 0;
+            onStoryFrame();
+        });
+    };
     window.addEventListener('scroll', invalidateStory, {passive:true});
     window.addEventListener('resize', invalidateStory, {passive:true});
     // Images and expanded project descriptions can change the page height.
     if(window.ResizeObserver){
         const layoutObserver = new ResizeObserver(() => {
             invalidateStory();
-            if(REDUCED) onStoryFrame();
         });
         layoutObserver.observe(document.body);
     }
-    function loop(t){
-        if(lenis) lenis.raf(t);
-        if(storyDirty){
-            storyDirty = false;
-            onStoryFrame();
-        }
-        requestAnimationFrame(loop);
-    }
-
-    if(REDUCED){
-        // Keep chapter and progress state current without animated effects.
-        onStoryFrame();
-        window.addEventListener('scroll', onStoryFrame, {passive:true});
-        window.addEventListener('resize', onStoryFrame, {passive:true});
-    } else {
-        requestAnimationFrame(loop);
-    }
+    onStoryFrame();
 }
 
 
@@ -399,7 +379,6 @@ function setupPShellCarousel() {
     });
 
     /* ── Native swipe via CSS scroll-snap (Android fix) ── */
-    // Android Chrome needs explicit touch handling; Lenis is excluded via data-lenis-prevent
     let touchStartX = 0;
     track.addEventListener('touchstart', (e) => {
         touchStartX = e.touches[0].clientX;

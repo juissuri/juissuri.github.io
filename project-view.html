@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="js/navigation-shell.js?v=1"></script>
+    <script src="js/navigation-shell.js?v=2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VISUAL, JUI</title>
@@ -51,14 +51,14 @@
     <meta name="twitter:description" content="Daria Lytvin, 3D environments, materials and lighting portfolio.">
     <meta name="twitter:image" content="https://juissuri.github.io/assets/images/jui-ssuri-social.png">
     <meta name="twitter:image:alt" content="JUI SSURI in white letters on a black background">
-    <link rel="stylesheet" href="css/tech-grey-theme.css?v=1">
+    <link rel="stylesheet" href="css/tech-grey-theme.css?v=gibson-color-2">
     <link rel="stylesheet" href="css/atmosphere.css?v=2">
 </head>
 <body class="project-page">
 
     <section class="visual-hero" id="visual-hero">
         <div class="visual-bg">
-            <img id="visual-img" src="assets/images/PROJECT1.jpeg" alt="Project visual">
+            <img id="visual-img" src="assets/images/PROJECT1.jpeg?v=2" alt="Project visual">
         </div>
         <div class="visual-overlay"></div>
         <nav class="project-page-nav" aria-label="Project navigation">
@@ -68,7 +68,7 @@
         </nav>
         <div class="visual-content">
             <h1 class="visual-title" id="visual-title">GIBSON RIDGE</h1>
-            <p class="visual-desc" id="visual-desc">A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze.</p>
+            <p class="visual-desc" id="visual-desc">Gibson Ridge is a cinematic desert outpost whose atmosphere is shaped by isolation and life far from civilization.</p>
             <div class="visual-actions">
                 <a id="visual-detail" href="project-breakdown.html?project=01" data-i18n="details_btn">PROJECT DETAILS</a>
             </div>
@@ -78,7 +78,7 @@
     <script>
         (function(){
             var VISUALS = {
-                '01': { title: 'GIBSON RIDGE', desc: 'A sun-scorched desert environment built around large-scale terrain silhouettes, layered dune formations, and a cinematic play of heat, shadow, and distant haze.', img: 'assets/images/gibson-ridge-1920.webp', pending: false },
+                '01': { title: 'GIBSON RIDGE', desc: 'Gibson Ridge is a cinematic desert outpost whose atmosphere is shaped by isolation and life far from civilization.', img: 'assets/images/gibson-ridge-1920.webp?v=2', pending: false },
                 '02': { title: "SIMON'S GARAGE", desc: 'A detailed urban interior study focusing on worn metal surfaces, volumetric lighting, and the quiet tension of an abandoned mechanic\'s workshop.', img: 'assets/images/simons-garage-1200.webp', pending: true },
                 '03': { title: 'MOUNTAINS', desc: 'An alpine landscape study exploring atmospheric perspective, layered rock formations, and the interplay of light across rugged terrain.', img: 'assets/images/mountains.jpg', pending: false }
             };
@@ -86,8 +86,10 @@
             var raw = params.get('id') || params.get('project') || '01';
             var key = Object.prototype.hasOwnProperty.call(VISUALS, raw) ? raw : '01';
             var d = VISUALS[key];
+            document.body.dataset.project = key;
             document.getElementById('visual-title').textContent = d.title;
             var descEl = document.getElementById('visual-desc');
+            descEl.dataset.i18n = 'details_desc_' + key;
             var img = document.getElementById('visual-img');
             var overlay = document.querySelector('.visual-overlay');
             var bg = document.querySelector('.visual-bg');
@@ -103,14 +105,14 @@
                 img.style.display = 'block';
                 img.src = d.img;
                 img.alt = d.title + ', project visual';
-                img.onerror = function(){ img.onerror = null; img.src='assets/images/PROJECT1.jpeg'; };
+                img.onerror = function(){ img.onerror = null; img.src='assets/images/PROJECT1.jpeg?v=2'; };
                 if(bg) bg.style.background = '#000';
                 if(overlay) overlay.style.background = 'linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.12) 45%, transparent 72%)';
             }
             document.title = d.title + ', VISUAL';
         })();
     </script>
-    <script src="js/i18n.js?v=mountains-fix-1"></script>
+    <script src="js/i18n.js?v=gibson-copy-2"></script>
     <script src="js/project-page-nav.js"></script>
     <script src="js/atmosphere.js?v=4"></script>
 </body>

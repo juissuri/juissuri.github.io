@@ -6,17 +6,6 @@
     };
     const requested = new URLSearchParams(location.search).get('project');
     const key = Object.hasOwn(assets, requested) ? requested : '01';
-    const scene = document.querySelector('img[src="assets/images/scene-setup.jpg"]');
-    if(key === '01' && scene){
-        const process = document.createElement('img');
-        process.src = 'assets/images/gibson-scene-process.jpeg';
-        process.alt = 'Gibson Ridge: scene assembly in Blender';
-        process.width = 2560; process.height = 1440;
-        process.loading = 'lazy'; process.setAttribute('data-lightbox','');
-        const frame = document.createElement('div');
-        frame.className = 'process-media process-media--reference';
-        frame.append(process); scene.parentElement.before(frame);
-    }
     const section = document.querySelector('#project-assets');
     if(!section) return;
     const images = assets[key];

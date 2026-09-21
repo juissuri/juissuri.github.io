@@ -28,6 +28,7 @@
     }
     window.addEventListener('load', report);
     document.addEventListener('DOMContentLoaded', () => {
-        new MutationObserver(report).observe(document.documentElement, {attributes:true,attributeFilter:['lang']});
+        const root = document.documentElement;
+        if (root) new MutationObserver(report).observe(root, {attributes:true,attributeFilter:['lang']});
     });
 })();

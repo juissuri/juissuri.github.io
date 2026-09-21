@@ -60,7 +60,7 @@
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
     cursor: grab;
-    touch-action: pan-y pinch-zoom;
+    touch-action: pan-x pan-y pinch-zoom;
     user-select: none;
 }
 
@@ -103,6 +103,7 @@
     border: 0 !important;
     border-radius: 0;
     background: #111316 !important;
+    padding: 0;
     box-shadow: none;
     transform: none !important;
     overflow: hidden;
@@ -118,7 +119,6 @@
     transform: scale(1.001);
     transform-origin: var(--zoom-x) var(--zoom-y);
     transition: transform 850ms cubic-bezier(.16, 1, .3, 1), filter 650ms ease;
-    will-change: transform;
     -webkit-user-drag: none;
     user-select: none;
 }
@@ -131,9 +131,23 @@
     filter: saturate(.96) contrast(1.03) brightness(.94);
 }
 
+/* Preserve the grading of the supplied Gibson Ridge render. */
+#projects .proj-card--true-color .proj-media img,
+#projects .proj-card--true-color .proj-preview-frame,
+#projects .proj-card--true-color:hover .proj-media img,
+#projects .proj-card--true-color:focus-within .proj-media img,
+#projects .proj-card--true-color:hover .proj-preview-frame,
+#projects .proj-card--true-color:focus-within .proj-preview-frame {
+    filter: none;
+}
+
 #projects .proj-media::after {
     z-index: 2;
     background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.28) 36%, transparent 64%);
+}
+
+#projects .proj-card--true-color .proj-media::after {
+    background: linear-gradient(to top, rgba(0,0,0,.48) 0%, rgba(0,0,0,.12) 28%, transparent 52%);
 }
 
 #projects .folder-card .proj-body,

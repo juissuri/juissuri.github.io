@@ -44,15 +44,23 @@
         });
     };
 
+    let zoomFrame = 0;
+    let zoomEvent = null;
     const updateZoom = event => {
-        const pointed = document.elementFromPoint(event.clientX, event.clientY);
-        const card = pointed?.closest?.('.proj-card');
-        if (!card || !track.contains(card)) return;
-        const rect = card.getBoundingClientRect();
-        const x = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100));
-        const y = Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100));
-        card.style.setProperty('--zoom-x', `${x.toFixed(2)}%`);
-        card.style.setProperty('--zoom-y', `${y.toFixed(2)}%`);
+        if (event.pointerType === 'touch') return;
+        zoomEvent = event;
+        if (zoomFrame) return;
+        zoomFrame = requestAnimationFrame(() => {
+            zoomFrame = 0;
+            const pointed = document.elementFromPoint(zoomEvent.clientX, zoomEvent.clientY);
+            const card = pointed?.closest?.('.proj-card');
+            if (!card || !track.contains(card)) return;
+            const rect = card.getBoundingClientRect();
+            const x = Math.max(0, Math.min(100, ((zoomEvent.clientX - rect.left) / rect.width) * 100));
+            const y = Math.max(0, Math.min(100, ((zoomEvent.clientY - rect.top) / rect.height) * 100));
+            card.style.setProperty('--zoom-x', `${x.toFixed(2)}%`);
+            card.style.setProperty('--zoom-y', `${y.toFixed(2)}%`);
+        });
     };
 
     track.addEventListener('pointerleave', () => {
@@ -63,7 +71,7 @@
     });
 
     track.addEventListener('pointerdown', event => {
-        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        if (event.pointerType === 'touch' || event.button !== 0) return;
         event.preventDefault();
         dragging = true;
         pointerId = event.pointerId;
@@ -93,11 +101,16 @@
 
     const finishDrag = event => {
         if (!dragging || event.pointerId !== pointerId) return;
+        const wasMoved = moved;
         dragging = false;
-        suppressClick = moved;
+        suppressClick = wasMoved;
         track.releasePointerCapture?.(pointerId);
         pointerId = null;
         track.classList.remove('is-dragging');
+
+        // A regular click (for example, opening a project image) must not
+        // reposition the carousel underneath the lightbox.
+        if (!wasMoved) return;
 
         const projected = track.scrollLeft + velocity * 180;
         const target = nearestIndex(projected);
@@ -114,7 +127,10 @@
     }, true);
 
     track.addEventListener('wheel', event => {
-        const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+        // Vertical wheel motion always belongs to the page. Only an intentional
+        // horizontal trackpad gesture advances the project rail.
+        if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+        const delta = event.deltaX;
         if (!delta) return;
 
         const current = nearestIndex();
@@ -125,7 +141,6 @@
 
         event.preventDefault();
         event.stopPropagation();
-        event.lenisStopPropagation = true;
         clearTimeout(wheelResetTimer);
         wheelResetTimer = window.setTimeout(() => { wheelTotal = 0; }, 180);
         if (wheelLocked) return;

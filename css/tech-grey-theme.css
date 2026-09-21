@@ -179,6 +179,8 @@ body{background-image:linear-gradient(180deg,#050607 0%,#0D0F12 45%,#050607 100%
 /* Visual and process pages */
 .visual-hero,.project-process-page{background:linear-gradient(145deg,#050607,#111317 55%,#060708)!important}
 .visual-overlay{background:linear-gradient(90deg,#050607CC 0%,#1B1E2355 48%,transparent 78%)!important}
+.project-page[data-project="01"] .visual-bg img{filter:none!important}
+.project-page[data-project="01"] .visual-overlay{background:linear-gradient(90deg,rgba(0,0,0,.18) 0%,rgba(0,0,0,.04) 42%,transparent 68%)!important}
 .visual-title,.process-title,.process-name{background:var(--tech-metal);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent!important}
 .visual-topbar,.project-page-nav{color:#D7DBE0}
 .process-media{background:linear-gradient(110deg,#111317,#343941,#15181C)!important;border-color:#777E8844!important}

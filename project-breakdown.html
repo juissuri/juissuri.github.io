@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="js/navigation-shell.js?v=1"></script>
+    <script src="js/navigation-shell.js?v=2"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Gibson Ridge - Procedural Desert Terrain &amp; Environment Study Breakdown by Daria Lytvin.">
@@ -148,8 +148,107 @@
         /* Empty stages (no image yet), don't show shimmer placeholders */
         .process-media:empty{display:none}
 
+        /* Technical breakdown */
+        .technical-breakdown {
+            --tech-line: rgba(255,255,255,0.11);
+            --tech-muted: #8F949C;
+        }
+        .technical-pipeline {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            max-width: 1120px;
+            margin: 0 auto 1.5rem;
+            border: 1px solid var(--tech-line);
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(11,13,16,0.78);
+        }
+        .technical-step {
+            min-height: 220px;
+            padding: 1.6rem;
+            border-right: 1px solid var(--tech-line);
+        }
+        .technical-step:last-child { border-right: 0; }
+        .technical-step-number,
+        .technical-shot figcaption,
+        .technical-fact dt {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            color: var(--tech-muted);
+            text-transform: uppercase;
+        }
+        .technical-step h3 {
+            margin: 2.6rem 0 0.75rem;
+            color: #F0F1F2;
+            font: 700 1rem/1.25 'Inter', sans-serif;
+        }
+        .technical-step p {
+            margin: 0;
+            color: #A9ADB3;
+            font: 400 0.86rem/1.65 'Inter', sans-serif;
+        }
+        .technical-shots {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+            max-width: 1120px;
+            margin: 0 auto 1.5rem;
+        }
+        .technical-shot {
+            margin: 0;
+            overflow: hidden;
+            border: 1px solid var(--tech-line);
+            border-radius: 18px;
+            background: #0B0D10;
+        }
+        .technical-shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            cursor: zoom-in;
+            transition: transform 300ms ease, filter 300ms ease;
+        }
+        .technical-shot:hover img { transform: scale(1.015); filter: brightness(1.06); }
+        .technical-shot figcaption {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--tech-line);
+        }
+        .technical-facts {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            max-width: 1120px;
+            margin: 0 auto;
+            border-top: 1px solid var(--tech-line);
+            border-bottom: 1px solid var(--tech-line);
+        }
+        .technical-fact { margin: 0; padding: 1.15rem 1.25rem; }
+        .technical-fact dt { margin-bottom: 0.45rem; }
+        .technical-fact dd {
+            margin: 0;
+            color: #E3E5E7;
+            font: 600 0.8rem/1.45 var(--font-mono);
+            letter-spacing: 0.04em;
+        }
+
         @media (max-width: 720px) {
             .process-text { max-width: none; }
+            .technical-pipeline,
+            .technical-facts { grid-template-columns: 1fr 1fr; }
+            .technical-step:nth-child(2) { border-right: 0; }
+            .technical-step:nth-child(-n+2) { border-bottom: 1px solid var(--tech-line); }
+            .technical-shots { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .technical-pipeline,
+            .technical-facts { grid-template-columns: 1fr; }
+            .technical-step { min-height: 0; border-right: 0; border-bottom: 1px solid var(--tech-line); }
+            .technical-step:nth-child(3) { border-bottom: 1px solid var(--tech-line); }
+            .technical-step:last-child { border-bottom: 0; }
+            .technical-step h3 { margin-top: 1.5rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -202,6 +301,54 @@
                 <img src="assets/images/reference-gibson.jpg" alt="Gibson Ridge, Reference board: Main Focus, Assets Detail, Texture, Organic" loading="lazy" data-lightbox onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                 <div class="process-media-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.14em; color:#6B7280; text-transform:uppercase; text-align:center; padding:2rem;">WIP, image coming soon</div>
             </div>
+        </article>
+
+        <article class="process-block technical-breakdown" id="stage-technical">
+            <div class="process-head">
+                <h2 class="process-name" data-i18n="bd_tech_title">Technical Breakdown.</h2>
+                <p class="process-text" data-i18n="bd_tech_intro">The environment was built as a connected real-time pipeline: procedural terrain establishes the large forms, authored assets add story and scale, and Unreal Engine brings the scene together through materials, foliage, lighting and atmosphere.</p>
+            </div>
+
+            <div class="technical-pipeline" aria-label="Production pipeline">
+                <section class="technical-step">
+                    <span class="technical-step-number">01 · GAEA</span>
+                    <h3 data-i18n="bd_pipe_1t">Terrain foundation</h3>
+                    <p data-i18n="bd_pipe_1d">Large silhouettes and erosion patterns are developed procedurally before export.</p>
+                </section>
+                <section class="technical-step">
+                    <span class="technical-step-number">02 · BLENDER</span>
+                    <h3 data-i18n="bd_pipe_2t">Asset production</h3>
+                    <p data-i18n="bd_pipe_2d">Hero and supporting assets are modeled, unwrapped and prepared for the scene.</p>
+                </section>
+                <section class="technical-step">
+                    <span class="technical-step-number">03 · PBR</span>
+                    <h3 data-i18n="bd_pipe_3t">Material pass</h3>
+                    <p data-i18n="bd_pipe_3d">Surface response is shaped through color, roughness, normal detail and variation.</p>
+                </section>
+                <section class="technical-step">
+                    <span class="technical-step-number">04 · UE5</span>
+                    <h3 data-i18n="bd_pipe_4t">Real-time assembly</h3>
+                    <p data-i18n="bd_pipe_4d">Composition, foliage, lighting and atmosphere are balanced in the final environment.</p>
+                </section>
+            </div>
+
+            <div class="technical-shots">
+                <figure class="technical-shot">
+                    <img src="assets/images/scene-setup.jpg" width="1600" height="900" alt="Gibson Ridge scene setup and environment assembly" loading="lazy" data-lightbox>
+                    <figcaption data-i18n="bd_scene_caption">Scene setup · environment structure</figcaption>
+                </figure>
+                <figure class="technical-shot">
+                    <img src="assets/images/gibson-scene-process.jpeg" width="2560" height="1440" alt="Gibson Ridge production scene in Blender" loading="lazy" data-lightbox>
+                    <figcaption data-i18n="bd_assembly_caption">Assembly pass · scale and composition</figcaption>
+                </figure>
+            </div>
+
+            <dl class="technical-facts">
+                <div class="technical-fact"><dt data-i18n="bd_fact_terrain">Terrain</dt><dd>GAEA</dd></div>
+                <div class="technical-fact"><dt data-i18n="bd_fact_assembly">Assembly</dt><dd>BLENDER</dd></div>
+                <div class="technical-fact"><dt data-i18n="bd_fact_material">Materials</dt><dd>PBR WORKFLOW</dd></div>
+                <div class="technical-fact"><dt data-i18n="bd_fact_engine">Engine</dt><dd>UNREAL ENGINE 5</dd></div>
+            </dl>
         </article>
 
         <article class="process-block" id="stage-uv">
@@ -315,7 +462,7 @@
             }
         })();
     </script>
-    <script src="js/i18n.js?v=mountains-fix-1"></script>
+    <script src="js/i18n.js?v=gibson-copy-2"></script>
     <script src="js/project-assets.js?v=2"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/project-page-nav.js"></script>

@@ -10,6 +10,8 @@
     let previousOverflow = '';
     let touchStart = null;
     const pad = value => String(value).padStart(2, '0');
+    const sourceFor = node => node.dataset.lightboxSrc || node.currentSrc || node.src || '';
+    const altFor = node => node.dataset.lightboxAlt || node.alt || node.querySelector?.('img')?.alt || '';
 
     function build() {
         overlay = document.createElement('div');
@@ -72,9 +74,10 @@
                 if (Array.isArray(parsed) && parsed.length) return parsed;
             } catch {}
         }
-        return [...document.querySelectorAll('img[data-lightbox]')]
+        return [...document.querySelectorAll('[data-lightbox]')]
             .filter(node => node.offsetParent !== null)
-            .map(node => ({ src: node.currentSrc || node.src, alt: node.alt || '', origin: node }));
+            .map(node => ({ src: sourceFor(node), alt: altFor(node), origin: node }))
+            .filter(item => item.src);
     }
 
     function show(index, direction = 1) {
@@ -96,7 +99,7 @@
     function open(origin) {
         if (!overlay) build();
         items = collect(origin);
-        const source = origin.currentSrc || origin.src;
+        const source = sourceFor(origin);
         const found = items.findIndex(item => item.origin === origin || item.src === source);
         current = found >= 0 ? found : 0;
         returnFocus = origin;
@@ -130,15 +133,20 @@
     }
 
     function init() {
-        document.querySelectorAll('img[data-lightbox]').forEach(node => {
-            node.tabIndex = 0;
-            node.setAttribute('role', 'button');
+        document.querySelectorAll('[data-lightbox]').forEach(node => {
+            const nativeControl = node.matches('button, a[href]');
+            if (!nativeControl) {
+                node.tabIndex = 0;
+                node.setAttribute('role', 'button');
+            }
             node.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); open(node); });
-            node.addEventListener('keydown', event => {
-                if (event.key !== 'Enter' && event.key !== ' ') return;
-                event.preventDefault();
-                open(node);
-            });
+            if (!nativeControl) {
+                node.addEventListener('keydown', event => {
+                    if (event.key !== 'Enter' && event.key !== ' ') return;
+                    event.preventDefault();
+                    open(node);
+                });
+            }
         });
     }
 

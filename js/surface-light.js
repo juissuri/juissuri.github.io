@@ -1,7 +1,9 @@
 /* Cursor lighting for project cards and the glass navigation bar. */
 (() => {
     const preference = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-    document.querySelectorAll('.proj-card, .navbar:not(.hero-navigation) .navbar-inner').forEach(surface => {
+    const surfaces = Array.from(document.querySelectorAll('.proj-card, .navbar:not(.hero-navigation) .navbar-inner'));
+    const clearAll = () => surfaces.forEach(surface => surface.classList.remove('has-surface-light'));
+    surfaces.forEach(surface => {
         let frame = 0;
         let pointerX = 0;
         let pointerY = 0;
@@ -28,10 +30,10 @@
         surface.addEventListener('pointermove', move);
         surface.addEventListener('pointerleave', clear);
         surface.addEventListener('pointercancel', clear);
-        preference.addEventListener('change', clear);
-        window.addEventListener('blur', clear);
-        // Clear stale coordinates when scrolling, switching pages or opening details.
-        window.addEventListener('scroll', clear, {passive: true});
         surface.addEventListener('click', clear);
     });
+    preference.addEventListener('change', clearAll);
+    window.addEventListener('blur', clearAll);
+    // One passive listener replaces a separate window listener per surface.
+    window.addEventListener('scroll', clearAll, {passive: true});
 })();
